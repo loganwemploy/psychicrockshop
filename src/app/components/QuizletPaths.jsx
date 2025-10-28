@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-// import "./QuizletPaths.module.css";
+import "./QuizletPaths.module.css";
 
 export default function QuizletPaths() {
   const [step, setStep] = useState("main");
@@ -214,6 +214,8 @@ export default function QuizletPaths() {
           <div className="message success">
             <h2>🎉 Hooray!</h2>
             <p>Thank you — your form was submitted successfully.</p>
+            <br />
+            <p>Expect our staff to reach out within 1-3 business days</p>
           </div>
         )}
 
