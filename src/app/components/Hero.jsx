@@ -34,7 +34,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
 <br />
 {/*  */}
        <div className="anchored" style={{backgroundColor:'rgba(0,0,0,0)',height:'auto',width:'100vw'}}>
-       <h1 style={{ fontSize: '2.6ch',textAlign:'left',paddingLeft:'2.5em',width:'88%',lineHeight:'1.4',filter:'contrast(1.5)',textShadow:'2px 3px solid rgba(0,0,0,0.32)' }}>Mission 007 Mentorship NonProfit Organization <span style={{fontWeight:'normal'}}>is dedicated to empowering youths aged 16-25 by providing them with access to trade classes and job training opportunities, enabling them to build sustainable careers and achieve economic independence	</span></h1>
+       <h1 style={{ fontSize: '2.1ch',textAlign:'left',paddingLeft:'2.5em',width:'88%',lineHeight:'1.4',filter:'contrast(1.5)',textShadow:'2px 3px solid rgba(0,0,0,0.32)' }}>Mission 007 Mentorship NonProfit Organization <span style={{fontWeight:'normal'}}>is dedicated to empowering youths aged 16-25 by providing them with access to trade classes and job training opportunities, enabling them to build sustainable careers and achieve economic independence	</span></h1>
 {/* testimonial tailwnd-esque */}
        <div className="testimonial-wrapper">
   <div className="testimonial-card">
