@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react'
 import styles from "../page.module.css";
 const HeaderBar = () => {
     const [photos, setPhotos] = useState()
-    useEffect(() => {
-     fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm')
-     .then(res => res.json())
-     .then(data => console.log(data[0].acf.description))
-     .catch(err=>console.log(err.message))
-    }, [])
+    // useEffect(() => {
+    //  fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm')
+    //  .then(res => res.json())
+    //  .then(data => console.log(data[0].acf.description))
+    //  .catch(err=>console.log(err.message))
+    // }, [])
     
     return (
         <div>
@@ -31,12 +31,7 @@ const HeaderBar = () => {
                     </div>
 
                     <div className="middle-space"></div>
-                    <div className="pre-cta-container">
-                        <div className="button-grouping-pair" style={{padding:'0.5em 0',display:'flex',justifyContent:'center',gap: '1em'}}>
-                            <button className="button">Call us </button>
-                            <button className="button">Donate</button>
-                        </div>
-                    </div>
+                   
                     <div className="pre-cta-container">
                     <button className="button">Donate</button></div>
                 </div>
