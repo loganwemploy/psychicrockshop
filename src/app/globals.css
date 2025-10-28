@@ -436,10 +436,11 @@ _#_#_#_#_#_# */
 }
 
 .testimonial-text {
-  font-size: 0.875rem; /* text-sm */
-  color: #4b5563; /* gray-600 */
-  text-align: center;
-  padding: 0 1.25rem;
+  font-size: 1.2rem;
+  color: #4b5563;
+  text-align: left;
+  padding: 0 0.91rem;
+  line-height: 1.567;
 }
 
 /* Footer */
