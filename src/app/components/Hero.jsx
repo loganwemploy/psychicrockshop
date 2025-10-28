@@ -55,7 +55,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
    { isFoundersMessageActive ? `${foundersMessage} ...` : `${shortFoundersMessage}` }
 {/* TODO TOGGLE THE FULL QUOTE VS SHORTENED QUOTE */}
 <br />
-    <button className="button" style={{background:'none',padding:'0.2em'}}
+    <button className="button" style={{background:'none',padding:'0.2em',color:'#1839cb'}}
     onClick={()=>{setIsFoundersMessageActive(!isFoundersMessageActive)}}>see { isFoundersMessageActive ? 'shortened' : 'full'} founders message</button>
       {/* quote put to variable so can be toggled programatically */}
       </p>
