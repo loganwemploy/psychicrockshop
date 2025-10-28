@@ -12,7 +12,7 @@ const TextCarousel = () => {
           <div className="source"><button className="cta-button-carousel">Get In Touch</button></div>
         </li>
         <li className="anim2" style={{padding:'0'}}>
-        <img style={{width:'100vw',height:'auto'}} src="https://dl4.pushbulletusercontent2.com/hltRXVS11mozZbgkYDpICW2EfDeNqMtf/image.png" alt="" />
+        <img style={{width:'100%',height:'100px'}} src="https://dl4.pushbulletusercontent2.com/HI4BmzcyvWUg84BPTirlwHAVRLk2RRZF/image.png" alt="" />
           <div className="quote">maybe a caption</div>
           <div className="source">- Another person</div>
         </li>
