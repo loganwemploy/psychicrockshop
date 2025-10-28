@@ -510,7 +510,8 @@ _#_#_#_#_#_# */
 }
 
 .option-button:hover {
-  background: #191919;
+  background: rgba(0, 0, 0, 0.12);
+  filter: drop-shadow(2px solid rgba(0,0,0,0.32));
 }
 
 .back-button {
