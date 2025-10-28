@@ -6,6 +6,7 @@ import HeaderBar from "./components/HeaderBar";
 import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
+import QuizletPaths from "./components/QuizletPaths";
 
 
 export default function Home() {
@@ -14,7 +15,16 @@ export default function Home() {
 <HeaderBar/>
 <Hero />
 {/* <div className="spacer" style={{width:'100vw',height:'50vw'}}></div> */}
-
+   {/* Css for this divider lives in globals.css */}
+<br />
+<br />
+   <span className="divider">
+  <span className="divider-line"></span>
+  <span className="divider-text" style={{letterSpacing:'0.092em'}}>WHAT WE PROVIDE</span>
+  <span className="divider-line reverse"></span>
+ </span>
+<br />
+{/*  */}
 
 {/* <TextCarousel /> */}
 {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>
@@ -27,6 +37,8 @@ export default function Home() {
 {/* <img style={{maxWidth:'50%'}} src='https://dl4.pushbulletusercontent2.com/7l6xfVNhKCYcii8JMbXyTvwzXpXGfHOt/image.png'/> */}
     </div>    
 {/* <SubHero /> */}
+{/* <Quizlet /> */}
+<QuizletPaths />
 
 
     </div>
