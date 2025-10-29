@@ -7,9 +7,56 @@ import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
+import { useState } from "react";
 
 
 export default function Home() {
+  const [selectedYear, setSelectedYear] = useState()
+
+  const track = document.querySelector(".yg-carousel-track");
+const tiles = document.querySelectorAll(".yg-masonry-tile");
+let index = 0;
+const tileWidth = 370; // approximate including gap
+const visibleTiles = 2; // how many tiles are roughly visible
+
+document.querySelector(".yg-left").addEventListener("click", () => {
+  index = Math.max(0, index - visibleTiles);
+  moveCarousel();
+});
+
+document.querySelector(".yg-right").addEventListener("click", () => {
+  index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
+  moveCarousel();
+});
+
+function moveCarousel() {
+  const offset = index * (tileWidth + 16); // 16px gap
+  track.style.transform = `translateX(-${offset}px)`;
+
+  // Add staggered bounce
+  tiles.forEach((tile, i) => {
+    tile.style.transitionDelay = `${i * 0.05}s`;
+    tile.style.transform = "scale(0.98)";
+    setTimeout(() => {
+      tile.style.transform = "scale(1)";
+    }, 400);
+  });
+}
+
+// Focus & accessibility centering
+tiles.forEach((tile) => {
+  tile.addEventListener("click", () => {
+    tiles.forEach((t) => t.classList.remove("yg-focused"));
+    tile.classList.add("yg-focused");
+    tile.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  });
+});
+
+
   return (
     <div>
 <HeaderBar/>
@@ -18,7 +65,7 @@ export default function Home() {
    {/* Css for this divider lives in globals.css */}
 <br />
 <br />
-   <span className="divider">
+   <span className="divider" style={{marginTop:'5em'}}>
   <span className="divider-line"></span>
   <span className="divider-text" style={{letterSpacing:'0.092em'}}>WHAT WE PROVIDE</span>
   <span className="divider-line reverse"></span>
@@ -48,12 +95,17 @@ export default function Home() {
          Mission 007 Mentorship empowers young people from ages 16-25 years old to overcome obstacles and build thriving futures. Through evidence-based mentoring, social-emotional learning, and career readiness programs,
          it supports youth (including older teens and young adults) in identifying goals, developing life skills, and transitioning into meaningful education, careers, and adult-life opportunities.
           </p>
-    <div className="hero-cta-grid">
+    <div className="hero-cta-grid" style={{marginTop:'1.32em'}}>
       <div className="hero-cta-content">
         <div className="hero-cta-text">
-          <h2>See all Our Services </h2>
+          <h3 style={{color:'white',lineHeight:'1.52'}}>
+            Email us:<br/>
+          007mmission@gmail.com <br />
+          Call us:<br/>
+          708-940-2883
+          </h3>
           <div className="hero-cta-button">
-            <a href="#" className="hero-cta-btn">Get Started Today</a>
+            <a href="#" className="hero-cta-btn">Contact Us</a>
           </div>
         </div>
       </div>
@@ -68,7 +120,12 @@ export default function Home() {
         />
       </div>
     </div>
-
+    <div className="spacerz" style={{width:'100vw',height:'3em'}}></div>
+    <span className="divider">
+  <span className="divider-line"></span>
+  <span className="divider-text" style={{letterSpacing:'0.092em'}}>Summary of Services</span>
+  <span className="divider-line reverse"></span>
+ </span>
    {/*  */}
   </div>{/*  */}
           <ul className="youth-service-list">
@@ -102,6 +159,63 @@ export default function Home() {
 </section>
 
 {/* <TextCarousel /> */}
+{/* <div className="gallery-filter">
+  {['2026','2025', '2024', '2023', '2022'].map((year,index) => (
+    <button 
+      key={`year+${index}`} 
+      className={`year-timeline-btn ${selectedYear} === year && 'active'`}
+      onClick={() => setSelectedYear(year)}
+    >
+      {year}
+    </button>
+  ))}
+</div> */}
+
+<div class="yg-gallery-container">
+  <div class="yg-filter-bar">
+    <button class="yg-filter-btn" data-year="all">All</button>
+    <button class="yg-filter-btn yg-active" data-year="2025">2026</button>
+    <button class="yg-filter-btn" data-year="2024">2025</button>
+    <button class="yg-filter-btn" data-year="2023">2024</button>
+  </div>
+
+  {/* <div class="yg-masonry-grid">
+    <div class="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x500" alt="2025 sample" /></div>
+    <div class="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x450" alt="2024 sample" /></div>
+    <div class="yg-masonry-item" data-year="2023"><img src="https://place-hold.it/400x550" alt="2023 sample" /></div>
+    <div class="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x400" alt="2025 sample" /></div>
+    <div class="yg-masonry-item" data-year="2022"><img src="https://place-hold.it/400x600" alt="2022 sample" /></div>
+    <div class="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
+  </div> */}
+
+<div className="yg-gallery-carousel">
+  <button className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
+
+  <div className="yg-carousel-track" tabIndex="0">
+    <div className="yg-masonry-tile" tabIndex="0">
+      <img src="https://place-hold.it/400x500" alt="Gallery item" />
+    </div>
+    <div className="yg-masonry-tile" tabIndex="0">
+      <img src="https://place-hold.it/400x450" alt="Gallery item" />
+    </div>
+    <div className="yg-masonry-tile" tabIndex="0">
+      <img src="https://place-hold.it/400x600" alt="Gallery item" />
+    </div>
+    <div className="yg-masonry-tile" tabIndex="0">
+      <img src="https://place-hold.it/400x420" alt="Gallery item" />
+    </div>
+    <div className="yg-masonry-tile" tabIndex="0">
+      <img src="https://place-hold.it/400x560" alt="Gallery item" />
+    </div>
+  </div>
+
+  <button className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
+</div>
+
+
+</div>
+
+
 {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>
 
 </div> */}
@@ -118,7 +232,6 @@ export default function Home() {
   <span className="divider-text" style={{letterSpacing:'0.092em'}}>Take a quick &amp; free quiz</span>
   <span className="divider-line reverse"></span>
  </span>
-<br />
 <QuizletPaths />
 
 
