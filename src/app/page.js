@@ -62,7 +62,7 @@ export default function Home() {
   <li><span className="icon">🌐</span><strong>Peer and alumni networks</strong> to connect, mentor, and build community.</li>
   <li><span className="icon">📚</span><strong> Access to resources</strong> including internships, apprenticeships, and scholarship opportunities.</li>
   <li><span className="icon">🧠</span> <strong>Virtual or in-person counseling</strong>for mental health, trauma, or wellness challenges.</li>
-  <li><span className="icon">👨‍👩‍👧</span> <span>Family and community engagement</span>workshops that build supportive environments.</li>
+  <li><span className="icon">👨‍👩‍👧</span> <strong>Family and community engagement</strong>workshops that build supportive environments.</li>
 </ul>
 <br />
 
