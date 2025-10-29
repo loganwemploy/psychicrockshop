@@ -53,16 +53,16 @@ export default function Home() {
   </div>
  
           <ul className="youth-service-list">
-  <li><span className="icon">✨</span> One-on-one mentorship with a trained adult who guides goal-setting, decision-making, and personal growth.</li>
-  <li><span className="icon">🤝</span> Group mentoring circles focused on social-emotional learning (SEL), leadership, and peer support.</li>
-  <li><span className="icon">💼</span> Career-readiness assistance: résumé and job-application help, interview coaching, and networking opportunities.</li>
-  <li><span className="icon">🎓</span> Educational support: tutoring, GED/HS diploma transition, and college application advising.</li>
-  <li><span className="icon">💡</span> Life-skills workshops: budgeting, healthy relationships, time, and stress management.</li>
-  <li><span className="icon">🏠</span> Transitional support: help with housing, transportation, and job placement.</li>
-  <li><span className="icon">🌐</span> Peer and alumni networks to connect, mentor, and build community.</li>
-  <li><span className="icon">📚</span> Access to internships, apprenticeships, and scholarship opportunities.</li>
-  <li><span className="icon">🧠</span> Virtual or in-person counseling for mental health, trauma, or wellness challenges.</li>
-  <li><span className="icon">👨‍👩‍👧</span> Family and community engagement workshops that build supportive environments.</li>
+  <li><span className="icon">✨</span> <strong>One-on-one mentorship</strong> with a trained adult who guides goal-setting, decision-making, and personal growth.</li>
+  <li><span className="icon">🤝</span><strong>Group mentoring circles</strong> focused on social-emotional learning (SEL), leadership, and peer support.</li>
+  <li><span className="icon">💼</span><strong>Career-readiness assistance:</strong> résumé and job-application help, interview coaching, and networking opportunities.</li>
+  <li><span className="icon">🎓</span> <strong>Educational support:</strong> tutoring, GED/HS diploma transition, and college application advising.</li>
+  <li><span className="icon">💡</span> <strong>Life-skills workshops</strong>: budgeting, healthy relationships, time, and stress management.</li>
+  <li><span className="icon">🏠</span> <strong>Transitional support</strong>: help with housing, transportation, and job placement.</li>
+  <li><span className="icon">🌐</span><strong>Peer and alumni networks</strong> to connect, mentor, and build community.</li>
+  <li><span className="icon">📚</span><strong> Access to resources</strong> including internships, apprenticeships, and scholarship opportunities.</li>
+  <li><span className="icon">🧠</span> <strong>Virtual or in-person counseling</strong>for mental health, trauma, or wellness challenges.</li>
+  <li><span className="icon">👨‍👩‍👧</span> <span>Family and community engagement</span>workshops that build supportive environments.</li>
 </ul>
 <br />
 
