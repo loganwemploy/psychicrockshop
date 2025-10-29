@@ -684,3 +684,176 @@ _#_#_#_#_#_# */
   transition: 0s;
 }
 
+
+
+
+/* / */
+/*  */
+
+.hero-cta-section {
+  width: 100%;
+  background-color: #f9fafb;
+  padding: 2rem 1rem;
+}
+
+.hero-cta-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.hero-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-cta-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hero-cta-content {
+  background-color: #2563eb;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-cta-content {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-cta-content {
+    padding: 6rem 4rem;
+  }
+}
+
+.hero-cta-text {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-cta-text h2 {
+  font-size: 1.75rem;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .hero-cta-text h2 {
+    font-size: 2rem;
+  }
+}
+
+.hero-cta-text p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 1rem;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .hero-cta-text p {
+    display: block;
+  }
+}
+
+.hero-cta-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 3rem;
+  border-radius: 0.25rem;
+  border: 2px solid #ffffff;
+  background-color: #ffffff;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.hero-cta-btn:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.hero-cta-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-cta-images {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-cta-images {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+.hero-cta-images img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .hero-cta-images img {
+    height: 14rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-cta-images img {
+    height: 100%;
+  }
+}
+
+
+
+
+.youth-service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+.youth-service-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  color: #374151;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.youth-service-list li:hover {
+  transform: translateY(-3px);
+  background: #f9fbff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.youth-service-list .icon {
+  font-size: 1.4rem;
+  color: #2563eb;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
