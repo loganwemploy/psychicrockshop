@@ -7,55 +7,95 @@ import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState()
+  const [tileWidth, setTileWidth] = useState(370)
+  const [visibleTiles, setVisibleTiles] = useState(2)
+useEffect(() => {
+    const setup = () => {
+      const track = document.querySelector(".yg-carousel-track");
+      const tiles = document.querySelectorAll(".yg-masonry-tile");
+      const leftBtn = document.querySelector(".yg-left");
+      const rightBtn = document.querySelector(".yg-right");
+      if (!track || !tiles.length || !leftBtn || !rightBtn) return;
 
-  const track = document.querySelector(".yg-carousel-track");
-const tiles = document.querySelectorAll(".yg-masonry-tile");
-let index = 0;
-const tileWidth = 370; // approximate including gap
-const visibleTiles = 2; // how many tiles are roughly visible
+      let index = 0;
+      const tileWidth = 370;
+      const visibleTiles = 2;
+      let startX = 0;
+      let scrollLeft = 0;
+      let isDragging = false;
 
-document.querySelector(".yg-left").addEventListener("click", () => {
-  index = Math.max(0, index - visibleTiles);
-  moveCarousel();
-});
+      const moveCarousel = () => {
+        const offset = index * (tileWidth + 16);
+        track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
+        track.style.transform = `translateX(-${offset}px)`;
+        tiles.forEach((tile, i) => {
+          tile.style.transitionDelay = `${i * 0.05}s`;
+          tile.style.transform = "scale(0.98)";
+          setTimeout(() => (tile.style.transform = "scale(1)"), 400);
+        });
+      };
 
-document.querySelector(".yg-right").addEventListener("click", () => {
-  index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
-  moveCarousel();
-});
+      const handleLeft = () => {
+        index = Math.max(0, index - visibleTiles);
+        moveCarousel();
+      };
+      const handleRight = () => {
+        index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
+        moveCarousel();
+      };
 
-function moveCarousel() {
-  const offset = index * (tileWidth + 16); // 16px gap
-  track.style.transform = `translateX(-${offset}px)`;
+      leftBtn.addEventListener("click", handleLeft);
+      rightBtn.addEventListener("click", handleRight);
 
-  // Add staggered bounce
-  tiles.forEach((tile, i) => {
-    tile.style.transitionDelay = `${i * 0.05}s`;
-    tile.style.transform = "scale(0.98)";
-    setTimeout(() => {
-      tile.style.transform = "scale(1)";
-    }, 400);
-  });
-}
+      const startDrag = (pageX) => {
+        isDragging = true;
+        startX = pageX - track.offsetLeft;
+        scrollLeft = index * (tileWidth + 16);
+        track.style.transition = "none";
+      };
+      const stopDrag = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const matrix = new DOMMatrix(track.style.transform);
+        const moveDistance = matrix.m41 * -1;
+        const newIndex = Math.round(moveDistance / (tileWidth + 16));
+        index = Math.max(0, Math.min(newIndex, tiles.length - visibleTiles));
+        moveCarousel();
+      };
+      const duringDrag = (pageX) => {
+        if (!isDragging) return;
+        const x = pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.2;
+        const offset = scrollLeft - walk;
+        track.style.transform = `translateX(-${offset}px)`;
+      };
 
-// Focus & accessibility centering
-tiles.forEach((tile) => {
-  tile.addEventListener("click", () => {
-    tiles.forEach((t) => t.classList.remove("yg-focused"));
-    tile.classList.add("yg-focused");
-    tile.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
-  });
-});
+      track.addEventListener("mousedown", (e) => startDrag(e.pageX));
+      track.addEventListener("mouseleave", stopDrag);
+      track.addEventListener("mouseup", stopDrag);
+      track.addEventListener("mousemove", (e) => duringDrag(e.pageX));
+      track.addEventListener("touchstart", (e) => startDrag(e.touches[0].pageX));
+      track.addEventListener("touchend", stopDrag);
+      track.addEventListener("touchmove", (e) => duringDrag(e.touches[0].pageX));
 
+      tiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+          tiles.forEach((t) => t.classList.remove("yg-focused"));
+          tile.classList.add("yg-focused");
+          tile.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        });
+      });
+    };
+
+    if (typeof window !== "undefined") {
+      requestAnimationFrame(setup);
+    }
+  }, []);
 
   return (
     <div>
@@ -188,8 +228,10 @@ tiles.forEach((tile) => {
     <div class="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
   </div> */}
 
-<div className="yg-gallery-carousel">
-  <button className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
+{/* <div className="yg-gallery-carousel">
+  <button onClick={() => {
+  index = Math.max(0, index - visibleTiles);
+  moveCarousel()}} className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
 
   <div className="yg-carousel-track" tabIndex="0">
     <div className="yg-masonry-tile" tabIndex="0">
@@ -209,9 +251,22 @@ tiles.forEach((tile) => {
     </div>
   </div>
 
-  <button className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
-</div>
+  <button onClick={() => {
+  index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
+  moveCarousel();}} className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
+</div> */}
 
+<div className="yg-gallery-carousel">
+      <button className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
+      <div className="yg-carousel-track">
+        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x500" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x450" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x600" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x420" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x560" alt="" /></div>
+      </div>
+      <button className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
+    </div>
 
 </div>
 
