@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Image from "next/image";
 // import styles from "./page.module.css";
@@ -7,96 +7,114 @@ import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 
 
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState()
-  const [tileWidth, setTileWidth] = useState(370)
-  const [visibleTiles, setVisibleTiles] = useState(2)
-useEffect(() => {
-    const setup = () => {
-      const track = document.querySelector(".yg-carousel-track");
-      const tiles = document.querySelectorAll(".yg-masonry-tile");
-      const leftBtn = document.querySelector(".yg-left");
-      const rightBtn = document.querySelector(".yg-right");
-      if (!track || !tiles.length || !leftBtn || !rightBtn) return;
+  // const [tileWidth, setTileWidth] = useState(370)
+  // const [visibleTiles, setVisibleTiles] = useState(2)
+  const trackRef = useRef(null);
+  const containerRef = useRef(null);
+  let isDragging = false;
+  let startX = 0;
+  let scrollStart = 0;
 
-      let index = 0;
-      const tileWidth = 370;
-      const visibleTiles = 2;
-      let startX = 0;
-      let scrollLeft = 0;
-      let isDragging = false;
+  const scrollToTile = (direction) => {
+    const track = trackRef.current;
+    const container = containerRef.current;
+    if (!track || !container) return;
 
-      const moveCarousel = () => {
-        const offset = index * (tileWidth + 16);
-        track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
-        track.style.transform = `translateX(-${offset}px)`;
-        tiles.forEach((tile, i) => {
-          tile.style.transitionDelay = `${i * 0.05}s`;
-          tile.style.transform = "scale(0.98)";
-          setTimeout(() => (tile.style.transform = "scale(1)"), 400);
-        });
-      };
+    const tiles = Array.from(track.children);
+    const containerRect = container.getBoundingClientRect();
 
-      const handleLeft = () => {
-        index = Math.max(0, index - visibleTiles);
-        moveCarousel();
-      };
-      const handleRight = () => {
-        index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
-        moveCarousel();
-      };
+    if (direction === "right") {
+      const nextTile = tiles.find(
+        (tile) => tile.getBoundingClientRect().right > containerRect.right
+      ) || tiles[tiles.length - 1];
 
-      leftBtn.addEventListener("click", handleLeft);
-      rightBtn.addEventListener("click", handleRight);
+      const offset =
+        nextTile.offsetLeft - (container.clientWidth - nextTile.offsetWidth) / 2;
+      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
+      track.style.transform = `translateX(-${offset}px)`;
+    }
 
-      const startDrag = (pageX) => {
-        isDragging = true;
-        startX = pageX - track.offsetLeft;
-        scrollLeft = index * (tileWidth + 16);
-        track.style.transition = "none";
-      };
-      const stopDrag = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        const matrix = new DOMMatrix(track.style.transform);
-        const moveDistance = matrix.m41 * -1;
-        const newIndex = Math.round(moveDistance / (tileWidth + 16));
-        index = Math.max(0, Math.min(newIndex, tiles.length - visibleTiles));
-        moveCarousel();
-      };
-      const duringDrag = (pageX) => {
-        if (!isDragging) return;
-        const x = pageX - track.offsetLeft;
-        const walk = (x - startX) * 1.2;
-        const offset = scrollLeft - walk;
-        track.style.transform = `translateX(-${offset}px)`;
-      };
+    if (direction === "left") {
+      const reversed = [...tiles].reverse();
+      const prevTile =
+        reversed.find((tile) => tile.getBoundingClientRect().left < containerRect.left) || tiles[0];
 
-      track.addEventListener("mousedown", (e) => startDrag(e.pageX));
-      track.addEventListener("mouseleave", stopDrag);
-      track.addEventListener("mouseup", stopDrag);
-      track.addEventListener("mousemove", (e) => duringDrag(e.pageX));
-      track.addEventListener("touchstart", (e) => startDrag(e.touches[0].pageX));
-      track.addEventListener("touchend", stopDrag);
-      track.addEventListener("touchmove", (e) => duringDrag(e.touches[0].pageX));
+      const offset =
+        prevTile.offsetLeft - (container.clientWidth - prevTile.offsetWidth) / 2;
+      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
+      track.style.transform = `translateX(-${offset}px)`;
+    }
+  };
 
-      tiles.forEach((tile) => {
-        tile.addEventListener("click", () => {
-          tiles.forEach((t) => t.classList.remove("yg-focused"));
-          tile.classList.add("yg-focused");
-          tile.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-        });
-      });
+  useEffect(() => {
+    const track = trackRef.current;
+    const container = containerRef.current;
+    if (!track || !container) return;
+
+    const getTranslateX = () => {
+      const style = window.getComputedStyle(track);
+      const matrix = new WebKitCSSMatrix(style.transform);
+      return matrix.m41;
     };
 
-    if (typeof window !== "undefined") {
-      requestAnimationFrame(setup);
-    }
-  }, []);
+    const onDragStart = (e) => {
+      isDragging = true;
+      startX = e.type.includes("touch") ? e.touches[0].pageX : e.pageX;
+      scrollStart = getTranslateX() || 0;
+      track.style.transition = "none";
+    };
 
+    const onDragMove = (e) => {
+      if (!isDragging) return;
+      const x = e.type.includes("touch") ? e.touches[0].pageX : e.pageX;
+      const diff = x - startX;
+      track.style.transform = `translateX(${scrollStart + diff}px)`;
+    };
+
+    const onDragEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const tiles = Array.from(track.children);
+      const containerRect = container.getBoundingClientRect();
+      let closestTile = tiles.reduce((prev, curr) => {
+        const tileCenter = curr.offsetLeft + curr.offsetWidth / 2;
+        const containerCenter = container.clientWidth / 2 - (getTranslateX() || 0);
+        return Math.abs(tileCenter - containerCenter) < Math.abs(prev.offsetLeft + prev.offsetWidth / 2 - containerCenter)
+          ? curr
+          : prev;
+      });
+
+      const offset =
+        closestTile.offsetLeft - (container.clientWidth - closestTile.offsetWidth) / 2;
+      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
+      track.style.transform = `translateX(-${offset}px)`;
+    };
+
+    track.addEventListener("mousedown", onDragStart);
+    track.addEventListener("mousemove", onDragMove);
+    track.addEventListener("mouseup", onDragEnd);
+    track.addEventListener("mouseleave", onDragEnd);
+
+    track.addEventListener("touchstart", onDragStart, { passive: true });
+    track.addEventListener("touchmove", onDragMove, { passive: true });
+    track.addEventListener("touchend", onDragEnd);
+
+    return () => {
+      track.removeEventListener("mousedown", onDragStart);
+      track.removeEventListener("mousemove", onDragMove);
+      track.removeEventListener("mouseup", onDragEnd);
+      track.removeEventListener("mouseleave", onDragEnd);
+      track.removeEventListener("touchstart", onDragStart);
+      track.removeEventListener("touchmove", onDragMove);
+      track.removeEventListener("touchend", onDragEnd);
+    };
+  }, []);
   return (
     <div>
 <HeaderBar/>
@@ -211,21 +229,21 @@ useEffect(() => {
   ))}
 </div> */}
 
-<div class="yg-gallery-container">
-  <div class="yg-filter-bar">
-    <button class="yg-filter-btn" data-year="all">All</button>
-    <button class="yg-filter-btn yg-active" data-year="2025">2026</button>
-    <button class="yg-filter-btn" data-year="2024">2025</button>
-    <button class="yg-filter-btn" data-year="2023">2024</button>
+<div className="yg-gallery-container">
+  <div className="yg-filter-bar">
+    <button className="yg-filter-btn" data-year="all">All</button>
+    <button className="yg-filter-btn yg-active" data-year="2025">2026</button>
+    <button className="yg-filter-btn" data-year="2024">2025</button>
+    <button className="yg-filter-btn" data-year="2023">2024</button>
   </div>
 
-  {/* <div class="yg-masonry-grid">
-    <div class="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x500" alt="2025 sample" /></div>
-    <div class="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x450" alt="2024 sample" /></div>
-    <div class="yg-masonry-item" data-year="2023"><img src="https://place-hold.it/400x550" alt="2023 sample" /></div>
-    <div class="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x400" alt="2025 sample" /></div>
-    <div class="yg-masonry-item" data-year="2022"><img src="https://place-hold.it/400x600" alt="2022 sample" /></div>
-    <div class="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
+  {/* <div className="yg-masonry-grid">
+    <div className="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x500" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x450" alt="2024 sample" /></div>
+    <div className="yg-masonry-item" data-year="2023"><img src="https://place-hold.it/400x550" alt="2023 sample" /></div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x400" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2022"><img src="https://place-hold.it/400x600" alt="2022 sample" /></div>
+    <div className="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
   </div> */}
 
 {/* <div className="yg-gallery-carousel">
@@ -255,17 +273,25 @@ useEffect(() => {
   index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
   moveCarousel();}} className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
 </div> */}
-
-<div className="yg-gallery-carousel">
+  <div className="yg-gallery-carousel" ref={containerRef}>
       <button className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
-      <div className="yg-carousel-track">
-        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x500" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x450" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x600" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x420" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://place-hold.it/400x560" alt="" /></div>
+      <div className="yg-carousel-track" ref={trackRef}>
+      <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="" /></div>
+        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
       </div>
       <button className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
+    </div>
+<div className="yg-gallery-carousel" ref={containerRef}>
+      <button className="yg-carousel-btn yg-left" aria-label="Scroll left" onClick={() => scrollToTile("left")}>
+        ‹
+      </button>
+   
+      <button className="yg-carousel-btn yg-right" aria-label="Scroll right" onClick={() => scrollToTile("right")}>
+        ›
+      </button>
     </div>
 
 </div>
