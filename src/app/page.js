@@ -25,23 +25,41 @@ export default function Home() {
  </span>
 <br />
 {/*  */}
-<section class="hero-cta-section">
-  <div class="hero-cta-container">
-          <p style={{fontSize:'1.25em',padding:'1rem 0 3.5rem 0',marginTop:'-3rem',display:'block'}}>
-         Mission 007 Mentorship empowers young people from ages 16-25 years old to overcome obstacles and build thriving futures. Through evidence-based mentoring, social-emotional learning, and career readiness programs, it supports youth (including older teens and young adults) in identifying goals, developing life skills, and transitioning into meaningful education, careers, and adult-life opportunities.
+<div className="unique-cta-grid unique-cta-reverse">
+  <div className="unique-cta-images">
+    <img
+      src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png"
+      alt="Service 2"
+    />
+    <img
+    style={{filter:'brightness(1.52) saturate(1.32) contrast(1.162)'}}
+      src="https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG"
+      alt="Service 1"
+    />
+  </div>
+  
+</div>
+<br />
+
+
+<section className="hero-cta-section">
+  <div className="hero-cta-container">
+         <p style={{fontSize:'1.25em',padding:'1rem 0 3.5rem 0',marginTop:'-3rem',display:'block'}}>
+         Mission 007 Mentorship empowers young people from ages 16-25 years old to overcome obstacles and build thriving futures. Through evidence-based mentoring, social-emotional learning, and career readiness programs,
+         it supports youth (including older teens and young adults) in identifying goals, developing life skills, and transitioning into meaningful education, careers, and adult-life opportunities.
           </p>
-    <div class="hero-cta-grid">
-      <div class="hero-cta-content">
-        <div class="hero-cta-text">
+    <div className="hero-cta-grid">
+      <div className="hero-cta-content">
+        <div className="hero-cta-text">
           <h2>See all Our Services </h2>
-          <div class="hero-cta-button">
-            <a href="#" class="hero-cta-btn">Get Started Today</a>
+          <div className="hero-cta-button">
+            <a href="#" className="hero-cta-btn">Get Started Today</a>
           </div>
         </div>
       </div>
-      <div class="hero-cta-images">
+      <div className="hero-cta-images">
         <img
-          src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png"
+          src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png"
           alt=""
         />
         <img
@@ -50,8 +68,9 @@ export default function Home() {
         />
       </div>
     </div>
-  </div>
- 
+
+   {/*  */}
+  </div>{/*  */}
           <ul className="youth-service-list">
   <li><span className="icon">✨</span> <strong>One-on-one mentorship</strong> with a trained adult who guides goal-setting, decision-making, and personal growth.</li>
   <li><span className="icon">🤝</span><strong>Group mentoring circles</strong> focused on social-emotional learning (SEL), leadership, and peer support.</li>
@@ -65,7 +84,21 @@ export default function Home() {
   <li><span className="icon">👨‍👩‍👧</span> <strong>Family and community engagement</strong>workshops that build supportive environments.</li>
 </ul>
 <br />
-
+<div className="unique-cta-grid unique-cta-reverse">
+  <div className="unique-cta-images">
+<img
+     className="unique-cta-image"
+     style={{filter:'brightness(1.12) saturate(1.12) contrast(1.12)'}}
+       src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png"
+       alt="Service 2"
+     />
+<img
+     className="unique-cta-image"
+       src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG"
+       alt="Service 2"
+     />
+   </div>
+</div>
 </section>
 
 {/* <TextCarousel /> */}
