@@ -120,23 +120,6 @@ export default function Home() {
 </section>
 
 {/* <TextCarousel /> */}
-<section class="cta-mid-section">
-  <div class="cta-mid-text">
-    <div class="cta-mid-content">
-      <h2>
-       Get Started Today
-      </h2>
-      <h5 style={{fontWeight:'normal',fontSize:'1.02rem'}}>
-       Call us, email us fill out our short assesment contact form
-      </h5>
-      <br />
-      <div class="cta-mid-button" style={{textAlign:'center',width:'100%'}}>
-        <a href="#">Get Started Today</a>
-      </div>
-    </div>
-  </div>
-<img src="" alt="" />
-</section>
 
 
 <div className="yg-gallery-container">
@@ -158,26 +141,24 @@ export default function Home() {
   <Splide aria-label="My Favorite Images">
   <SplideSlide>
     <div className="yg-masonry-grid">
-
     <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2025 sample" /></div>
-    <div className="yg-masonry-item" data-year="2024"><img src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png" alt="2024 sample" /></div>
-    <div className="yg-masonry-item" data-year="2023"><img src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png" alt="2023 sample" /></div>
+    <div className="yg-masonry-item" data-year="2024"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2024 sample" /></div>
+    <div className="yg-masonry-item" data-year="2023"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2023 sample" /></div>
     <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2025 sample" /></div>
  
   </div>
+    {/* <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png" alt="Image 1"/> */}
   </SplideSlide>
-
   <SplideSlide>
     <div className="yg-masonry-grid">
-
-    <div className="yg-masonry-item" data-year="2025"><img src="https://i0.wp.com/mmission007.org/wp-content/uploads/2024/05/01000a85-2e5d-41d5-bb6a-7fee43cb3b61-e1715865192308.jpeg?w=472&ssl=1" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2025 sample" /></div>
     <div className="yg-masonry-item" data-year="2024"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2024 sample" /></div>
     <div className="yg-masonry-item" data-year="2023"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2023 sample" /></div>
-    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2025 sample" /></div>
  
   </div>
+    {/* <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png" alt="Image 1"/> */}
   </SplideSlide>
-
   
 </Splide>
   {/*
