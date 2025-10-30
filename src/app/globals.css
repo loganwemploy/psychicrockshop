@@ -1111,14 +1111,14 @@ _#_#_#_#_#_# */
 
 /* Masonry Grid Container using columns */
 .yg-masonry-grid {
-  column-count: 4; /* Number of columns */
+  column-count: 2; /* Number of columns */
   column-gap: 16px; /* Space between columns */
   padding: 16px;
 }
 
 /* Masonry Item */
 .yg-masonry-item {
-  break-inside: avoid; /* Prevent items from breaking across columns */
+  /* break-inside: avoid; Prevent items from breaking across columns */
   margin-bottom: 16px; /* Space between items vertically */
   border-radius: 12px;
   overflow: hidden;
