@@ -1106,3 +1106,148 @@ _#_#_#_#_#_# */
   outline: 3px solid #0070f3;
   transform: scale(1.03);
 }
+
+
+
+/* Masonry Grid Container using columns */
+.yg-masonry-grid {
+  column-count: 4; /* Number of columns */
+  column-gap: 16px; /* Space between columns */
+  padding: 16px;
+}
+
+/* Masonry Item */
+.yg-masonry-item {
+  break-inside: avoid; /* Prevent items from breaking across columns */
+  margin-bottom: 16px; /* Space between items vertically */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f8f8f8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Image inside Masonry Item */
+.yg-masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+
+@media (max-width: 1200px) {
+  .yg-masonry-grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 800px) {
+  .yg-masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 500px) {
+  .yg-masonry-grid {
+    column-count: 2;
+  }
+}
+
+
+
+/*  */
+
+
+.cta-mid-section {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-color: #f9fafb; /* Tailwind bg-gray-50 */
+}
+
+/* Text Column */
+.cta-mid-text {
+  flex: 1 1 50%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-mid-content {
+  max-width: 36rem;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .cta-mid-content {
+    text-align: left;
+  }
+}
+
+.cta-mid-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827; /* Tailwind text-gray-900 */
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .cta-mid-content h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.cta-mid-content p {
+  color: #6b7280; /* Tailwind text-gray-500 */
+  margin-top: 1rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cta-mid-content p {
+    display: block;
+  }
+}
+
+.cta-mid-button {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .cta-mid-button {
+    margin-top: 2rem;
+  }
+}
+
+.cta-mid-button a {
+  display: inline-block;
+  padding: 0.75rem 3rem;
+  background-color: #10b981; /* Tailwind bg-emerald-600 */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.05rem;
+  border-radius: 0.32rem;
+  transition: background-color 0.2s ease;
+}
+
+.cta-mid-button a:hover {
+  background-color: #059669; /* Tailwind bg-emerald-700 */
+}
+
+.cta-mid-image {
+  flex: 1 1 50%;
+}
+
+.cta-mid-image img {
+  width: 100%;
+  height: 14rem; /* Tailwind h-56 */
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .cta-mid-image img {
+    height: 100%;
+  }
+}

@@ -8,113 +8,16 @@ import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
 import { useState,useEffect,useRef } from "react";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-
+import '@splidejs/react-splide/css';
 export default function Home() {
   const [selectedYear, setSelectedYear] = useState()
   // const [tileWidth, setTileWidth] = useState(370)
   // const [visibleTiles, setVisibleTiles] = useState(2)
-  const trackRef = useRef(null);
-  const containerRef = useRef(null);
-  let isDragging = false;
-  let startX = 0;
-  let scrollStart = 0;
+ 
 
-  const scrollToTile = (direction) => {
-    const track = trackRef.current;
-    const container = containerRef.current;
-    if (!track || !container) return;
 
-    const tiles = Array.from(track.children);
-    const containerRect = container.getBoundingClientRect();
-
-    if (direction === "right") {
-      const nextTile = tiles.find(
-        (tile) => tile.getBoundingClientRect().right > containerRect.right
-      ) || tiles[tiles.length - 1];
-
-      const offset =
-        nextTile.offsetLeft - (container.clientWidth - nextTile.offsetWidth) / 2;
-      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
-      track.style.transform = `translateX(-${offset}px)`;
-    }
-
-    if (direction === "left") {
-      const reversed = [...tiles].reverse();
-      const prevTile =
-        reversed.find((tile) => tile.getBoundingClientRect().left < containerRect.left) || tiles[0];
-
-      const offset =
-        prevTile.offsetLeft - (container.clientWidth - prevTile.offsetWidth) / 2;
-      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
-      track.style.transform = `translateX(-${offset}px)`;
-    }
-  };
-
-  useEffect(() => {
-    const track = trackRef.current;
-    const container = containerRef.current;
-    if (!track || !container) return;
-
-    const getTranslateX = () => {
-      const style = window.getComputedStyle(track);
-      const matrix = new WebKitCSSMatrix(style.transform);
-      return matrix.m41;
-    };
-
-    const onDragStart = (e) => {
-      isDragging = true;
-      startX = e.type.includes("touch") ? e.touches[0].pageX : e.pageX;
-      scrollStart = getTranslateX() || 0;
-      track.style.transition = "none";
-    };
-
-    const onDragMove = (e) => {
-      if (!isDragging) return;
-      const x = e.type.includes("touch") ? e.touches[0].pageX : e.pageX;
-      const diff = x - startX;
-      track.style.transform = `translateX(${scrollStart + diff}px)`;
-    };
-
-    const onDragEnd = () => {
-      if (!isDragging) return;
-      isDragging = false;
-
-      const tiles = Array.from(track.children);
-      const containerRect = container.getBoundingClientRect();
-      let closestTile = tiles.reduce((prev, curr) => {
-        const tileCenter = curr.offsetLeft + curr.offsetWidth / 2;
-        const containerCenter = container.clientWidth / 2 - (getTranslateX() || 0);
-        return Math.abs(tileCenter - containerCenter) < Math.abs(prev.offsetLeft + prev.offsetWidth / 2 - containerCenter)
-          ? curr
-          : prev;
-      });
-
-      const offset =
-        closestTile.offsetLeft - (container.clientWidth - closestTile.offsetWidth) / 2;
-      track.style.transition = "transform 0.4s cubic-bezier(.25,1.25,.5,1)";
-      track.style.transform = `translateX(-${offset}px)`;
-    };
-
-    track.addEventListener("mousedown", onDragStart);
-    track.addEventListener("mousemove", onDragMove);
-    track.addEventListener("mouseup", onDragEnd);
-    track.addEventListener("mouseleave", onDragEnd);
-
-    track.addEventListener("touchstart", onDragStart, { passive: true });
-    track.addEventListener("touchmove", onDragMove, { passive: true });
-    track.addEventListener("touchend", onDragEnd);
-
-    return () => {
-      track.removeEventListener("mousedown", onDragStart);
-      track.removeEventListener("mousemove", onDragMove);
-      track.removeEventListener("mouseup", onDragEnd);
-      track.removeEventListener("mouseleave", onDragEnd);
-      track.removeEventListener("touchstart", onDragStart);
-      track.removeEventListener("touchmove", onDragMove);
-      track.removeEventListener("touchend", onDragEnd);
-    };
-  }, []);
   return (
     <div>
 <HeaderBar/>
@@ -217,17 +120,24 @@ export default function Home() {
 </section>
 
 {/* <TextCarousel /> */}
-{/* <div className="gallery-filter">
-  {['2026','2025', '2024', '2023', '2022'].map((year,index) => (
-    <button 
-      key={`year+${index}`} 
-      className={`year-timeline-btn ${selectedYear} === year && 'active'`}
-      onClick={() => setSelectedYear(year)}
-    >
-      {year}
-    </button>
-  ))}
-</div> */}
+<section class="cta-mid-section">
+  <div class="cta-mid-text">
+    <div class="cta-mid-content">
+      <h2>
+       Get Started Today
+      </h2>
+      <h5 style={{fontWeight:'normal',fontSize:'1.02rem'}}>
+       Call us, email us fill out our short assesment contact form
+      </h5>
+      <br />
+      <div class="cta-mid-button" style={{textAlign:'center',width:'100%'}}>
+        <a href="#">Get Started Today</a>
+      </div>
+    </div>
+  </div>
+<img src="" alt="" />
+</section>
+
 
 <div className="yg-gallery-container">
   <div className="yg-filter-bar">
@@ -245,54 +155,43 @@ export default function Home() {
     <div className="yg-masonry-item" data-year="2022"><img src="https://place-hold.it/400x600" alt="2022 sample" /></div>
     <div className="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
   </div> */}
+  <Splide aria-label="My Favorite Images">
+  <SplideSlide>
+    <div className="yg-masonry-grid">
 
-{/* <div className="yg-gallery-carousel">
-  <button onClick={() => {
-  index = Math.max(0, index - visibleTiles);
-  moveCarousel()}} className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
-
-  <div className="yg-carousel-track" tabIndex="0">
-    <div className="yg-masonry-tile" tabIndex="0">
-      <img src="https://place-hold.it/400x500" alt="Gallery item" />
-    </div>
-    <div className="yg-masonry-tile" tabIndex="0">
-      <img src="https://place-hold.it/400x450" alt="Gallery item" />
-    </div>
-    <div className="yg-masonry-tile" tabIndex="0">
-      <img src="https://place-hold.it/400x600" alt="Gallery item" />
-    </div>
-    <div className="yg-masonry-tile" tabIndex="0">
-      <img src="https://place-hold.it/400x420" alt="Gallery item" />
-    </div>
-    <div className="yg-masonry-tile" tabIndex="0">
-      <img src="https://place-hold.it/400x560" alt="Gallery item" />
-    </div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2024"><img src="https://dl4.pushbulletusercontent2.com/4CO11qiC14mrJDmmmR1vqd8NbipZIHrq/image.png" alt="2024 sample" /></div>
+    <div className="yg-masonry-item" data-year="2023"><img src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png" alt="2023 sample" /></div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2025 sample" /></div>
+ 
   </div>
+  </SplideSlide>
 
-  <button onClick={() => {
-  index = Math.min(tiles.length - visibleTiles, index + visibleTiles);
-  moveCarousel();}} className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
-</div> */}
-  <div className="yg-gallery-carousel" ref={containerRef}>
-      <button className="yg-carousel-btn yg-left" aria-label="Scroll left">‹</button>
-      <div className="yg-carousel-track" ref={trackRef}>
-      <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="" /></div>
-        <div className="yg-masonry-tile"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="" /></div>
-      </div>
-      <button className="yg-carousel-btn yg-right" aria-label="Scroll right">›</button>
-    </div>
-<div className="yg-gallery-carousel" ref={containerRef}>
-      <button className="yg-carousel-btn yg-left" aria-label="Scroll left" onClick={() => scrollToTile("left")}>
-        ‹
-      </button>
-   
-      <button className="yg-carousel-btn yg-right" aria-label="Scroll right" onClick={() => scrollToTile("right")}>
-        ›
-      </button>
-    </div>
+  <SplideSlide>
+    <div className="yg-masonry-grid">
+
+    <div className="yg-masonry-item" data-year="2025"><img src="https://i0.wp.com/mmission007.org/wp-content/uploads/2024/05/01000a85-2e5d-41d5-bb6a-7fee43cb3b61-e1715865192308.jpeg?w=472&ssl=1" alt="2025 sample" /></div>
+    <div className="yg-masonry-item" data-year="2024"><img src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="2024 sample" /></div>
+    <div className="yg-masonry-item" data-year="2023"><img src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png" alt="2023 sample" /></div>
+    <div className="yg-masonry-item" data-year="2025"><img src="https://dl4.pushbulletusercontent2.com/KgmEpT9ln02FxYFPysM3hFcHxyHIpHzv/image.png" alt="2025 sample" /></div>
+ 
+  </div>
+  </SplideSlide>
+
+  
+</Splide>
+  {/*
+      this works perfecttttttttt
+  <Splide aria-label="My Favorite Images">
+  <SplideSlide>
+    <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png" alt="Image 1"/>
+  </SplideSlide>
+  <SplideSlide>
+    <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="Image 2"/>
+  </SplideSlide>
+</Splide>
+    thisworrkkkss perrrrrrfectt
+   */}
 
 </div>
 
