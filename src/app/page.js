@@ -104,17 +104,23 @@ export default function Home() {
 <br />
 <div className="unique-cta-grid unique-cta-reverse">
   <div className="unique-cta-images">
-<img
+{/* <img
      className="unique-cta-image"
      style={{filter:'brightness(1.12) saturate(1.12) contrast(1.12)'}}
        src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png"
        alt="Service 2"
-     />
+     /> */}
 <img
+     className="unique-cta-imag"
+     style={{width:'98vw',height:'auto',margin:'auto',padding:'1.32em'}}
+       src="https://dl4.pushbulletusercontent2.com/75qN098eZFz5Qnxq9NMSnW07Ur2hEshS/image.png"
+       alt="Service 2"
+     />
+{/* <img
      className="unique-cta-image"
        src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG"
        alt="Service 2"
-     />
+     /> */}
    </div>
 </div>
 </section>
