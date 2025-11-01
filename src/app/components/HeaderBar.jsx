@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 import styles from "../page.module.css";
 const HeaderBar = () => {
-    const [photos, setPhotos] = useState()
+    // const [eventInfos, setEventInfos] = useState()
     // useEffect(() => {
     //  fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm')
     //  .then(res => res.json())
@@ -11,6 +11,9 @@ const HeaderBar = () => {
     //  .catch(err=>console.log(err.message))
     // }, [])
     
+
+    
+
     return (
         <div>
             <div className={styles.page} style={{ padding: '0', margin: '0' }}>

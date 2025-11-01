@@ -15,8 +15,15 @@ export default function Home() {
   const [selectedYear, setSelectedYear] = useState()
   // const [tileWidth, setTileWidth] = useState(370)
   // const [visibleTiles, setVisibleTiles] = useState(2)
- 
 
+  const [eventInfos, setEventInfos] = useState()
+ 
+  async function getEvents(events) {
+    const url = "https://mmission007.org/wp-json/wp/v2/eventinfo"
+    const res = await fetch(url) 
+    const data = await res.json()
+    setEventInfos(data[0].acf)
+}
 
   return (
     <div>
@@ -89,6 +96,7 @@ export default function Home() {
  </span>
    {/*  */}
   </div>{/*  */}
+
           <ul className="youth-service-list">
   <li><span className="icon">✨</span> <strong>One-on-one mentorship</strong> with a trained adult who guides goal-setting, decision-making, and personal growth.</li>
   <li><span className="icon">🤝</span><strong>Group mentoring circles</strong> focused on social-emotional learning (SEL), leadership, and peer support.</li>
@@ -102,6 +110,35 @@ export default function Home() {
   <li><span className="icon">👨‍👩‍👧</span> <strong>Family and community engagement</strong>workshops that build supportive environments.</li>
 </ul>
 <br />
+
+<section class="hero-section">
+  <h2 style={{fontSize:'2em'}}>{eventInfos?.event_name}</h2>
+ <h6> {eventInfos?.event_description}</h6>
+  <div class="hero-text">
+    <div class="hero-content">
+      <h2>
+        Want to become a sponsor?
+      </h2>
+      {/* <p>
+       Learn More About How
+      </p> */}
+      <div class="hero-button">
+        <a href="#" style={{fontSize:'1rem'}}>Learn More About How</a>
+      </div>
+    </div>
+  </div>
+
+  {/* <div class="hero-image">
+    <img src="https://dl4.pushbulletusercontent2.com/75qN098eZFz5Qnxq9NMSnW07Ur2hEshS/image.png" alt=""/>
+  </div> */}
+</section>
+{/*  */}
+{/* <img
+     className="unique-cta-imag"
+     style={{width:'91.5vw',height:'auto',margin:'auto',padding:'1.32em'}}
+       src="https://dl4.pushbulletusercontent2.com/75qN098eZFz5Qnxq9NMSnW07Ur2hEshS/image.png"
+       alt="Service 2"
+     /> */}
 <div className="unique-cta-grid unique-cta-reverse">
   <div className="unique-cta-images">
 {/* <img
@@ -110,12 +147,12 @@ export default function Home() {
        src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png"
        alt="Service 2"
      /> */}
-<img
+{/* <img
      className="unique-cta-imag"
-     style={{width:'98vw',height:'auto',margin:'auto',padding:'1.32em'}}
+     style={{width:'98vw',height:'auto',margin:'auto',padding:'1.32em',border:'1.2rem inset white'}}
        src="https://dl4.pushbulletusercontent2.com/75qN098eZFz5Qnxq9NMSnW07Ur2hEshS/image.png"
        alt="Service 2"
-     />
+     /> */}
 {/* <img
      className="unique-cta-image"
        src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG"
@@ -130,7 +167,7 @@ export default function Home() {
 
 <div className="yg-gallery-container">
   <div className="yg-filter-bar">
-    <button className="yg-filter-btn" data-year="all">All</button>
+    <button className="yg-filter-btn" data-year="all" onClick={getEvents}>All</button>
     <button className="yg-filter-btn yg-active" data-year="2025">2026</button>
     <button className="yg-filter-btn" data-year="2024">2025</button>
     <button className="yg-filter-btn" data-year="2023">2024</button>

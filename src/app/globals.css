@@ -1161,3 +1161,99 @@ _#_#_#_#_#_# */
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  background-color: #f9fafb; /* Tailwind bg-gray-50 */
+}
+
+/* Text Column */
+.hero-text {
+  flex: 1 1 50%;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  max-width: 36rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .hero-content {
+    text-align: left;
+  }
+}
+
+.hero-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827; /* Tailwind text-gray-900 */
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-content h2 {
+    font-size: 1.875rem;
+  }
+}
+
+.hero-content p {
+  color: #6b7280; /* Tailwind text-gray-500 */
+  margin-top: 1rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero-content p {
+    display: block;
+  }
+}
+
+.hero-button {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-button {
+    margin-top: 2rem;
+  }
+}
+
+.hero-button a {
+  display: inline-block;
+  padding: 0.75rem 3rem;
+  background-color: #10b981; /* Tailwind bg-emerald-600 */
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.125rem;
+  transition: background-color 0.2s ease;
+}
+
+.hero-button a:hover {
+  background-color: #059669; /* Tailwind bg-emerald-700 */
+}
+
+.hero-image {
+  flex: 1 1 50%;
+  height: 50vh
+}
+
+.hero-image img {
+  width: 100%;
+  height: 14rem; /* Tailwind h-56 */
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .hero-image img {
+    height: 100%;
+  }
+}
+
