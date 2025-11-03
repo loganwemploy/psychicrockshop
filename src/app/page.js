@@ -17,6 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [loadedImages, setLoadedImages] = useState({}) // track each image load
   const [activeCards, setActiveCards] = useState({})
+  const [activeYear, setActiveYear] = useState('all')
   // const [visibleTiles, setVisibleTiles] = useState(2)
 
   const [eventInfos, setEventInfos] = useState();
@@ -89,7 +90,31 @@ export default function Home() {
       setActiveCards((prev) => ({ ...prev, [id]: !prev[id] }))
     }
   
+    const handleYearFilter = (year) => {
+      setActiveYear(year)
+    }
 
+    // utility to split array into chunks
+function chunkArray(arr, chunkSize) {
+  const chunks = []
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    chunks.push(arr.slice(i, i + chunkSize))
+  }
+  return chunks
+}
+
+
+
+
+  
+    // filter photos based on selected year
+    const filteredPhotos =
+      activeYear === 'all'
+        ? photos
+        : photos.filter((p) => p.year_select === activeYear)
+
+
+        const filteredPhotosChunks = chunkArray(filteredPhotos, 4)
 
   return (
     <div>
@@ -297,115 +322,88 @@ export default function Home() {
       {/* <TextCarousel /> */}
 
       <div className="yg-gallery-container">
-        <div className="yg-filter-bar">
-          <button className="yg-filter-btn" data-year="all">
-            All
+      <div className="yg-filter-bar">
+        {['all', '2025', '2024', '2023'].map((year) => (
+          <button
+            key={year}
+            className={`yg-filter-btn ${activeYear === year ? 'yg-active' : ''}`}
+            onClick={() => handleYearFilter(year)}
+          >
+            {year === 'all' ? 'All' : year}
           </button>
-          <button className="yg-filter-btn yg-active" data-year="2025">
-            2026
-          </button>
-          <button className="yg-filter-btn" data-year="2024">
-            2025
-          </button>
-          <button className="yg-filter-btn" data-year="2023">
-            2024
-          </button>
-        </div>
-
-        {/* <div className="yg-masonry-grid">
-    <div className="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x500" alt="2025 sample" /></div>
-    <div className="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x450" alt="2024 sample" /></div>
-    <div className="yg-masonry-item" data-year="2023"><img src="https://place-hold.it/400x550" alt="2023 sample" /></div>
-    <div className="yg-masonry-item" data-year="2025"><img src="https://place-hold.it/400x400" alt="2025 sample" /></div>
-    <div className="yg-masonry-item" data-year="2022"><img src="https://place-hold.it/400x600" alt="2022 sample" /></div>
-    <div className="yg-masonry-item" data-year="2024"><img src="https://place-hold.it/400x520" alt="2024 sample" /></div>
-  </div> */}
-        <Splide aria-label="My Favorite Images">
-          <SplideSlide>
-            <div className="yg-masonry-grid">
-              {/* grid item map */}
-              {/* TODO fix this map why it not working? */}
-              {photos.map((p) => {
-        const isActive = !!activeCards[p.id]
-        return (
-          <div key={p.id} className={`gallery-item ${isActive ? 'active' : ''}`}>
-            {!loadedImages[p.id] && <div className="skeleton"></div>}
-
-            {p.imagemm && (
-              <img
-                src={p.imagemm}
-                alt={p.title || 'photo'}
-                loading="lazy"
-                onLoad={() => handleImageLoad(p.id)}
-                onError={() => handleImageLoad(p.id)}
-                className={`gallery-img ${
-                  loadedImages[p.id] ? 'visible' : 'hidden'
-                }`}
-                onClick={() => toggleCard(p.id)}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id)
-                }}
-                aria-expanded={isActive}
-                role="button"
-              />
-            )}
-
-            <div className={`gallery-info ${isActive ? 'visible' : ''}`} aria-hidden={!isActive}>
-              <h3>{p.title}</h3>
-              <p>{p.description}</p>
-              <p className="year">{p.year_select}</p>
-            </div>
-          </div>
-        )
-      })}
-            </div>
-          
-          </SplideSlide>
-          <SplideSlide>
-            <div className="yg-masonry-grid">
-              <div className="yg-masonry-item" data-year="2025">
-                <img
-                  src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png"
-                  alt="2025 sample"
-                />
-              </div>
-              <div className="yg-masonry-item" data-year="2024">
-                <img
-                  src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG"
-                  alt="2024 sample"
-                />
-              </div>
-              <div className="yg-masonry-item" data-year="2023">
-                <img
-                  src="https://dl4.pushbulletusercontent2.com/HHfiklL3awHsKZxwK1hYjp6QnM8oOt43/image.png"
-                  alt="2023 sample"
-                />
-              </div>
-              <div className="yg-masonry-item" data-year="2025">
-                <img
-                  src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG"
-                  alt="2025 sample"
-                />
-              </div>
-            </div>
-            {/* <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png" alt="Image 1"/> */}
-          </SplideSlide>
-        </Splide>
-        {/*
-      this works perfecttttttttt
-  <Splide aria-label="My Favorite Images">
-  <SplideSlide>
-    <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png" alt="Image 1"/>
-  </SplideSlide>
-  <SplideSlide>
-    <img style={{width:'100%',borderRadius:'0.75em'}} src="https://dl4.pushbulletusercontent2.com/SYkqw6oZFKbHI28KnzfQalZqlkyRXbpj/IMG_0282.JPEG" alt="Image 2"/>
-  </SplideSlide>
-</Splide>
-    thisworrkkkss perrrrrrfectt
-   */}
+        ))}
       </div>
+      </div>
+      <h2 style={{padding:'0 0 0 0.75em',textTransform:'uppercase',textDecoration:'underline'}}>{activeYear}</h2>
+      {filteredPhotosChunks.length === 0 ? (
+  <div className="empty-album">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="150"
+      height="150"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="3" width="20" height="18" rx="2" ry="2"></rect>
+      <line x1="2" y1="9" x2="22" y2="9"></line>
+      <line x1="6" y1="21" x2="6" y2="9"></line>
+      <line x1="10" y1="21" x2="10" y2="9"></line>
+      <line x1="14" y1="21" x2="14" y2="9"></line>
+      <line x1="18" y1="21" x2="18" y2="9"></line>
+    </svg>
+    <p>No photos for this year.</p>
+  </div>
+) : (
+  <Splide aria-label="Gallery">
+    {filteredPhotosChunks.map((chunk, index) => (
+      <SplideSlide key={index}>
+        <div className="yg-masonry-grid">
+          {chunk.map((p) => {
+            const isActive = !!activeCards[p.id]
+            return (
+              <div key={p.id} className={`gallery-item ${isActive ? 'active' : ''}`}>
+                {!loadedImages[p.id] && <div className="skeleton"></div>}
 
+                {p.imagemm && (
+                  <img
+                    src={p.imagemm}
+                    alt={p.title || 'photo'}
+                    loading="lazy"
+                    onLoad={() => handleImageLoad(p.id)}
+                    onError={() => handleImageLoad(p.id)}
+                    className={`gallery-img ${
+                      loadedImages[p.id] ? 'visible' : 'hidden'
+                    }`}
+                    onClick={() => toggleCard(p.id)}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id)
+                    }}
+                    aria-expanded={isActive}
+                    role="button"
+                  />
+                )}
+
+                <div
+                  className={`gallery-info ${isActive ? 'visible' : ''}`}
+                  aria-hidden={!isActive}
+                >
+                  <h3>{p.title}</h3>
+                  <p>{p.description}</p>
+                  <p className="year">{p.year_select}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </SplideSlide>
+    ))}
+  </Splide>
+)}
       {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>
 
 </div> */}

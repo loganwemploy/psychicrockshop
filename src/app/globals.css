@@ -1315,3 +1315,21 @@ _#_#_#_#_#_# */
     opacity: 1;
   }
 }
+
+
+
+
+
+
+.empty-album {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #666;
+}
+.empty-album svg {
+  margin-bottom: 1rem;
+  stroke: #999;
+}
