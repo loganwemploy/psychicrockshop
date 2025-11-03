@@ -1264,98 +1264,54 @@ _#_#_#_#_#_# */
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
-
 .gallery-item {
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #eee;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  position: relative;
 }
 
 .gallery-img {
+  border-radius: 8px;
   width: 100%;
   min-height: 29.88vh;
   height: auto;
   display: block;
-  transition: all 0.3s ease;
-}
-
-.gallery-item.active .gallery-img {
-  transform: scale(0.8);
 }
 
 .gallery-info {
-  max-height: 0;
-  overflow: hidden;
-  padding: 5px 20px;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .gallery-info.visible {
-  max-height: 500px; /* enough for content */
-  padding: 10px;
+  opacity: 1;
+  pointer-events: auto;
 }
-
-.skeleton {
-  width: 100%;
-  height: 200px;
-  background-color: #ccc;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-
-
-
-
-
-.empty-album {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  color: #666;
-}
-.empty-album svg {
-  margin-bottom: 1rem;
-  stroke: #999;
-}
-
-
-
-
-
-
-
-/*  */
-
-
 
 .duplicate-rank-dot {
   position: absolute;
-  bottom: 6px;
-  right: 6px;
-  width: 5px;
-  height: 5px;
-  background: rgb(208, 204, 204);
-  color: rgb(112, 112, 112);
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 10px;
+  height: 10px;
+  background: rgb(197, 197, 197);
   border-radius: 50%;
-  font-size: 0.32em;
-}
-
-.gallery-item {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(149, 149, 149);
+  font-size: 0.7rem;
+  font-weight: bold;
 }

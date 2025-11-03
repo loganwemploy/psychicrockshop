@@ -43,6 +43,23 @@ export default function Home() {
     // }
 
     useEffect(() => {
+      const handleClickOutside = (e) => {
+        // Close all active overlays if clicked outside any gallery-item
+        if (!e.target.closest('.gallery-item')) {
+          setActiveCards({});
+        }
+      };
+    
+      document.addEventListener('click', handleClickOutside);
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }, []);
+    
+
+
+
+    useEffect(() => {
       async function fetchPhotos() {
         try {
           const res = await fetch(
@@ -404,55 +421,61 @@ function chunkArray(arr, chunkSize) {
     <p>No photos for this year.</p>
   </div>
 ) : (
-  <Splide aria-label="Gallery">
-    {filteredPhotosChunks.map((chunk, index) => (
-      <SplideSlide key={index}>
-        <div className="yg-masonry-grid">
-          {chunk.map((p) => {
-            const isActive = !!activeCards[p.id]
-            return (
-              <div key={p.id} className={`gallery-item ${isActive ? 'active' : ''}`}>
-                {!loadedImages[p.id] && <div className="skeleton"></div>}
+<Splide aria-label="Gallery">
+  {filteredPhotosChunks.map((chunk, index) => (
+    <SplideSlide key={index}>
+      <div className="yg-masonry-grid">
+        {chunk.map((p) => {
+          const isActive = !!activeCards[p.id];
 
-                {p.imagemm && (
-                  <img
-                    src={p.imagemm}
-                    alt={p.title || 'photo'}
-                    loading="lazy"
-                    onLoad={() => handleImageLoad(p.id)}
-                    onError={() => handleImageLoad(p.id)}
-                    className={`gallery-img ${
-                      loadedImages[p.id] ? 'visible' : 'hidden'
-                    }`}
-                    onClick={() => toggleCard(p.id)}
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id)
-                    }}
-                    aria-expanded={isActive}
-                    role="button"
-                  />
-                )}
+          return (
+            <div
+              key={p.id}
+              className="gallery-item"
+              onClick={() => toggleCard(p.id)}
+            >
+              {/* Skeleton for lazy loading */}
+              {!loadedImages[p.id] && <div className="skeleton"></div>}
 
-                <div
-                  className={`gallery-info ${isActive ? 'visible' : ''}`}
-                  aria-hidden={!isActive}
-                >
+              {/* Full-size image */}
+              {p.imagemm && (
+                <img
+                  src={p.imagemm}
+                  alt={p.title || 'photo'}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(p.id)}
+                  onError={() => handleImageLoad(p.id)}
+                  className={`gallery-img ${loadedImages[p.id] ? 'visible' : 'hidden'}`}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id);
+                  }}
+                  aria-expanded={isActive}
+                  role="button"
+                  style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
+                />
+              )}
 
+              {/* Overlay with text and duplicate dot */}
+              <div
+                className={`gallery-info ${isActive ? 'visible' : ''}`}
+                aria-hidden={!isActive}
+                onClick={(e) => e.stopPropagation()} // prevent overlay click from toggling
+              >
                 {rankCounts[p.rank_order] > 1 && p.rank_order !== null && (
-<span className="duplicate-rank-dot">{p.rank_order}</span>
-)}
+                  <span className="duplicate-rank-dot">{p.rank_order}</span>
+                )}
+                <h3>{p.title}</h3>
+                <p>{p.description}</p>
+                <p className="year">{p.year_select}</p>
               </div>
-                  <h3>{p.title}</h3>
-                  <p>{p.description}</p>
-                  <p className="year">{p.year_select}</p>
-                </div>
-            )
-          })}
-        </div>
-      </SplideSlide>
-    ))}
-  </Splide>
+            </div>
+          );
+        })}
+      </div>
+    </SplideSlide>
+  ))}
+</Splide>
 )}
       {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>
 
