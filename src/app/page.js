@@ -69,11 +69,28 @@ export default function Home() {
                 title: item.acf?.title,
                 description: item.acf?.description,
                 year_select: item.acf?.year_select,
+                rank_order: item.acf?.rank_order ? Number(item.acf.rank_order) : null,
+                date: item.date
               }
             })
           )
-  
-          setPhotos(mapped)
+          const sorted = mapped.sort((a, b) => {
+            if (a.rank_order !== null && b.rank_order !== null) {
+              if (a.rank_order !== b.rank_order) return a.rank_order - b.rank_order
+              const aDate = a.date ? new Date(a.date) : 0
+              const bDate = b.date ? new Date(b.date) : 0
+              return aDate - bDate
+            }
+          
+            if (a.rank_order !== null && b.rank_order === null) return -1
+            if (a.rank_order === null && b.rank_order !== null) return 1
+          
+            const aDate = a.date ? new Date(a.date) : 0
+            const bDate = b.date ? new Date(b.date) : 0
+            return bDate - aDate
+          })
+          console.log(sorted)
+          setPhotos(sorted)
         } catch (err) {
           console.log(err.message)
         }
@@ -93,6 +110,27 @@ export default function Home() {
     const handleYearFilter = (year) => {
       setActiveYear(year)
     }
+
+
+    const sortedPhotos = photos.sort((a, b) => {
+      const aRank = a.rank_order
+      const bRank = b.rank_order
+    
+      // ✅ Case 1: Both have rank → sort by rank_order ascending
+      if (aRank && bRank) {
+        return aRank - bRank
+      }
+    
+      // ✅ Case 2: Only A has rank → A comes first
+      if (aRank && !bRank) return -1
+    
+      // ✅ Case 3: Only B has rank → B comes first
+      if (!aRank && bRank) return 1
+    
+      // ✅ Case 4: Neither has rank → newest first by date
+      return new Date(b.date) - new Date(a.date)
+    })
+    
 
     // utility to split array into chunks
 function chunkArray(arr, chunkSize) {
