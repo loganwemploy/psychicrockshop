@@ -16,7 +16,7 @@ export default function Home() {
   const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(true)
   const [loadedImages, setLoadedImages] = useState({}) // track each image load
-
+  const [activeCards, setActiveCards] = useState({})
   // const [visibleTiles, setVisibleTiles] = useState(2)
 
   const [eventInfos, setEventInfos] = useState();
@@ -41,48 +41,54 @@ export default function Home() {
     // }
 
     useEffect(() => {
-      async function fetchGallery() {
+      async function fetchPhotos() {
         try {
-          const res = await fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm')
-          const posts = await res.json()
+          const res = await fetch(
+            'https://mmission007.org/wp-json/wp/v2/photogallerymm'
+          )
+          const data = await res.json()
   
-          const photosData = await Promise.all(
-            posts.map(async (item) => {
-              const attachmentEndpoint = item._links?.['wp:attachment']?.[0]?.href ?? null
+          const mapped = await Promise.all(
+            data.map(async (item) => {
+              let imageURL = null
   
-              let imageUrl = null
-              if (attachmentEndpoint) {
-                const mediaRes = await fetch(attachmentEndpoint)
-                if (mediaRes.ok) {
-                  const media = await mediaRes.json()
-                  imageUrl = media?.[0]?.source_url ?? null
+              if (item._links?.['wp:attachment']?.[0]?.href) {
+                const attachmentRes = await fetch(
+                  item._links['wp:attachment'][0].href
+                )
+                const attachmentData = await attachmentRes.json()
+                if (attachmentData?.[0]?.source_url) {
+                  imageURL = attachmentData[0].source_url
                 }
               }
   
               return {
                 id: item.id,
-                imagemm: imageUrl,
+                imagemm: imageURL,
                 title: item.acf?.title,
                 description: item.acf?.description,
-                year_select: item.acf?.year_select
+                year_select: item.acf?.year_select,
               }
             })
           )
   
-          setPhotos(photosData)
+          setPhotos(mapped)
         } catch (err) {
-          console.error('Failed to fetch gallery:', err)
-        } finally {
-          setLoading(false)
+          console.log(err.message)
         }
       }
   
-      fetchGallery()
+      fetchPhotos()
     }, [])
   
     const handleImageLoad = (id) => {
       setLoadedImages((prev) => ({ ...prev, [id]: true }))
     }
+  
+    const toggleCard = (id) => {
+      setActiveCards((prev) => ({ ...prev, [id]: !prev[id] }))
+    }
+  
 
 
   return (
@@ -319,8 +325,10 @@ export default function Home() {
             <div className="yg-masonry-grid">
               {/* grid item map */}
               {/* TODO fix this map why it not working? */}
-              {photos.map((p) => (
-          <div key={p.id} className="gallery-item">
+              {photos.map((p) => {
+        const isActive = !!activeCards[p.id]
+        return (
+          <div key={p.id} className={`gallery-item ${isActive ? 'active' : ''}`}>
             {!loadedImages[p.id] && <div className="skeleton"></div>}
 
             {p.imagemm && (
@@ -329,17 +337,28 @@ export default function Home() {
                 alt={p.title || 'photo'}
                 loading="lazy"
                 onLoad={() => handleImageLoad(p.id)}
-                className={`gallery-img ${loadedImages[p.id] ? 'visible' : 'hidden'}`}
+                onError={() => handleImageLoad(p.id)}
+                className={`gallery-img ${
+                  loadedImages[p.id] ? 'visible' : 'hidden'
+                }`}
+                onClick={() => toggleCard(p.id)}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id)
+                }}
+                aria-expanded={isActive}
+                role="button"
               />
             )}
 
-            <div className="gallery-info">
+            <div className={`gallery-info ${isActive ? 'visible' : ''}`} aria-hidden={!isActive}>
               <h3>{p.title}</h3>
               <p>{p.description}</p>
               <p className="year">{p.year_select}</p>
             </div>
           </div>
-        ))}
+        )
+      })}
             </div>
           
           </SplideSlide>
