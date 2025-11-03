@@ -18,6 +18,7 @@ export default function Home() {
   const [loadedImages, setLoadedImages] = useState({}) // track each image load
   const [activeCards, setActiveCards] = useState({})
   const [activeYear, setActiveYear] = useState('all')
+  const [rankCounts, setRankCounts] = useState({});
   // const [visibleTiles, setVisibleTiles] = useState(2)
 
   const [eventInfos, setEventInfos] = useState();
@@ -74,6 +75,14 @@ export default function Home() {
               }
             })
           )
+
+          // const rankCounts = {}
+mapped.forEach(item => {
+  if (item.rank_order !== null) {
+    rankCounts[item.rank_order] = (rankCounts[item.rank_order] || 0) + 1
+  }
+})
+
           const sorted = mapped.sort((a, b) => {
             if (a.rank_order !== null && b.rank_order !== null) {
               if (a.rank_order !== b.rank_order) return a.rank_order - b.rank_order
@@ -89,7 +98,6 @@ export default function Home() {
             const bDate = b.date ? new Date(b.date) : 0
             return bDate - aDate
           })
-          console.log(sorted)
           setPhotos(sorted)
         } catch (err) {
           console.log(err.message)
@@ -430,11 +438,15 @@ function chunkArray(arr, chunkSize) {
                   className={`gallery-info ${isActive ? 'visible' : ''}`}
                   aria-hidden={!isActive}
                 >
+
+                {rankCounts[p.rank_order] > 1 && p.rank_order !== null && (
+<span className="duplicate-rank-dot">{p.rank_order}</span>
+)}
+              </div>
                   <h3>{p.title}</h3>
                   <p>{p.description}</p>
                   <p className="year">{p.year_select}</p>
                 </div>
-              </div>
             )
           })}
         </div>

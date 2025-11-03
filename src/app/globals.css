@@ -1288,7 +1288,7 @@ _#_#_#_#_#_# */
 .gallery-info {
   max-height: 0;
   overflow: hidden;
-  padding: 0 10px;
+  padding: 5px 20px;
   transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
@@ -1332,4 +1332,30 @@ _#_#_#_#_#_# */
 .empty-album svg {
   margin-bottom: 1rem;
   stroke: #999;
+}
+
+
+
+
+
+
+
+/*  */
+
+
+
+.duplicate-rank-dot {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  background: rgb(208, 204, 204);
+  color: rgb(112, 112, 112);
+  border-radius: 50%;
+  font-size: 0.32em;
+}
+
+.gallery-item {
+  position: relative;
 }
