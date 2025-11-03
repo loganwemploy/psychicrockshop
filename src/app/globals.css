@@ -1293,6 +1293,7 @@ _#_#_#_#_#_# */
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  border-radius: 8px;
 }
 
 .gallery-info.visible {
