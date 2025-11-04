@@ -1556,6 +1556,5 @@ _#_#_#_#_#_# */
 /* Mobile same as small version */
 @media (max-width: 768px) {
   .event-card {
-    flex-direction: row; /* keep image small, text large */
-  }
+    flex-direction: row; 
 }
