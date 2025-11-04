@@ -1389,3 +1389,173 @@ _#_#_#_#_#_# */
   font-size: 0.7rem;
   font-weight: bold;
 }
+
+
+
+
+
+
+/*  */
+
+/*  */
+
+.events {
+  display: grid;
+  gap: 20px;
+  height: auto;
+}
+
+/* Compact card style (universal) */
+.event-small {
+  display: flex;
+  gap: 12px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
+  transition: box-shadow 0.2s ease;
+}
+
+.event-small:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Small square image */
+.event-small-img {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+
+.event-small-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Text content */
+.event-small-content {
+  flex: 1;
+}
+
+.event-small-date {
+  font-size: 12px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.event-small-content h3 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: bold;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.event-small-desc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+  height: auto;
+  overflow: hidden;
+
+}
+
+.event-small-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: #ffd435;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.event-small-btn:hover {
+  background: #fccc00;
+}
+
+
+
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.event-card {
+  display: flex;
+  background: #fff;
+  transition: box-shadow 0.3s;
+  border: 1px solid #eee;
+  align-items: flex-start;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Image as small accent */
+.event-image {
+  flex: 0 0 100px; /* very small width */
+  margin-right: 1rem;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-content {
+  flex: 1; /* take most of the width */
+  display: flex;
+  flex-direction: column;
+}
+
+.event-content h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.event-content p {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #facc15;
+  color: #111;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.read-more:hover {
+  background: #fcd34d;
+}
+
+/* Mobile same as small version */
+@media (max-width: 768px) {
+  .event-card {
+    flex-direction: row; /* keep image small, text large */
+  }
+}

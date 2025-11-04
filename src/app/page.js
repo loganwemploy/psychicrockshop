@@ -19,18 +19,36 @@ export default function Home() {
   const [activeCards, setActiveCards] = useState({})
   const [activeYear, setActiveYear] = useState('all')
   const [rankCounts, setRankCounts] = useState({});
+  
+  const [eventInfos, setEventInfos] = useState();
+  
   // const [visibleTiles, setVisibleTiles] = useState(2)
 
-  const [eventInfos, setEventInfos] = useState();
 
+  async function getEvents() {
+    try {
+      const url = "https://mmission007.org/wp-json/wp/v2/eventinfo";
+      const res = await fetch(url);
+      const data = await res.json();
+
+      // Extract only the ACF data for each event
+      // event_image now contains the actual URL
+      const acfArray = data.map(event => ({
+        ...event.acf,
+        event_image: event.acf.event_image // this is now the URL
+      }));
+
+      console.log(acfArray);
+      setEventInfos(acfArray);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
   
-  // async function getEvents() {
-    //   const url = "https://mmission007.org/wp-json/wp/v2/eventinfo";
-    //   const res = await fetch(url);
-    //   const data = await res.json();
-    //   setEventInfos(data[0].acf);
-    // }
-
+useEffect(() => {
+getEvents()
+}, [])
+  
     // async () => {
     //   try{
     //     const url = "https://mmission007.org/wp-json/wp/v2/photogallerymm";
@@ -178,6 +196,12 @@ function chunkArray(arr, chunkSize) {
 
 
         const filteredPhotosChunks = chunkArray(filteredPhotos, 4)
+
+
+
+
+// EVENTS
+
 
   return (
     <div>
@@ -347,7 +371,63 @@ function chunkArray(arr, chunkSize) {
               </div>
             </div>
           </div>
+{/* okkkk */}
 
+<div className="events">
+{eventInfos.map((event, index) => (
+        <article key={index} className="event-card">
+          {event.event_image && (
+            <div className="event-image">
+              <img src={event.event_image} alt={event.event_name} />
+            </div>
+          )}
+
+          <div className="event-content">
+            <h3>{event.event_name}</h3>
+            <p>{event.event_description}</p>
+            <p>
+              {event.date_and_time} - {event.event_end_time}
+            </p>
+            <p>
+              {event.event_location_name}, {event.event_address}
+            </p>
+            <p>Category: {event.event_category}</p>
+            <a href="#" className="read-more">
+              Read More
+            </a>
+          </div>
+        </article>
+      ))}
+</div>
+
+
+{/* {eventInfos?.map((event, i) => (
+  <div key={i} className="event-card">
+
+    <h3>{event.event_name}</h3>
+
+    {event.event_image && (
+      <img
+        src={event.event_image}
+        alt={event.event_name}
+        style={{ width: "100%", borderRadius: "8px" }}
+      />
+    )}
+
+    <p>{event.event_description}</p>
+
+    <p><strong>Start:</strong> {event.date_and_time}</p>
+    <p><strong>End:</strong> {event.event_end_time}</p>
+
+    <p><strong>Where:</strong> {event.event_location_name}</p>
+    <p>{event.event_address}</p>
+
+    <p><strong>Category:</strong> {event.event_category}</p>
+
+  </div>
+))} */}
+
+{/* okkk */}
           {/* <div className="hero-image">
     <img src="https://dl4.pushbulletusercontent2.com/75qN098eZFz5Qnxq9NMSnW07Ur2hEshS/image.png" alt=""/>
   </div> */}
