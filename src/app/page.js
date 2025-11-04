@@ -374,7 +374,7 @@ function chunkArray(arr, chunkSize) {
 {/* okkkk */}
 
 <div className="events">
-{eventInfos.map((event, index) => (
+{eventInfos?.map((event, index) => (
         <article key={index} className="event-card">
           {event.event_image && (
             <div className="event-image">
