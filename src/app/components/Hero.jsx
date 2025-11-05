@@ -26,7 +26,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
             }>
               {/*  */}
               <br/>
-               <span className="divider" style={{marginTop:'30vh',padding:'0'}}>
+               <span className="divider" style={{marginTop:'29vh',padding:'0'}}>
   <span className="divider-line"></span>
   <span className="divider-text" style={{letterSpacing:'0.092em',textAlign:'center'}}>WELCOME TO <br/><strong style={{fontSize:'1.12rem'}}>MISSION 007 MENTORSHIP</strong></span>
   <span className="divider-line reverse"></span>
