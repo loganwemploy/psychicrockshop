@@ -285,10 +285,9 @@ function chunkArray(arr, chunkSize) {
               />
             </div>
           </div>
-          <div
-            className="spacerz"
-            style={{ width: "100vw", height: "3em" }}
-          ></div>
+         <div className="spacer"></div>
+         <div className="spacer"></div>
+         <div className="spacer"></div>
           <span className="divider">
             <span className="divider-line"></span>
             <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
@@ -354,7 +353,7 @@ function chunkArray(arr, chunkSize) {
           </li>
         </ul>
         <br />
-
+<div className="spacer"></div>
         <section className="hero-section">
           <h2 style={{ fontSize: "2em" }}>{eventInfos?.event_name}</h2>
           <h6> {eventInfos?.event_description}</h6>
@@ -372,7 +371,21 @@ function chunkArray(arr, chunkSize) {
             </div>
           </div>
 {/* okkkk */}
-
+      <br />
+     <div className="spacer"></div>
+     <div className="spacer"></div>
+     <div className="spacer"></div>
+<span className="divider" style={{width:'100%'}}>
+        <span className="divider-line"></span>
+        <span className="divider-text" style={{ margin:'auto',letterSpacing: "0.092em", textAlign:'center' }}>
+          UPCOMING EVENTS
+          {/* {photos} */}
+        </span>
+        <span className="divider-line reverse"></span>
+      </span>
+      <br />
+     <div className="spacer"></div>
+{/* end divider */}
 {eventInfos?.map((event, index) => {
     const dateObj = new Date(event.date_and_time);
     const month = dateObj.toLocaleString("en-US", { month: "short" }).toUpperCase();

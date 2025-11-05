@@ -36,7 +36,8 @@ const HeaderBar = () => {
                     <div className="middle-space"></div>
                    
                     <div className="pre-cta-container">
-                    <button className="button">Donate</button></div>
+                    {/* <button className="button">Donate</button> */}
+                    </div>
                 </div>
             </div>
         </div>
