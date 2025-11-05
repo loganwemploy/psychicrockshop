@@ -2,7 +2,7 @@ import React from 'react'
 // css is in globals.css
 const TextCarousel = () => {
   return (
-    <div style={{margin:'0 0 2.32em 0'}}>
+    <div style={{margin:'0 0 1.32em 0'}}>
         <div className="content-slider">
   <div className="slider">
     <div className="mask">
