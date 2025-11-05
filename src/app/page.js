@@ -373,32 +373,50 @@ function chunkArray(arr, chunkSize) {
           </div>
 {/* okkkk */}
 
-<div className="events">
-{eventInfos?.map((event, index) => (
-        <article key={index} className="event-card">
+{eventInfos?.map((event, index) => {
+    const dateObj = new Date(event.date_and_time);
+    const month = dateObj.toLocaleString("en-US", { month: "short" }).toUpperCase();
+    const day = dateObj.getDate();
+    const startTime = dateObj.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+
+    return (
+      <article key={index} className="event-card">
+        
+        {/* Left side */}
+        <div className="event-left">
+          <div className="event-date-box">
+            <span className="event-month">{month}</span>
+            <span className="event-day">{day}</span>
+          </div>
+
+          <div className="event-details">
+            <p><strong>Time:</strong><br /> {startTime} – {event.event_end_time}</p>
+            <p><strong>Location:</strong><br /> {event.event_location_name}</p>
+            <p><strong>Address:</strong> <br />{event.event_address}</p>
+            <p><strong>Category:</strong><br /> {event.event_category}</p>
+          </div>
+        </div>
+
+        {/* Right side */}
+        <div className="event-right">
           {event.event_image && (
             <div className="event-image">
-              <img src={event.event_image} alt={event.event_name} />
+              <img src='https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG' alt={event.event_name} />
             </div>
           )}
 
-          <div className="event-content">
-            <h3>{event.event_name}</h3>
-            <p>{event.event_description}</p>
-            <p>
-              {event.date_and_time} - {event.event_end_time}
-            </p>
-            <p>
-              {event.event_location_name}, {event.event_address}
-            </p>
-            <p>Category: {event.event_category}</p>
-            <a href="#" className="read-more">
-              Read More
-            </a>
-          </div>
-        </article>
-      ))}
-</div>
+          <h3 className="event-title">{event.event_name}</h3>
+          <p className="event-description">{event.event_description}</p>
+
+          <a href="#" className="event-button">Learn More</a>
+        </div>
+      </article>
+    );
+  })}
+
 
 
 {/* {eventInfos?.map((event, i) => (
