@@ -30,7 +30,7 @@ const HeaderBar = () => {
                     // border: '3px solid red'
                 }} className="pre-header">
                     <div className="logo-container">
-                        <div className="logo" style={{display:'flex',objectFit:'fill',height:'15vh',width:'10vw'}}><img src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1" alt="mmission007 logo" /></div>
+                        <div className="logo"><img src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1" alt="mmission007 logo" /></div>
                     </div>
 
                     <div className="middle-space"></div>
