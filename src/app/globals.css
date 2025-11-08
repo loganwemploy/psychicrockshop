@@ -1,4 +1,7 @@
 
+:root {
+  --hero-bg: url('https://dl4.pushbulletusercontent2.com/rDddeB4ppgcGP2oR1nueBHXULIE7a5Rp/image.png');
+}
 
 html,
 body {
@@ -6,7 +9,7 @@ body {
   overflow-x: hidden;
   padding: 0;
   background: #f9f9f9;
-  zoom: 0.9;
+  zoom:1 ;
   margin: auto;
 }
 
@@ -21,7 +24,8 @@ body {
   
   background-size: 10px;
   background-repeat: no-repeat;
-  background: url('https://dl4.pushbulletusercontent2.com/4CO11qiC14mrJDmmmR1vqd8NbipZIHrq/image.png');
+  background: var(--hero-bg);
+
   background-size:  67%;
   background-repeat: no-repeat;
   height: auto;
@@ -32,7 +36,8 @@ body {
   
   background-size: 10px;
   background-repeat: no-repeat;
-  background: url('https://dl4.pushbulletusercontent2.com/4CO11qiC14mrJDmmmR1vqd8NbipZIHrq/image.png');
+ background: var(--hero-bg);
+
   background-size:  100%;
   background-repeat: no-repeat;
   height: auto;
@@ -89,9 +94,9 @@ nav.headernav {
 }
 
 .slider {
-  height: 320px;
-  width: 75vw;
-  margin: 40px auto 0;
+  /* height: 320px; */
+  width: auto;
+  margin: 0.1em auto 0;
   overflow: visible;
   position: relative;
 }
@@ -102,17 +107,18 @@ nav.headernav {
 }
 
 .slider ul {
-  margin: 0;
+  margin: 0 0 0 0;
   padding: 0;
   position: relative;
 }
 
 .slider li {
-  width: 75vw;
-  height: 320px;
+  /* height: 320px; */
   position: absolute;
   top: -325px;
   list-style: none;
+  left: 50%;
+  transform: translate3d(-50%,0,0);
 }
 
 .slider .quote {
@@ -126,23 +132,23 @@ nav.headernav {
 }
 
 .slider li.anim1 {
-  animation: cycle 35s linear infinite;
+  animation: cycle 45s linear infinite;
 }
 
 .slider li.anim2 {
-  animation: cycle2 35s linear infinite;
+  animation: cycle2 45s linear infinite;
 }
 
 .slider li.anim3 {
-  animation: cycle3 35s linear infinite;
+  animation: cycle3 45s linear infinite;
 }
 
 .slider li.anim4 {
-  animation: cycle4 35s linear infinite;
+  animation: cycle4 45s linear infinite;
 }
 
 .slider li.anim5 {
-  animation: cycle5 35s linear infinite;
+  animation: cycle5 45s linear infinite;
 }
 
 .slider:hover li {
@@ -1751,3 +1757,191 @@ _#_#_#_#_#_# */
     width: 100vw;
     /* background-color: red; */
   }
+
+
+
+
+
+  /* Waves */
+
+  /* Wave Section */
+   .wave-section {
+    background-color: #443f42;
+    overflow: hidden;
+    }
+    
+     .wave-section svg {
+    width: 100%;
+    height: 100px;
+    display: block;
+    }
+    
+     .featured {
+    background: #443f42;
+    text-align: center;
+    padding: 2rem 1rem;
+    }
+    
+     .featured-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    }
+    
+     .featured-item {
+    text-align: center;
+    }
+    
+     .featured-item img {
+    width: 120px;
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+    }
+    
+     .separator {
+    font-size: 1.5rem;
+    color: #ccc;
+    }
+  
+  
+  
+    
+   .two {
+      height: 50vh;
+      background: url('https://dl3.pushbulletusercontent.com/aqYaI1J0suXMFSIVUbYjt5ks4zik9wH2/image.png') center bottom no-repeat;
+      background-size: cover;
+      
+      position: relative;
+  }
+  
+  .two .wave-divider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+  }
+  
+  .two .wave-divider svg {
+      position: relative;
+      display: block;
+      width: calc(124% + 1.3px);
+      height: 49px;
+  }
+  
+  .two .wave-divider .shape-fill {
+      fill: #443f42;
+  }
+  
+
+
+/* textcarousel card */
+.customer-call {
+  background-color: #ff00ff;
+  background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 55%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 21.32em;
+  height: 8.75em;
+  color: white;
+}
+#customer-call-2 {
+  background-color: #0073ff;
+  background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 55%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 21.32em;
+  height: 8.75em;
+  color: white;
+}
+
+.customer-call__header h2 {
+  font-size: 0.9em;
+  font-weight: 300;
+  margin-bottom: 0.1em;
+}
+
+.customer-call__source {
+  font-size: 0.6em;
+  font-weight: 300;
+}
+
+.customer-call__card {
+  background: white;
+  border-radius: 0.6em;
+  padding: 0.6em;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.customer-call__actions {
+  display: flex;
+  gap: 0.4em;
+}
+
+.btn-accept {
+  background: #ff00ff;
+  color: white;
+  border: none;
+  padding: 0.35em 0.75em;
+  border-radius: 0.4em;
+  font-size: 0.7em;
+}
+
+.btn-decline {
+  background: transparent;
+  border: 0.1em solid #0073ff;
+  color: #0073ff;
+  padding: 0.35em;
+  border-radius: 0.4em;
+  font-size: 0.7em;
+}
+.btn-accept-2 {
+  background: #0073ff;
+  color: white;
+  border: none;
+  padding: 0.35em 0.75em;
+  border-radius: 0.4em;
+  font-size: 0.7em;
+}
+
+.btn-decline-2 {
+  background: transparent;
+  border: 0.1em solid #0073ff;
+  color: #0073ff;
+  padding: 0.35em;
+  border-radius: 0.4em;
+  font-size: 0.7em;
+}
+
+.customer-call__details {
+  background: #f0f0f0;
+  border-radius: 0.45em;
+  padding: 0.5em;
+}
+
+.customer-call__name {
+  margin-bottom: 0.15em;
+  font-size: 0.8em;
+}
+
+.customer-call__vip {
+  font-size: 0.6em;
+  color: #555;
+  font-weight: 300;
+}
