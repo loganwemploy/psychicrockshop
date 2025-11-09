@@ -1747,10 +1747,11 @@ _#_#_#_#_#_# */
   .logo-container .logo {
     display: flex;
     object-fit: fill;
-    height: 12vh;
-    width: 10vw;
-    margin: 0 0 0 -2.12em; 
-    zoom: 0.88;
+    height: 16vh;
+    width: 13vw;
+    padding: 0.32em 0.67em;
+    margin: 0 0 0 -3.3em;
+    mix-blend-mode: multiply;
   }
 
   .spacer {
