@@ -389,15 +389,15 @@ function chunkArray(arr, chunkSize) {
           <h6> {eventInfos?.event_description}</h6>
           <div className="hero-text">
             <div className="hero-content">
-              <h2>Want to become a sponsor?</h2>
-              {/* <p>
-       Learn More About How
-      </p> */}
-              <div className="hero-button">
-                <a href="#" style={{ fontSize: "1rem" }}>
-                  Learn More About How
-                </a>
-              </div>
+            
+<span className="divider">
+  <span className="divider-line"></span>
+  <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
+    Take a quick &amp; free quiz
+  </span>
+  <span className="divider-line reverse"></span>
+</span>
+<QuizletPaths />
             </div>
           </div>
 {/* okkkk */}
@@ -631,14 +631,6 @@ function chunkArray(arr, chunkSize) {
       </div>
       {/* <SubHero /> */}
       {/* <Quizlet /> */}
-      <span className="divider">
-        <span className="divider-line"></span>
-        <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
-          Take a quick &amp; free quiz
-        </span>
-        <span className="divider-line reverse"></span>
-      </span>
-      <QuizletPaths />
     </div>
   );
 }

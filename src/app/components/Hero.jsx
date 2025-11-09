@@ -15,6 +15,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
         <div className='hero' style={
             { 
             width: '100vw',
+            
             height: 'auto',
             minHeight:'50vh',
             overflow: 'hidden',
@@ -26,7 +27,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
             }>
               {/*  */}
               <br/>
-               <span className="divider" style={{marginTop:'27vh',padding:'0 0 1em 0'}}>
+               <span className="divider" style={{marginTop:'3.3rem',padding:'0 0 1em 0'}}>
   <span className="divider-line"></span>
   <span className="divider-text" style={{letterSpacing:'0.092em',textAlign:'center'}}>WELCOME TO <br/><strong style={{fontSize:'1.12rem'}}>MISSION 007 MENTORSHIP</strong></span>
   <span className="divider-line reverse"></span>
@@ -37,7 +38,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
  {/* end */}
         <TextCarousel />
         {/* Css for this divider lives in globals.css */}
-        <span className="divider" style={{marginTop:'-3.2vh'}}>
+        <span className="divider" style={{marginTop:'0.52em'}}>
   <span className="divider-line"></span>
   <span className="divider-text" style={{letterSpacing:'0.092em'}}>WHO ARE WE?</span>
   <span className="divider-line reverse"></span>

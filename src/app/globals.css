@@ -24,7 +24,7 @@ body {
   
   background-size: 10px;
   background-repeat: no-repeat;
-  background: var(--hero-bg);
+  /* background: var(--hero-bg); */
 
   background-size:  67%;
   background-repeat: no-repeat;
@@ -36,7 +36,7 @@ body {
   
   background-size: 10px;
   background-repeat: no-repeat;
- background: var(--hero-bg);
+ /* background: var(--hero-bg); */
 
   background-size:  100%;
   background-repeat: no-repeat;
@@ -475,9 +475,10 @@ _#_#_#_#_#_# */
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: #f3f4f6;
-  padding: 20px;
+  padding: 0;
+  margin: 1.32em 0 0 0;
 }
 
 .quiz-card {
@@ -1180,7 +1181,7 @@ _#_#_#_#_#_# */
 /* Text Column */
 .hero-text {
   flex: 1 1 50%;
-  padding: 2rem;
+  padding: 0.32em;
   display: flex;
   align-items: center;
   justify-content: center;
