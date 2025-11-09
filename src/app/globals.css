@@ -1838,7 +1838,7 @@ _#_#_#_#_#_# */
 
 /* textcarousel card */
 .customer-call {
-  background-color: #ff00ff;
+  background-color: #ae81ae;
   background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
   background-position: right center;
   background-repeat: no-repeat;
@@ -1853,11 +1853,26 @@ _#_#_#_#_#_# */
   color: white;
 }
 #customer-call-2 {
-  background-color: #0073ff;
-  background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
+  background-color: #a7c1cb;
+  background-image: url("https://dl4.pushbulletusercontent2.com/LhNN8TIaDSyRgH9WE4q2db0nRITi0xRX/shauntiapointingrmbg.png");
   background-position: right center;
   background-repeat: no-repeat;
-  background-size: 55%;
+  background-size: 60%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 21.32em;
+  height: 8.75em;
+  color: white;
+}
+#customer-call-3 {
+  background-color: #a7c1cb;
+  background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40%;
   border-radius: 0.9em;
   padding: 0.9em;
   display: flex;
@@ -1880,9 +1895,9 @@ _#_#_#_#_#_# */
 }
 
 .customer-call__card {
-  background: white;
+  background: rgba(245, 245, 245, 0.325);
   border-radius: 0.6em;
-  padding: 0.6em;
+  padding: 1em;
   color: black;
   display: flex;
   justify-content: space-between;
@@ -1895,7 +1910,7 @@ _#_#_#_#_#_# */
 }
 
 .btn-accept {
-  background: #ff00ff;
+  background: #ae81ae;
   color: white;
   border: none;
   padding: 0.35em 0.75em;
@@ -1930,7 +1945,7 @@ _#_#_#_#_#_# */
 }
 
 .customer-call__details {
-  background: #f0f0f0;
+  background: rgba(245, 245, 245, 0.325);
   border-radius: 0.45em;
   padding: 0.5em;
 }

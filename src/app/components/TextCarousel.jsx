@@ -21,10 +21,10 @@ const TextCarousel = () => {
       <button className="btn-decline">✖️</button>
     </div>
 
-    <div className="customer-call__details">
+    {/* <div className="customer-call__details">
       <div className="customer-call__name">Mission </div>
       <div className="customer-call__vip">007</div>
-    </div>
+    </div> */}
   </div>
 </div>
 
@@ -45,10 +45,32 @@ const TextCarousel = () => {
       <button className="btn-decline-2">✖️</button>
     </div>
 
-    <div className="customer-call__details">
+    {/* <div className="customer-call__details">
       <div className="customer-call__name">Mission</div>
       <div className="customer-call__vip">007 </div>
+    </div> */}
+  </div>
+</div>
+{/* emd note wrapper end */}
+        </li>
+        <li className="anim3">
+              {/* note wrapper  */}
+              <div className="customer-call" id="customer-call-3">
+  <div className="customer-call__header">
+    <h2>Life-Skills Workshops</h2>
+    <div className="customer-call__source">Learn More</div>
+  </div>
+
+  <div className="customer-call__card">
+    <div className="customer-call__actions">
+      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-decline-2">✖️</button>
     </div>
+
+    {/* <div className="customer-call__details">
+      <div className="customer-call__name">Mission</div>
+      <div className="customer-call__vip">007 </div>
+    </div> */}
   </div>
 </div>
 {/* emd note wrapper end */}
