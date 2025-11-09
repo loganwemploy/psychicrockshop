@@ -1855,6 +1855,36 @@ _#_#_#_#_#_# */
   color: white;
 }
 #customer-call-2 {
+  background-color: #BCB8D0;
+  background-image: url("https://dl4.pushbulletusercontent2.com/ZMy5nWO0m3zsvYfwthqf8nSQAadKzlOD/shauntiawholecrew.png");
+  background-position: 75% 0%;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 21.32em;
+  height: 8.75em;
+  color: white;
+}
+#customer-call-3 {
+  background-color: #B1CBA7;
+  background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 21.32em;
+  height: 8.75em;
+  color: white;
+}
+#customer-call-4 {
   background-color: #a7c1cb;
   background-image: url("https://dl4.pushbulletusercontent2.com/LhNN8TIaDSyRgH9WE4q2db0nRITi0xRX/shauntiapointingrmbg.png");
   background-position: right center;
@@ -1869,12 +1899,12 @@ _#_#_#_#_#_# */
   height: 8.75em;
   color: white;
 }
-#customer-call-3 {
-  background-color: #a7c1cb;
+#customer-call-5 {
+  background-color: #0D8BCB;
   background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
   background-position: right center;
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 60%;
   border-radius: 0.9em;
   padding: 0.9em;
   display: flex;
@@ -1949,7 +1979,7 @@ _#_#_#_#_#_# */
 .customer-call__details {
   background: rgba(245, 245, 245, 0.325);
   border-radius: 0.45em;
-  padding: 0.5em;
+  padding: 1.67em 0.5em;
 }
 
 .customer-call__name {

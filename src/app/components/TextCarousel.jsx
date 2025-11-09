@@ -11,7 +11,7 @@ const TextCarousel = () => {
        {/* note wrapper  */}
        <div className="customer-call">
   <div className="customer-call__header">
-    <h2>Career Coaching</h2>
+    <h2>Care1er Coaching</h2>
     <div className="customer-call__source">learn more</div>
   </div>
 
@@ -35,7 +35,7 @@ const TextCarousel = () => {
               {/* note wrapper  */}
               <div className="customer-call" id="customer-call-2">
   <div className="customer-call__header">
-    <h2>Life-Skills Workshops</h2>
+    <h2>Life-S2kills Workshops</h2>
     <div className="customer-call__source">Learn More</div>
   </div>
 
@@ -57,7 +57,51 @@ const TextCarousel = () => {
               {/* note wrapper  */}
               <div className="customer-call" id="customer-call-3">
   <div className="customer-call__header">
-    <h2>Life-Skills Workshops</h2>
+    <h2>Life-Sk3ills Workshops</h2>
+    <div className="customer-call__source">Learn More</div>
+  </div>
+
+  <div className="customer-call__card">
+    <div className="customer-call__actions">
+      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-decline-2">✖️</button>
+    </div>
+
+    {/* <div className="customer-call__details">
+      <div className="customer-call__name">Mission</div>
+      <div className="customer-call__vip">007 </div>
+    </div> */}
+  </div>
+</div>
+{/* emd note wrapper end */}
+        </li>
+        <li className="anim4">
+              {/* note wrapper  */}
+              <div className="customer-call" id="customer-call-4">
+  <div className="customer-call__header">
+    <h2>Life-Ski4lls Workshops</h2>
+    <div className="customer-call__source">Learn More</div>
+  </div>
+
+  <div className="customer-call__card">
+    <div className="customer-call__actions">
+      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-decline-2">✖️</button>
+    </div>
+
+    {/* <div className="customer-call__details">
+      <div className="customer-call__name">Mission</div>
+      <div className="customer-call__vip">007 </div>
+    </div> */}
+  </div>
+</div>
+{/* emd note wrapper end */}
+        </li>
+        <li className="anim5">
+              {/* note wrapper  */}
+              <div className="customer-call" id="customer-call-5">
+  <div className="customer-call__header">
+    <h2>Life-Ski5lls Workshops</h2>
     <div className="customer-call__source">Learn More</div>
   </div>
 
@@ -93,7 +137,7 @@ const TextCarousel = () => {
         </li> */}
       {/*  */}
       {/*  */}
-        <li className="anim4">
+        {/* <li className="anim4">
         <div className="customer-call">
   <div className="customer-call__header">
     <h2>Customer Call</h2>
@@ -112,7 +156,7 @@ const TextCarousel = () => {
     </div>
   </div>
 </div>
-        </li>
+        </li> */}
         {/* <li className="anim5">
         <div className="quote">To Thy Own Self Be True.</div>
         <div className="source"><button className="cta-button-carousel">Get In Touch</button></div>
