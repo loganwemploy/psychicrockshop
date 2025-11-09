@@ -17,28 +17,26 @@ const HeaderBar = () => {
     return (
         <div>
             <div className={styles.page} style={{ padding: '0', margin: '0' }}>
-                <div style={{
-                    height: '10px',
-                    height: 'auto',
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                    width: '100vw',
-                    maxWidth: '100%',
-                    color:'white',
-                    fontSize:'2em',
-                    overflow: 'hidden',
-                    // border: '3px solid red'
-                }} className="pre-header">
-                    <div className="logo-container">
-                        <div className="logo"><img src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1" alt="mmission007 logo" /></div>
-                    </div>
+            <div id="header">
+      <a href="#"
+        ><img
+          src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
+          alt="logo"
+          className="logo"
+      /></a>
 
-                    <div className="middle-space"></div>
-                   
-                    <div className="pre-cta-container">
-                    {/* <button className="button">Donate</button> */}
-                    </div>
-                </div>
+      <input type="checkbox" id="check" />
+      <label htmlFor="check" className="icons">
+        <i className="bx bx-menu" id="menu-icon"></i>
+        <i className="bx bx-x" id="close-icon"></i>
+      </label>
+
+      <nav className="navbar">
+        <a href="#" className="nav-item" >Page 1</a>
+        <a href="#" className="nav-item" >Page 2 </a>
+        <a href="#" className="nav-item" >Page 3</a>
+      </nav>
+    </div>
             </div>
         </div>
     )

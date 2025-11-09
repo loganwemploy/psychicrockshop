@@ -76,14 +76,14 @@ const TextCarousel = () => {
 {/* emd note wrapper end */}
         </li>
         {/* <li className="anim4" style={{padding:'0'}}>
-        <div class="hero__cta">
+        <div className="hero__cta">
 					<img style={{maxWidth:'3em'}} src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1" alt=""/>
-					<p class="cta__txt">
+					<p className="cta__txt">
 						From cityscapes to beaches, we guide you. We handle details so you can focus on getting lost in the moment.
 					</p>
 
-					<a href="#" class="cta__btn btn">
-						<span class="btn-txt">EXPLORE TRIPS</span>
+					<a href="#" className="cta__btn btn">
+						<span className="btn-txt">EXPLORE TRIPS</span>
 						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" fill="none">
 							<path fill="#fff" d="m17.76 6.857-5.727-5.688a.821.821 0 0 0-1.147.01.81.81 0 0 0-.01 1.139l4.33 4.3H.819a.821.821 0 0 0-.578.238.81.81 0 0 0 .578 1.388h14.389l-4.33 4.3a.813.813 0 0 0-.19.892.813.813 0 0 0 .765.505.824.824 0 0 0 .581-.248l5.727-5.688a.81.81 0 0 0 0-1.148Z" />
 						</svg>
