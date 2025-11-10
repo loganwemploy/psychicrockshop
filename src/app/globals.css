@@ -16,10 +16,14 @@ body {
 body {
   /* color: var(--foreground);
   background: var(--background); */
-  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Questrial", sans-serif;
 }
+h1,h2 {    font-family: "Oxygen", sans-serif;}
+h3,h4,h5,h6 {font-family: "Mako", sans-serif;}
+
+
 .hero {
   
   background-size: 10px;
@@ -837,7 +841,7 @@ _#_#_#_#_#_# */
   margin: 0;
   display: grid;
   gap: 1rem;
-  font-family: "Inter", Arial, sans-serif;
+  /* font-family: "Inter", Arial, sans-serif; */
 }
 
 .youth-service-list li {
@@ -1021,7 +1025,7 @@ _#_#_#_#_#_# */
   margin: 0 auto;
   padding: 2rem 1rem;
   box-sizing: border-box;
-  font-family: system-ui, sans-serif;
+  font-family: "Yantramanav", sans-serif;
 }
 
 /* Filter Bar */
@@ -1871,10 +1875,11 @@ _#_#_#_#_#_# */
 }
 #customer-call-3 {
   background-color: #B1CBA7;
-  background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
-  background-position: right center;
+  /* background-color: #0D8BCB; */
+  background-image: url("https://dl4.pushbulletusercontent2.com/Wzc8GWorBArziT9x32WT3jLZIyD7rE41/shauntiaribboncut.png");
+  background-position: right top;
   background-repeat: no-repeat;
-  background-size: 40%;
+  background-size: 60%;
   border-radius: 0.9em;
   padding: 0.9em;
   display: flex;
@@ -1902,7 +1907,7 @@ _#_#_#_#_#_# */
 #customer-call-5 {
   background-color: #0D8BCB;
   background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
-  background-position: right center;
+  background-position: right top;
   background-repeat: no-repeat;
   background-size: 60%;
   border-radius: 0.9em;
