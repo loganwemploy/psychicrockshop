@@ -354,7 +354,7 @@ function chunkArray(arr, chunkSize) {
             <span className="icon">🏠</span>{" "}
             <strong>Pathways to Success</strong>: To provide youth with access to resources, networks, and opportunities that can open doors to higher education, internships, job placements, and entrepreneurial ventures, helping them achieve their goals.
           </li>
-          <li>
+          {/* <li>
             <span className="icon">🌐</span>
             <strong>Peer and alumni networks</strong> to connect, mentor, and
             build community.
@@ -373,7 +373,7 @@ function chunkArray(arr, chunkSize) {
             <span className="icon">👨‍👩‍👧</span>{" "}
             <strong>Family and community engagement</strong>workshops that build
             supportive environments.
-          </li>
+          </li> */}
         </ul>
 
 <div className="spacer"></div>

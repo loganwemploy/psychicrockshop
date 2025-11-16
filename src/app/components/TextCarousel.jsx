@@ -34,7 +34,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept">✅ Register Now</button>
+      <button className="btn-accept">✅ Learn More Now</button>
       <button className="btn-decline">✖️</button>
     </div>
 
@@ -58,7 +58,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-accept-2">✅ Learn More Now</button>
       <button className="btn-decline-2">✖️</button>
     </div>
 
@@ -80,7 +80,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-accept-2">✅ Learn More Now</button>
       <button className="btn-decline-2">✖️</button>
     </div>
 
@@ -102,7 +102,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-accept-2">✅ Learn More Now</button>
       <button className="btn-decline-2">✖️</button>
     </div>
 
@@ -124,7 +124,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Register Now</button>
+      <button className="btn-accept-2">✅ Learn More Now</button>
       <button className="btn-decline-2">✖️</button>
     </div>
 
@@ -165,7 +165,7 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept">✅ Register Now</button>
+      <button className="btn-accept">✅ Learn More Now</button>
       <button className="btn-decline">✖️</button>
     </div>
 
