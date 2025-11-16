@@ -137,23 +137,23 @@ nav.headernav {
 }
 
 .slider li.anim1 {
-  animation: cycle 45s linear infinite;
+  animation: cycle 30s linear infinite;
 }
 
 .slider li.anim2 {
-  animation: cycle2 45s linear infinite;
+  animation: cycle2 30s linear infinite;
 }
 
 .slider li.anim3 {
-  animation: cycle3 45s linear infinite;
+  animation: cycle3 30s linear infinite;
 }
 
 .slider li.anim4 {
-  animation: cycle4 45s linear infinite;
+  animation: cycle4 30s linear infinite;
 }
 
 .slider li.anim5 {
-  animation: cycle5 45s linear infinite;
+  animation: cycle5 30s linear infinite;
 }
 
 .slider:hover li {
