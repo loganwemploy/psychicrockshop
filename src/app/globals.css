@@ -11,6 +11,7 @@ body {
   background: #f9f9f9;
   zoom:1 ;
   margin: auto;
+  font-family: "Inter", Arial, sans-serif;
 }
 h1,h2 {font-family: "Oxygen", sans-serif;}
 /* font-family: "Questrial", sans-serif;
@@ -1025,7 +1026,7 @@ _#_#_#_#_#_# */
   margin: 0 auto;
   padding: 2rem 1rem;
   box-sizing: border-box;
-  font-family: system-ui, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 /* Filter Bar */
@@ -1712,7 +1713,7 @@ _#_#_#_#_#_# */
   margin-top: -1em;
 }
 .hero__header {
-	font-family: Anton, sans-serif;
+	font-family: "Inter", Arial, sans-serif;
 	/* 	font-size: 130px; */
 	font-size: clamp(2.75rem, 7.89vw + 1.024rem, 8.125rem);
 	line-height: 99%;
@@ -1947,7 +1948,7 @@ _#_#_#_#_#_# */
 }
 
 .btn-accept {
-  background: #ae81ae;
+  background: rgba(90,90,90,0.5);
   color: white;
   border: none;
   padding: 0.35em 0.75em;
@@ -1964,7 +1965,7 @@ _#_#_#_#_#_# */
   font-size: 0.7em;
 }
 .btn-accept-2 {
-  background: #0073ff;
+  background: rgba(90,90,90,0.5);
   color: white;
   border: none;
   padding: 0.35em 0.75em;
@@ -2243,3 +2244,12 @@ _#_#_#_#_#_# */
     width: 120px;
   }
 }
+
+
+
+blockquote {
+  border-left: 5px solid #730a73;
+  padding: 1em;
+  background-color: #e8dce8;
+}
+

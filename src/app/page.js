@@ -241,7 +241,7 @@ function chunkArray(arr, chunkSize) {
       
       <br />
       <br />
-      <span className="divider" style={{ marginTop: "5em" }}>
+      <span className="divider" style={{ marginTop: "12em" }}>
         <span className="divider-line"></span>
         <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
           WHAT WE PROVIDE
@@ -320,7 +320,7 @@ function chunkArray(arr, chunkSize) {
          <div className="spacer"></div>
           <span className="divider">
             <span className="divider-line"></span>
-            <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
+            <span className="divider-text" style={{ letterSpacing: "0.092em",fontWeight:'bold' }}>
               Summary of Services
             </span>
             <span className="divider-line reverse"></span>
@@ -332,34 +332,27 @@ function chunkArray(arr, chunkSize) {
         <ul className="youth-service-list">
           <li>
             <span className="icon">✨</span>{" "}
-            <strong>One-on-one mentorship</strong> with a trained adult who
-            guides goal-setting, decision-making, and personal growth.
+            <strong>Empowerment</strong>: To empower youth ages 16-25 by building their self-confidence, leadership skills, and a growth mindset, enabling them to take charge of their personal and professional development.
           </li>
           <li>
             <span className="icon">🤝</span>
-            <strong>Group mentoring circles</strong> focused on social-emotional
-            learning (SEL), leadership, and peer support.
+            <strong>Mentorship</strong>: To connect young individuals with experienced, successful mentors who can provide guidance, advice, and support to help them navigate the path towards their goals.
           </li>
           <li>
             <span className="icon">💼</span>
-            <strong>Career-readiness assistance:</strong> résumé and
-            job-application help, interview coaching, and networking
-            opportunities.
+            <strong>Skill Development</strong>: To equip youth with practical, in-demand skills across various domains, such as entrepreneurship, digital literacy, financial management, and effective communication, preparing them for future success.
           </li>
           <li>
             <span className="icon">🎓</span>{" "}
-            <strong>Educational support:</strong> tutoring, GED/HS diploma
-            transition, and college application advising.
+            <strong>Inspiration:</strong>: To inspire young people to dream big, think creatively, and pursue their passions, by exposing them to role models, success stories, and innovative ideas that ignite their imagination.
           </li>
           <li>
             <span className="icon">💡</span>{" "}
-            <strong>Life-skills workshops</strong>: budgeting, healthy
-            relationships, time, and stress management.
+            <strong>Community Building</strong>: To foster a supportive, collaborative community where youth can connect with their peers, share experiences, and learn from one another, cultivating a sense of belonging and mutual encouragement.
           </li>
           <li>
             <span className="icon">🏠</span>{" "}
-            <strong>Transitional support</strong>: help with housing,
-            transportation, and job placement.
+            <strong>Pathways to Success</strong>: To provide youth with access to resources, networks, and opportunities that can open doors to higher education, internships, job placements, and entrepreneurial ventures, helping them achieve their goals.
           </li>
           <li>
             <span className="icon">🌐</span>
@@ -382,7 +375,13 @@ function chunkArray(arr, chunkSize) {
             supportive environments.
           </li>
         </ul>
+
+<div className="spacer"></div>
+<div className="spacer"></div>
+        <blockquote>By focusing on these key goals, Mission 007 NFP aims to empower and transform the lives of young individuals, enabling them to unlock their full potential and create a brighter future for themselves and their communities.</blockquote>
         <br />
+<div className="spacer"></div>
+<div className="spacer"></div>
 <div className="spacer"></div>
         <section className="hero-section">
           <h2 style={{ fontSize: "2em" }}>{eventInfos?.event_name}</h2>
@@ -403,8 +402,8 @@ function chunkArray(arr, chunkSize) {
 {/* okkkk */}
       <br />
      <div className="spacer"></div>
-     <div className="spacer"></div>
-     <div className="spacer"></div>
+     <div className="spacer" style={{height:'7.5em',width:'10px'}}></div>
+    
 <span className="divider" style={{width:'100%'}}>
         <span className="divider-line"></span>
         <span className="divider-text" style={{ margin:'auto',letterSpacing: "0.092em", textAlign:'center' }}>
@@ -522,7 +521,8 @@ function chunkArray(arr, chunkSize) {
           </div>
         </div>
       </section>
-
+      <div className="spacer"></div>
+      <div className="spacer" style={{height:'7.5em',width:'10px'}}></div>
       {/* <TextCarousel /> */}
 
       <div className="yg-gallery-container">
