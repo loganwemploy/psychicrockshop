@@ -46,7 +46,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
 <br />
 {/*  */}
        <div className="anchored" style={{backgroundColor:'rgba(0,0,0,0)',height:'auto',width:'100vw'}}>
-       <h1 style={{ fontSize: '1.92ch',textAlign:'left',paddingLeft:'2.5em',width:'88%',lineHeight:'1.4',filter:'contrast(1.5)',textShadow:'2px 3px solid rgba(0,0,0,0.32)' }}>At Mission 007 NFP <span style={{fontWeight:'normal'}}>our purpose is to empower and inspire youth ages 16-25 to unlock their full potential and pursue their dreams with confidence. We provide mentorship, resources, and a supportive community to help young individuals set meaningful goals, develop essential skills, and overcome challenges.	</span></h1>
+       <h1 style={{ fontSize: '1.86ch',textAlign:'left',paddingLeft:'2.5em',width:'88%',lineHeight:'1.4',filter:'contrast(1.5)',textShadow:'2px 3px solid rgba(0,0,0,0.32)' }}>At Mission 007 NFP <span style={{fontWeight:'normal'}}>our purpose is to empower and inspire youth ages 16-25 to unlock their full potential and pursue their dreams with confidence. We provide mentorship, resources, and a supportive community to help young individuals set meaningful goals, develop essential skills, and overcome challenges.	</span></h1>
        <button className="button" style={{left:'50%'}}>Contact Us Now</button>
        
        <blockquote style={{marginTop:'1.88em'}}> Together, we ignite passion and ambition, enabling the next generation to lead with purpose and create a positive impact in their lives and communities.</blockquote>
