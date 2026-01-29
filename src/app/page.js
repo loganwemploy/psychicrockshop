@@ -7,6 +7,7 @@ import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
+import QuickLinksModal from "./components/QuickLinksModal";
 import { useState, useEffect, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
@@ -206,6 +207,7 @@ function chunkArray(arr, chunkSize) {
   return (
     <div>
       <HeaderBar />
+      <QuickLinksModal />
       <Hero />
       {/* <div className="spacer" style={{width:'100vw',height:'50vw'}}></div> */}
       {/* Css for this divider lives in globals.css */}

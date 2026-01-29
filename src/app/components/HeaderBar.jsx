@@ -1,5 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import styles from "../page.module.css";
 const HeaderBar = () => {
@@ -14,16 +16,24 @@ const HeaderBar = () => {
 
     
 
+    const pathname = usePathname()
+
+    const navLinkClass = (href, extraClass = '') => {
+      const isHome = pathname === '/'
+      const isActive = !isHome && pathname === href
+      return `nav-item${isActive ? ' nav-item-active' : ''}${extraClass ? ` ${extraClass}` : ''}`
+    }
+
     return (
         <div>
             <div className={styles.page} style={{ padding: '0', margin: '0' }}>
             <div id="header">
-      <a href="#"
+      <Link href="/"
         ><img
           src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
           alt="logo"
           className="logo"
-      /></a>
+      /></Link>
 
       <input type="checkbox" id="check" />
       <label htmlFor="check" className="icons">
@@ -32,9 +42,27 @@ const HeaderBar = () => {
       </label>
 
       <nav className="navbar">
-        <a href="#" className="nav-item" >Page 1</a>
-        <a href="#" className="nav-item" >Page 2 </a>
-        <a href="#" className="nav-item" >Page 3</a>
+        <Link
+          href="/about-us"
+          className={navLinkClass('/about-us')}
+          aria-current={pathname !== '/' && pathname === '/about-us' ? 'page' : undefined}
+        >
+          About Us
+        </Link>
+        <Link
+          href="/how-you-can-help"
+          className={navLinkClass('/how-you-can-help')}
+          aria-current={pathname !== '/' && pathname === '/how-you-can-help' ? 'page' : undefined}
+        >
+          How You Can Help
+        </Link>
+        <Link
+          href="/learn-where-to-start"
+          className={navLinkClass('/learn-where-to-start', 'nav-cta')}
+          aria-current={pathname !== '/' && pathname === '/learn-where-to-start' ? 'page' : undefined}
+        >
+          Learn Where to Start
+        </Link>
       </nav>
     </div>
             </div>
