@@ -323,7 +323,7 @@ function chunkArray(arr, chunkSize) {
           <span className="divider">
             <span className="divider-line"></span>
             <span className="divider-text" style={{ letterSpacing: "0.092em",fontWeight:'bold' }}>
-              Summary of Services&nbsp;
+              Summary of Services
             </span>
             <span className="divider-line reverse"></span>
           </span>
