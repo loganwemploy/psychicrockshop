@@ -18,8 +18,9 @@ const HeaderBar = () => {
 
     const pathname = usePathname()
 
+    const isHome = pathname === '/'
+
     const navLinkClass = (href, extraClass = '') => {
-      const isHome = pathname === '/'
       const isActive = !isHome && pathname === href
       return `nav-item${isActive ? ' nav-item-active' : ''}${extraClass ? ` ${extraClass}` : ''}`
     }
@@ -65,6 +66,7 @@ const HeaderBar = () => {
         </Link>
       </nav>
     </div>
+    {!isHome && <div className="header-spacer" />}
             </div>
         </div>
     )

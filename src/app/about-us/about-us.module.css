@@ -44,8 +44,9 @@
 
 .heroImage {
   width: 100%;
-  height: clamp(240px, 40vw, 420px);
+  height: clamp(320px, 42vw, 560px);
   object-fit: cover;
+  object-position: center;
   border-radius: 18px;
   margin-bottom: 1.5rem;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15);
@@ -187,7 +188,7 @@
 
 .fullWidthImage {
   width: 100%;
-  height: clamp(220px, 35vw, 360px);
+  height: clamp(320px, 45vw, 600px);
   object-fit: cover;
   object-position: center;
   border-radius: 16px;
@@ -226,8 +227,9 @@
 
 .imageBlock {
   width: 100%;
-  height: clamp(260px, 34vw, 420px);
+  height: clamp(320px, 36vw, 540px);
   object-fit: cover;
+  object-position: center;
   border-radius: 18px;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
 }

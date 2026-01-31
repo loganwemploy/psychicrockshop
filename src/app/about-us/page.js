@@ -158,29 +158,6 @@ export default function AboutUsPage() {
               Inspiration to dream big and pursue new possibilities.
             </li>
           </ul>
-          <img
-          id="full-width-image2" style={{width:'100%',height:'auto',maxHeight:'88vh'}}
-            src="https://dl4.pushbulletusercontent2.com/ZMy5nWO0m3zsvYfwthqf8nSQAadKzlOD/shauntiawholecrew.png"
-            alt="Mission 007 youth community gathering"
-            className={styles.fullWidthImage}
-          />
-        </section>
-
-        <section className={styles.splitReverse}>
-          <img
-            src="https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png"
-            alt="Mission 007 community support session"
-            className={styles.imageBlock}
-          />
-          <div>
-            <h2>Community built around growth</h2>
-            <p>
-              We build spaces where youth feel seen, supported, and challenged.
-              From goal setting to skill-building, every interaction is designed
-              to strengthen confidence and prepare young people for what is
-              next.
-            </p>
-          </div>
         </section>
 
         <section className={styles.section}>

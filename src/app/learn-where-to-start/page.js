@@ -17,7 +17,28 @@ export const metadata = {
     "Mission 007 Mentorship is a not-for-profit supporting youth ages 16-25 through mentorship, resources, and six core focus areas.",
 };
 
-export default function LearnWhereToStartPage() {
+async function getEvents() {
+  try {
+    const res = await fetch(
+      "https://mmission007.org/wp-json/wp/v2/eventinfo",
+      { next: { revalidate: 300 } }
+    );
+    if (!res.ok) {
+      return { events: [], error: true };
+    }
+    const data = await res.json();
+    const events = data.map((event) => ({
+      ...event.acf,
+      event_image: event.acf?.event_image,
+    }));
+    return { events, error: false };
+  } catch {
+    return { events: [], error: true };
+  }
+}
+
+export default async function LearnWhereToStartPage() {
+  const { events, error } = await getEvents();
   return (
     <div className={styles.page}>
       <HeaderBar />
@@ -181,6 +202,82 @@ export default function LearnWhereToStartPage() {
               Stay connected to a supportive community.
             </li>
           </ul>
+        </section>
+
+        <section className={styles.section}>
+          <h2>Upcoming events</h2>
+          <p>
+            Explore upcoming Mission 007 Mentorship events and find the right
+            opportunity to get involved.
+          </p>
+          {error && (
+            <div className={styles.eventNotice}>
+              We are unable to load events right now. Please check back soon.
+            </div>
+          )}
+          {!error && events.length === 0 && (
+            <div className={styles.eventNotice}>
+              No upcoming events are listed at the moment.
+            </div>
+          )}
+          {!error && events.length > 0 && (
+            <div className={styles.eventGrid}>
+              {events.map((event, index) => {
+                const dateObj = event.date_and_time
+                  ? new Date(event.date_and_time)
+                  : null;
+                const month = dateObj
+                  ? dateObj.toLocaleString("en-US", { month: "short" })
+                  : "TBD";
+                const day = dateObj ? dateObj.getDate() : "--";
+                const startTime = dateObj
+                  ? dateObj.toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })
+                  : "TBD";
+
+                return (
+                  <article key={index} className={styles.eventCard}>
+                    <div className={styles.eventDate}>
+                      <span className={styles.eventMonth}>{month}</span>
+                      <span className={styles.eventDay}>{day}</span>
+                    </div>
+                    <div className={styles.eventInfo}>
+                      <p className={styles.eventLabel}>Upcoming event</p>
+                      <h3 className={styles.eventTitle}>
+                        {event.event_name || "Mission 007 Event"}
+                      </h3>
+                      <p className={styles.eventDescription}>
+                        {event.event_description ||
+                          "Join us for an upcoming Mission 007 Mentorship experience."}
+                      </p>
+                      <dl className={styles.eventMeta}>
+                        <div>
+                          <dt>Time</dt>
+                          <dd>
+                            {startTime} – {event.event_end_time || "TBD"}
+                          </dd>
+                        </div>
+                        <div>
+                          <dt>Location</dt>
+                          <dd>{event.event_location_name || "Location TBD"}</dd>
+                        </div>
+                        {event.event_address && (
+                          <div>
+                            <dt>Address</dt>
+                            <dd className={styles.eventAddress}>
+                              {event.event_address}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </section>
 
         <section className={styles.cta}>

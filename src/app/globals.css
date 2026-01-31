@@ -108,7 +108,24 @@ nav.headernav {
 
 .mask {
   overflow: hidden;
-  height: 220px;
+  height: clamp(240px, calc(24vh + 120px), 620px);
+}
+
+@media (min-width: 768px) {
+  .content-slider {
+    height: auto;
+    min-height: clamp(280px, calc(28vh + 80px), 620px);
+  }
+}
+
+@media (min-width: 1375px) {
+  .content-slider {
+    min-height: clamp(320px, calc(32vh + 140px), 760px);
+  }
+
+  .mask {
+    height: clamp(320px, calc(30vh + 160px), 760px);
+  }
 }
 
 .slider ul {
@@ -1921,14 +1938,47 @@ _#_#_#_#_#_# */
   color: white;
 }
 
+/* Responsive sizing for customer-call cards */
+.customer-call,
+#customer-call-2,
+#customer-call-3,
+#customer-call-4,
+#customer-call-5 {
+  width: min(90vw, 24rem);
+  height: auto;
+  aspect-ratio: 16 / 7;
+}
+
+@media (min-width: 768px) {
+  .customer-call,
+  #customer-call-2,
+  #customer-call-3,
+  #customer-call-4,
+  #customer-call-5 {
+    width: 78vw;
+    aspect-ratio: 16 / 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .customer-call,
+  #customer-call-2,
+  #customer-call-3,
+  #customer-call-4,
+  #customer-call-5 {
+    width: 65vw;
+    aspect-ratio: 16 / 6;
+  }
+}
+
 .customer-call__header h2 {
-  font-size: 0.9em;
+  font-size: clamp(1em, 1.6vw, 1.8em);
   font-weight: 300;
   margin-bottom: 0.1em;
 }
 
 .customer-call__source {
-  font-size: 0.6em;
+  font-size: clamp(0.75em, 1.1vw, 1.2em);
   font-weight: 300;
 }
 
@@ -1953,7 +2003,7 @@ _#_#_#_#_#_# */
   border: none;
   padding: 0.35em 0.75em;
   border-radius: 0.4em;
-  font-size: 0.7em;
+  font-size: clamp(0.85em, 1.1vw, 1.2em);
 }
 
 .btn-decline {
@@ -1962,7 +2012,7 @@ _#_#_#_#_#_# */
   color: #0073ff;
   padding: 0.35em;
   border-radius: 0.4em;
-  font-size: 0.7em;
+  font-size: clamp(0.85em, 1.1vw, 1.2em);
 }
 .btn-accept-2 {
   background: rgba(90,90,90,0.5);
@@ -1970,7 +2020,7 @@ _#_#_#_#_#_# */
   border: none;
   padding: 0.35em 0.75em;
   border-radius: 0.4em;
-  font-size: 0.7em;
+  font-size: clamp(0.85em, 1.1vw, 1.2em);
 }
 
 .btn-decline-2 {
@@ -1979,7 +2029,13 @@ _#_#_#_#_#_# */
   color: #0073ff;
   padding: 0.35em;
   border-radius: 0.4em;
-  font-size: 0.7em;
+  font-size: clamp(0.85em, 1.1vw, 1.2em);
+}
+
+@media (min-width: 700px) {
+  .customer-call__header h2 {
+    font-weight: 700;
+  }
 }
 
 .customer-call__details {
@@ -2106,6 +2162,10 @@ _#_#_#_#_#_# */
 
 #check {
   display: none;
+}
+
+.header-spacer {
+  height: clamp(72px, 10vh, 110px);
 }
 
 /* CONTENT */
