@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import styles from "./about-us.module.css";
 import TestimonialsCarousel from "./TestimonialsCarousel";
+import PhotoGallery from "../components/PhotoGallery";
 
 export const metadata = {
   title: "About Mission 007 NFP | Youth Mentorship & Empowerment",
@@ -148,6 +149,8 @@ export default async function AboutUsPage() {
             </article>
           </div>
         </section>
+
+        <PhotoGallery />
 
         <section className={styles.split}>
           <div>

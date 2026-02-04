@@ -1,29 +1,20 @@
 "use client";
 
-import Image from "next/image";
-// import styles from "./page.module.css";
 import HeaderBar from "./components/HeaderBar";
 import Hero from "./components/Hero";
 import SubHero from "./components/SubHero";
 import TextCarousel from "./components/TextCarousel";
 import QuizletPaths from "./components/QuizletPaths";
 import QuickLinksModal from "./components/QuickLinksModal";
-import { useState, useEffect, useRef } from "react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+import PhotoGallery from "./components/PhotoGallery";
+import BlogCarousel from "./components/BlogCarousel";
+import WhatWeProvideSection from "./components/WhatWeProvideSection";
+import { activeBlogPosts } from "./blog/_data";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
-import "@splidejs/react-splide/css";
 export default function Home() {
-  const [selectedYear, setSelectedYear] = useState();
-  const [photos, setPhotos] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [loadedImages, setLoadedImages] = useState({}) // which images have loaded
-  const [activeCards, setActiveCards] = useState({})
-  const [activeYear, setActiveYear] = useState('all')
-  const [rankCounts, setRankCounts] = useState({});
-  
   const [eventInfos, setEventInfos] = useState();
-  
-  // const [visibleTiles, setVisibleTiles] = useState(2)
 
 
   async function getEvents() {
@@ -46,162 +37,9 @@ export default function Home() {
     }
   }
   
-useEffect(() => {
-getEvents()
-}, [])
-  
-    // async () => {
-    //   try{
-    //     const url = "https://mmission007.org/wp-json/wp/v2/photogallerymm";
-    //     const res = await fetch(url);
-    //     const data = await res.json();
-    //     console.log(data[0].acf)
-    //     setPhotos(data[0].acf);
-    //   }
-    //   catch(err){console.log(err.message)}
-    // }
-
-    useEffect(() => {
-      const handleClickOutside = (e) => {
-        // Click outside = close overlays
-        if (!e.target.closest('.gallery-item')) {
-          setActiveCards({});
-        }
-      };
-    
-      document.addEventListener('click', handleClickOutside);
-      return () => {
-        document.removeEventListener('click', handleClickOutside);
-      };
-    }, []);
-    
-
-
-
-    useEffect(() => {
-      async function fetchPhotos() {
-        try {
-          const res = await fetch(
-            'https://mmission007.org/wp-json/wp/v2/photogallerymm'
-          )
-          const data = await res.json()
-  
-          const mapped = await Promise.all(
-            data.map(async (item) => {
-              let imageURL = null
-  
-              if (item._links?.['wp:attachment']?.[0]?.href) {
-                const attachmentRes = await fetch(
-                  item._links['wp:attachment'][0].href
-                )
-                const attachmentData = await attachmentRes.json()
-                if (attachmentData?.[0]?.source_url) {
-                  imageURL = attachmentData[0].source_url
-                }
-              }
-  
-              return {
-                id: item.id,
-                imagemm: imageURL,
-                title: item.acf?.title,
-                description: item.acf?.description,
-                year_select: item.acf?.year_select,
-                rank_order: item.acf?.rank_order ? Number(item.acf.rank_order) : null,
-                date: item.date
-              }
-            })
-          )
-
-          // const rankCounts = {}
-mapped.forEach(item => {
-  if (item.rank_order !== null) {
-    rankCounts[item.rank_order] = (rankCounts[item.rank_order] || 0) + 1
-  }
-})
-
-          const sorted = mapped.sort((a, b) => {
-            if (a.rank_order !== null && b.rank_order !== null) {
-              if (a.rank_order !== b.rank_order) return a.rank_order - b.rank_order
-              const aDate = a.date ? new Date(a.date) : 0
-              const bDate = b.date ? new Date(b.date) : 0
-              return aDate - bDate
-            }
-          
-            if (a.rank_order !== null && b.rank_order === null) return -1
-            if (a.rank_order === null && b.rank_order !== null) return 1
-          
-            const aDate = a.date ? new Date(a.date) : 0
-            const bDate = b.date ? new Date(b.date) : 0
-            return bDate - aDate
-          })
-          setPhotos(sorted)
-        } catch (err) {
-          console.log(err.message)
-        }
-      }
-  
-      fetchPhotos()
-    }, [])
-  
-    const handleImageLoad = (id) => {
-      setLoadedImages((prev) => ({ ...prev, [id]: true }))
-    }
-  
-    const toggleCard = (id) => {
-      setActiveCards((prev) => ({ ...prev, [id]: !prev[id] }))
-    }
-  
-    const handleYearFilter = (year) => {
-      setActiveYear(year)
-    }
-
-
-    const sortedPhotos = photos.sort((a, b) => {
-      const aRank = a.rank_order
-      const bRank = b.rank_order
-    
-      // ✅ Case 1: Both have rank → sort by rank_order ascending
-      if (aRank && bRank) {
-        return aRank - bRank
-      }
-    
-      // Only A has rank — A first
-      if (aRank && !bRank) return -1
-    
-      // ✅ Case 3: Only B has rank → B comes first
-      if (!aRank && bRank) return 1
-    
-      // No rank — newest first
-      return new Date(b.date) - new Date(a.date)
-    })
-    
-
-    // utility to split array into chunks
-function chunkArray(arr, chunkSize) {
-  const chunks = []
-  for (let i = 0; i < arr.length; i += chunkSize) {
-    chunks.push(arr.slice(i, i + chunkSize))
-  }
-  return chunks
-}
-
-
-
-
-  
-    // Filter by year
-    const filteredPhotos =
-      activeYear === 'all'
-        ? photos
-        : photos.filter((p) => p.year_select === activeYear)
-
-
-        const filteredPhotosChunks = chunkArray(filteredPhotos, 4)
-
-
-
-
-// EVENTS
+  useEffect(() => {
+    getEvents();
+  }, []);
 
 
   return (
@@ -245,31 +83,14 @@ function chunkArray(arr, chunkSize) {
       <br />
       <span className="divider" style={{ marginTop: "12em" }}>
         <span className="divider-line"></span>
-        <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
+        <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
           WHAT WE PROVIDE
           {/* {photos} */}
         </span>
         <span className="divider-line reverse"></span>
       </span>
       <br />
-      {/*  */}
-      <div className="what-we-provide-section">
-        <div className="unique-cta-grid unique-cta-reverse">
-          <div className="unique-cta-images">
-            <img
-              src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png"
-              alt="Service 2"
-            />
-            <img
-              style={{
-                filter: "brightness(1.52) saturate(1.32) contrast(1.162)",
-              }}
-              src="https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG"
-              alt="Service 1"
-            />
-          </div>
-        </div>
-      </div>
+      <WhatWeProvideSection />
       <br />
 
       <section className="hero-cta-section">
@@ -290,6 +111,27 @@ function chunkArray(arr, chunkSize) {
             transitioning into meaningful education, careers, and adult-life
             opportunities.
           </p>
+
+          <span className="divider blog-section-divider" style={{width:'100%'}}>
+            <span className="divider-line"></span>
+            <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
+              OUR BLOG
+            </span>
+            <span className="divider-line reverse"></span>
+          </span>
+          <p className="blog-intro">
+            Stories, updates, and insights from our work with youth. You can read every post on our blog page.
+          </p>
+          <div className="spacer"></div>
+          <BlogCarousel posts={activeBlogPosts} />
+          <div className="spacer"></div>
+          <div className="blog-view-all-wrap">
+            <Link href="/blog" className="blog-view-all-cta">
+              View our entire blog <span className="them007-card__cta-arrow" aria-hidden>→</span>
+            </Link>
+          </div>
+          <div className="spacer"></div>
+
           <div className="hero-cta-grid" style={{ marginTop: "1.32em" }}>
             <div className="hero-cta-content">
               <div className="hero-cta-text">
@@ -324,8 +166,8 @@ function chunkArray(arr, chunkSize) {
          <div className="spacer"></div>
           <span className="divider">
             <span className="divider-line"></span>
-            <span className="divider-text" style={{ letterSpacing: "0.092em",fontWeight:'bold' }}>
-              Summary of Services
+            <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
+              SUMMARY OF SERVICES
             </span>
             <span className="divider-line reverse"></span>
           </span>
@@ -395,8 +237,8 @@ function chunkArray(arr, chunkSize) {
             
 <span className="divider">
   <span className="divider-line"></span>
-  <span className="divider-text" style={{ letterSpacing: "0.092em" }}>
-    Take a quick &amp; free quiz
+  <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
+    TAKE A QUICK &amp; FREE QUIZ
   </span>
   <span className="divider-line reverse"></span>
 </span>
@@ -527,101 +369,8 @@ function chunkArray(arr, chunkSize) {
       </section>
       <div className="spacer"></div>
       <div className="spacer" style={{height:'7.5em',width:'10px'}}></div>
-      {/* <TextCarousel /> */}
 
-      <div className="yg-gallery-container">
-      <div className="yg-filter-bar">
-        {['all', '2025', '2024', '2023'].map((year) => (
-          <button
-            key={year}
-            className={`yg-filter-btn ${activeYear === year ? 'yg-active' : ''}`}
-            onClick={() => handleYearFilter(year)}
-          >
-            {year === 'all' ? 'All' : year}
-          </button>
-        ))}
-      </div>
-      </div>
-      <h2 style={{padding:'0 0 0 0.75em',textTransform:'uppercase',textDecoration:'underline'}}>{activeYear}</h2>
-      {filteredPhotosChunks.length === 0 ? (
-  <div className="empty-album">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="150"
-      height="150"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="2" y="3" width="20" height="18" rx="2" ry="2"></rect>
-      <line x1="2" y1="9" x2="22" y2="9"></line>
-      <line x1="6" y1="21" x2="6" y2="9"></line>
-      <line x1="10" y1="21" x2="10" y2="9"></line>
-      <line x1="14" y1="21" x2="14" y2="9"></line>
-      <line x1="18" y1="21" x2="18" y2="9"></line>
-    </svg>
-    <p>No photos for this year.</p>
-  </div>
-) : (
-<Splide aria-label="Gallery">
-  {filteredPhotosChunks.map((chunk, index) => (
-    <SplideSlide key={index}>
-      <div className="yg-masonry-grid">
-        {chunk.map((p) => {
-          const isActive = !!activeCards[p.id];
-
-          return (
-            <div
-              key={p.id}
-              className="gallery-item"
-              onClick={() => toggleCard(p.id)}
-            >
-              {/* Skeleton for lazy loading */}
-              {!loadedImages[p.id] && <div className="skeleton"></div>}
-
-              {/* Full-size image */}
-              {p.imagemm && (
-                <img
-                  src={p.imagemm}
-                  alt={p.title || 'photo'}
-                  loading="lazy"
-                  onLoad={() => handleImageLoad(p.id)}
-                  onError={() => handleImageLoad(p.id)}
-                  className={`gallery-img ${loadedImages[p.id] ? 'visible' : 'hidden'}`}
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') toggleCard(p.id);
-                  }}
-                  aria-expanded={isActive}
-                  role="button"
-                  style={{ width: '100%', height: 'auto', cursor: 'pointer' }}
-                />
-              )}
-
-              {/* Overlay with text and duplicate dot */}
-              <div
-                className={`gallery-info ${isActive ? 'visible' : ''}`}
-                aria-hidden={!isActive}
-                onClick={(e) => e.stopPropagation()} // don't close when clicking inside overlay
-              >
-                {rankCounts[p.rank_order] > 1 && p.rank_order !== null && (
-                  <span className="duplicate-rank-dot">{p.rank_order}</span>
-                )}
-                <h3>{p.title}</h3>
-                <p>{p.description}</p>
-                <p className="year">{p.year_select}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </SplideSlide>
-  ))}
-</Splide>
-)}
+      <PhotoGallery />
       {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>
 
 </div> */}

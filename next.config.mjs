@@ -6,6 +6,11 @@ const nextConfig = {
           protocol: 'https',
           hostname: 'mmission007.org',
           pathname: '/**'
+        },
+        {
+          protocol: 'https',
+          hostname: 'lh3.googleusercontent.com',
+          pathname: '/**'
         }
       ]
     }

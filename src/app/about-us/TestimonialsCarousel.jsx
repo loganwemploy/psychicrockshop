@@ -35,7 +35,9 @@ function formatTestimonialAttribution(fullName, age) {
     parts.length > 1
       ? (parts[parts.length - 1][0] || "").toUpperCase() + "."
       : "";
-  return lastInitial ? `${first} ${lastInitial} ${age}` : `${first} ${age}`;
+  const namePart = lastInitial ? `${first} ${lastInitial}` : first;
+  if (age === "" || age == null) return namePart;
+  return `${namePart} - ${age} yrs old`;
 }
 
 export default function TestimonialsCarousel({ testimonials = DEFAULT_TESTIMONIALS }) {
