@@ -1,5 +1,5 @@
 import React from 'react'
-// css is in globals.css
+// Styles live in globals.css
 const TextCarousel = () => {
   //  I want to remove the words  trade classes and this 
 

@@ -77,7 +77,7 @@ export default function QuizletPaths() {
     };
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800)); // simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 800)); // brief delay
       console.log("✅ Submitted Data:", payload);
       setSubmittedData(payload);
       setStatus("success");

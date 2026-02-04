@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-// Server Component
+// Server-side gallery fetch
 export default async function GalleryServer() {
   const res = await fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm', {
     next: { revalidate: 1000 }

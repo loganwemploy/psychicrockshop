@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default async function GalleryPage() {
   const res = await fetch(
     'https://mmission007.org/wp-json/wp/v2/photogallerymm',
-    { next: { revalidate: 3600 } } // cache for 1 hour
+    { next: { revalidate: 3600 } } // revalidate every hour
   )
 
   if (!res.ok) throw new Error('Failed to fetch gallery')

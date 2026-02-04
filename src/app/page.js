@@ -16,7 +16,7 @@ export default function Home() {
   const [selectedYear, setSelectedYear] = useState();
   const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(true)
-  const [loadedImages, setLoadedImages] = useState({}) // track each image load
+  const [loadedImages, setLoadedImages] = useState({}) // which images have loaded
   const [activeCards, setActiveCards] = useState({})
   const [activeYear, setActiveYear] = useState('all')
   const [rankCounts, setRankCounts] = useState({});
@@ -36,7 +36,7 @@ export default function Home() {
       // event_image now contains the actual URL
       const acfArray = data.map(event => ({
         ...event.acf,
-        event_image: event.acf.event_image // this is now the URL
+        event_image: event.acf.event_image
       }));
 
       console.log(acfArray);
@@ -63,7 +63,7 @@ getEvents()
 
     useEffect(() => {
       const handleClickOutside = (e) => {
-        // Close all active overlays if clicked outside any gallery-item
+        // Click outside = close overlays
         if (!e.target.closest('.gallery-item')) {
           setActiveCards({});
         }
@@ -165,13 +165,13 @@ mapped.forEach(item => {
         return aRank - bRank
       }
     
-      // ✅ Case 2: Only A has rank → A comes first
+      // Only A has rank — A first
       if (aRank && !bRank) return -1
     
       // ✅ Case 3: Only B has rank → B comes first
       if (!aRank && bRank) return 1
     
-      // ✅ Case 4: Neither has rank → newest first by date
+      // No rank — newest first
       return new Date(b.date) - new Date(a.date)
     })
     
@@ -189,7 +189,7 @@ function chunkArray(arr, chunkSize) {
 
 
   
-    // filter photos based on selected year
+    // Filter by year
     const filteredPhotos =
       activeYear === 'all'
         ? photos
@@ -605,7 +605,7 @@ function chunkArray(arr, chunkSize) {
               <div
                 className={`gallery-info ${isActive ? 'visible' : ''}`}
                 aria-hidden={!isActive}
-                onClick={(e) => e.stopPropagation()} // prevent overlay click from toggling
+                onClick={(e) => e.stopPropagation()} // don't close when clicking inside overlay
               >
                 {rankCounts[p.rank_order] > 1 && p.rank_order !== null && (
                   <span className="duplicate-rank-dot">{p.rank_order}</span>
