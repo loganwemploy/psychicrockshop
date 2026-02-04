@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getBlogPosts, getBlogPostBySlug } from "../_data";
+import HeaderBar from "../../components/HeaderBar";
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -12,13 +13,16 @@ export default async function BlogPostPage({ params }) {
 
   if (!post) {
     return (
-      <main className="main-content-area blog-post-detail">
-        <h2 className="page-title-hero">Blog Post Not Found</h2>
-        <p>The requested blog post could not be found.</p>
-        <Link href="/blog" className="them007-card__cta back-to-blog">
-          Back to Blog <span className="them007-card__cta-arrow" aria-hidden>→</span>
-        </Link>
-      </main>
+      <>
+        <HeaderBar />
+        <main className="main-content-area blog-post-detail">
+          <h2 className="page-title-hero">Blog Post Not Found</h2>
+          <p>The requested blog post could not be found.</p>
+          <Link href="/blog" className="them007-card__cta back-to-blog">
+            Back to Blog <span className="them007-card__cta-arrow" aria-hidden>→</span>
+          </Link>
+        </main>
+      </>
     );
   }
 
@@ -33,11 +37,13 @@ export default async function BlogPostPage({ params }) {
   const titleText = post.title.replace(/<[^>]*>/g, "");
 
   return (
-    <main
-      className="main-content-area blog-post-detail"
-      role="main"
-      aria-label="Blog article"
-    >
+    <>
+      <HeaderBar />
+      <main
+        className="main-content-area blog-post-detail"
+        role="main"
+        aria-label="Blog article"
+      >
       <article itemScope itemType="https://schema.org/BlogPosting">
         <header>
           <h1
@@ -92,5 +98,6 @@ export default async function BlogPostPage({ params }) {
         </nav>
       </article>
     </main>
+    </>
   );
 }

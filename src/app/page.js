@@ -252,7 +252,7 @@ export default function Home() {
     
 <span className="divider" style={{width:'100%'}}>
         <span className="divider-line"></span>
-        <span className="divider-text" style={{ margin:'auto',letterSpacing: "0.092em", textAlign:'center' }}>
+        <span className="divider-text" style={{ margin:'auto', letterSpacing: "0.092em", textAlign:'center', fontWeight: "bold" }}>
           UPCOMING EVENTS
           {/* {photos} */}
         </span>
@@ -369,6 +369,16 @@ export default function Home() {
       </section>
       <div className="spacer"></div>
       <div className="spacer" style={{height:'7.5em',width:'10px'}}></div>
+
+      <span className="divider" style={{width:'100%'}}>
+        <span className="divider-line"></span>
+        <span className="divider-text" style={{ margin:'auto', letterSpacing: "0.092em", textAlign:'center', fontWeight: "bold" }}>
+          PHOTO GALLERY
+        </span>
+        <span className="divider-line reverse"></span>
+      </span>
+      <br />
+      <div className="spacer" style={{height:'2.3em'}}></div>
 
       <PhotoGallery />
       {/* <div className="anchored" style={{position:'fixed',top: '90vh',backgroundColor:'red',height:'32vh',width:'99vw'}}>

@@ -20,10 +20,11 @@ const HeaderBar = () => {
 
     const isHome = pathname === '/'
 
-    const navLinkClass = (href, extraClass = '') => {
-      const isActive = !isHome && pathname === href
+    const navLinkClass = (href, extraClass = '', isActiveWhen) => {
+      const isActive = isActiveWhen ? isActiveWhen() : (!isHome && pathname === href)
       return `nav-item${isActive ? ' nav-item-active' : ''}${extraClass ? ` ${extraClass}` : ''}`
     }
+    const isBlogActive = () => pathname === '/blog' || (pathname?.startsWith && pathname.startsWith('/blog/'))
 
     return (
         <div>
@@ -56,6 +57,13 @@ const HeaderBar = () => {
           aria-current={pathname !== '/' && pathname === '/how-you-can-help' ? 'page' : undefined}
         >
           How You Can Help
+        </Link>
+        <Link
+          href="/blog"
+          className={navLinkClass('/blog', '', isBlogActive)}
+          aria-current={pathname === '/blog' || pathname?.startsWith?.('/blog/') ? 'page' : undefined}
+        >
+          Blog
         </Link>
         <Link
           href="/learn-where-to-start"

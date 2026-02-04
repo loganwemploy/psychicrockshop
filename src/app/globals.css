@@ -1245,9 +1245,25 @@ _#_#_#_#_#_# */
   font-size: 1.25rem;
 }
 
+/* Photo gallery Splide arrows – same colors as blog carousel */
+.yg-gallery-container .splide__arrow {
+  background: #0baeb7;
+  color: #fff;
+  opacity: 0.9;
+}
 
+.yg-gallery-container .splide__arrow:hover {
+  opacity: 1;
+  background: #08969c;
+}
 
+.yg-gallery-container .splide__arrow svg {
+  fill: #fff;
+}
 
+.yg-gallery-container .splide__arrow:disabled {
+  opacity: 0.35;
+}
 
 .yg-gallery-carousel {
   position: relative;
@@ -2243,9 +2259,9 @@ _#_#_#_#_#_# */
 .nav-item {
   position: relative;
   color: #fff;
-  font-size: 1.44rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  line-height: 25px;
+  line-height: 1.35;
 }
 
 @media (min-width: 768px) {
@@ -2267,7 +2283,7 @@ _#_#_#_#_#_# */
 .nav-item {
   letter-spacing: -0.13px;
   text-decoration: none;
-  margin-left: 2.5rem;
+  margin-left: 1.5rem;
   transition: all 0.5s ease;
 }
 
@@ -2492,7 +2508,7 @@ _#_#_#_#_#_# */
 
   .nav-item {
     display: block;
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin: 2rem 0;
     text-align: center;
     transform: translateY(-50px);
@@ -2750,6 +2766,16 @@ blockquote {
 
 .blog-carousel-splide .splide__arrow:disabled {
   opacity: 0.35;
+}
+
+/* Mobile: blog carousel arrows – spread further with em */
+@media (max-width: 767px) {
+  .blog-carousel-splide .splide__arrow--prev {
+    left: -0.67em;
+  }
+  .blog-carousel-splide .splide__arrow--next {
+    right: -0.67em;
+  }
 }
 
 /* Blog post detail (full article) */
