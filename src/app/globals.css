@@ -25,6 +25,43 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Centered page title at top of every page except homepage */
+.page-title-hero {
+  display: table;
+  margin: 0 auto;
+  font-size: clamp(2rem, 10vw, 5rem);
+  padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1rem, 2vw, 2rem) 0;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.page-title-hero::after {
+  content: "";
+  display: block;
+  width: 100%;
+  margin: 0.28rem 0 0;
+  height: 5px;
+  background: linear-gradient(
+    to bottom,
+    currentColor 0,
+    currentColor 1px,
+    transparent 1px,
+    transparent 4px,
+    currentColor 4px,
+    currentColor 5px
+  );
+}
+
+.page-title-hero + main {
+  padding-top: clamp(2rem, 3.5vw, 3rem);
+}
+
+/* Photo Gallery: title inside main — same fluid spacing below title */
+main:has(> .page-title-hero) .page-title-hero + * {
+  padding-top: clamp(2rem, 3.5vw, 3rem);
+}
+
 .hero {
   
   background-size: 10px;
@@ -746,7 +783,7 @@ _#_#_#_#_#_# */
 }
 
 .hero-cta-content {
-  background-color: #2563eb;
+  background-color: #0baeb7;
   padding: 2rem;
   border-radius: 0.5rem;
 }
@@ -801,7 +838,7 @@ _#_#_#_#_#_# */
   border-radius: 0.25rem;
   border: 2px solid #ffffff;
   background-color: #ffffff;
-  color: #2563eb;
+  color: #0baeb7;
   font-size: 0.95rem;
   font-weight: 600;
   text-decoration: none;
@@ -884,7 +921,7 @@ _#_#_#_#_#_# */
 
 .youth-service-list .icon {
   font-size: 1.4rem;
-  color: #2563eb;
+  color: #0baeb7;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -894,6 +931,37 @@ _#_#_#_#_#_# */
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+/* "What we provide" block: centered, spaced, no overflow on tablet/desktop */
+.what-we-provide-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .what-we-provide-section {
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.75rem 1rem;
+  }
+
+  .what-we-provide-section .unique-cta-grid,
+  .what-we-provide-section .unique-cta-reverse {
+    min-width: 0;
+  }
+
+  .what-we-provide-section .unique-cta-images {
+    min-width: 0;
+    gap: 1.25rem;
+  }
+
+  .what-we-provide-section .unique-cta-images img {
+    min-width: 0;
+    max-width: 100%;
+    object-fit: cover;
+  }
 }
 
 @media (min-width: 768px) {
@@ -971,8 +1039,8 @@ _#_#_#_#_#_# */
   margin-top: 1rem;
   padding: 0.75rem 2.5rem;
   border-radius: 0.25rem;
-  border: 2px solid #2563eb;
-  background-color: #2563eb;
+  border: 2px solid #0baeb7;
+  background-color: #0baeb7;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
@@ -982,7 +1050,7 @@ _#_#_#_#_#_# */
 
 .unique-cta-btn:hover {
   background-color: #ffffff;
-  color: #2563eb;
+  color: #0baeb7;
 }
 
 .unique-cta-image {
@@ -1013,14 +1081,14 @@ _#_#_#_#_#_# */
 }
 
 .filter-btn:hover {
-  border-color: #2563eb;
-  color: #2563eb;
+  border-color: #0baeb7;
+  color: #0baeb7;
 }
 
 .filter-btn.active {
-  background: #2563eb;
+  background: #0baeb7;
   color: #fff;
-  border-color: #2563eb;
+  border-color: #0baeb7;
 }
 
 

@@ -84,7 +84,7 @@
 .heroHighlights span {
   display: block;
   font-weight: 700;
-  color: #2563eb;
+  color: #0baeb7;
   font-size: 1.1rem;
 }
 
@@ -96,7 +96,7 @@
   justify-content: center;
   border-radius: 999px;
   background: rgba(37, 99, 235, 0.12);
-  color: #2563eb;
+  color: #0baeb7;
 }
 
 .highlightIcon svg {
@@ -156,7 +156,7 @@
   justify-content: center;
   border-radius: 12px;
   background: rgba(37, 99, 235, 0.12);
-  color: #2563eb;
+  color: #0baeb7;
   margin-bottom: 0.5rem;
 }
 
@@ -251,7 +251,7 @@
 .listIcon {
   width: 20px;
   height: 20px;
-  color: #2563eb;
+  color: #0baeb7;
   flex-shrink: 0;
   margin-top: 0.15rem;
 }

@@ -253,19 +253,21 @@ function chunkArray(arr, chunkSize) {
       </span>
       <br />
       {/*  */}
-      <div className="unique-cta-grid unique-cta-reverse">
-        <div className="unique-cta-images">
-          <img
-            src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png"
-            alt="Service 2"
-          />
-          <img
-            style={{
-              filter: "brightness(1.52) saturate(1.32) contrast(1.162)",
-            }}
-            src="https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG"
-            alt="Service 1"
-          />
+      <div className="what-we-provide-section">
+        <div className="unique-cta-grid unique-cta-reverse">
+          <div className="unique-cta-images">
+            <img
+              src="https://dl4.pushbulletusercontent2.com/bKZLH9qUHSbcMgL3TpoDWv6J7GdMcuHK/image.png"
+              alt="Service 2"
+            />
+            <img
+              style={{
+                filter: "brightness(1.52) saturate(1.32) contrast(1.162)",
+              }}
+              src="https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG"
+              alt="Service 1"
+            />
+          </div>
         </div>
       </div>
       <br />
@@ -380,7 +382,7 @@ function chunkArray(arr, chunkSize) {
 
 <div className="spacer"></div>
 <div className="spacer"></div>
-        <blockquote>By focusing on these key goals, Mission 007 NFP aims to empower and transform the lives of young individuals, enabling them to unlock their full potential and create a brighter future for themselves and their communities.</blockquote>
+        <blockquote>By focusing on these key goals, <strong>Mission 007 NFP</strong> aims to empower and transform the lives of young individuals, enabling them to unlock their full potential and create a brighter future for themselves and their communities.</blockquote>
         <br />
 <div className="spacer"></div>
 <div className="spacer"></div>

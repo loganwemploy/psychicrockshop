@@ -19,6 +19,7 @@ export default function HowYouCanHelpPage() {
   return (
     <div className={styles.page}>
       <HeaderBar />
+      <h2 className="page-title-hero">How You Can Help</h2>
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>

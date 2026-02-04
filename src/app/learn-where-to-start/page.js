@@ -42,6 +42,7 @@ export default async function LearnWhereToStartPage() {
   return (
     <div className={styles.page}>
       <HeaderBar />
+      <h2 className="page-title-hero">Learn Where to Start</h2>
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>

@@ -9,6 +9,7 @@ import {
   Heart,
 } from "lucide-react";
 import styles from "./about-us.module.css";
+import TestimonialsCarousel from "./TestimonialsCarousel";
 
 export const metadata = {
   title: "About Mission 007 NFP | Youth Mentorship & Empowerment",
@@ -16,10 +17,37 @@ export const metadata = {
     "Mission 007 NFP empowers youth ages 16-25 through mentorship, resources, and community support to build confidence, set goals, and achieve meaningful futures.",
 };
 
-export default function AboutUsPage() {
+async function getTestimonials() {
+  try {
+    const res = await fetch(
+      "https://mmission007.org/wp-json/wp/v2/testimonials",
+      { next: { revalidate: 300 } }
+    );
+    if (!res.ok) {
+      return { testimonials: [], error: true };
+    }
+    const data = await res.json();
+    const testimonials = data.map((item) => {
+      const acf = item.acf || {};
+      return {
+        quote: acf.quote || item.content?.rendered?.replace(/<[^>]+>/g, "")?.trim() || "",
+        year: acf.year ? String(acf.year) : (item.date ? new Date(item.date).getFullYear().toString() : ""),
+        name: acf.name || item.title?.rendered || "",
+        age: acf.age != null ? Number(acf.age) : null,
+      };
+    }).filter((t) => t.quote && t.name);
+    return { testimonials, error: false };
+  } catch {
+    return { testimonials: [], error: true };
+  }
+}
+
+export default async function AboutUsPage() {
+  const { testimonials: apiTestimonials } = await getTestimonials();
   return (
     <div className={styles.page}>
       <HeaderBar />
+      <h2 className="page-title-hero">About Us</h2>
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
@@ -28,10 +56,10 @@ export default function AboutUsPage() {
               alt="Mentorship moment with Mission 007 youth"
               className={styles.heroImage}
             />
-            <p className={styles.eyebrow}>About Mission 007 NFP</p>
+            <p className={styles.eyebrow}>About <strong>Mission 007 NFP</strong></p>
             <h1>Empowering youth to lead with purpose and confidence</h1>
             <p className={styles.lead}>
-              At Mission 007 NFP, our purpose is to empower and inspire youth ages
+              At <strong>Mission 007 NFP</strong>, our purpose is to empower and inspire youth ages
               16-25 to unlock their full potential and pursue their dreams with
               confidence. We provide mentorship, resources, and a supportive
               community to help young individuals set meaningful goals, develop
@@ -39,33 +67,41 @@ export default function AboutUsPage() {
             </p>
           </div>
           <div className={styles.heroCard}>
-            <h2>Our Mission</h2>
-            <p>
-              We help young people build the mindset, skills, and networks they
-              need to thrive in school, work, and life.
-            </p>
-            <div className={styles.heroHighlights}>
-              <div>
-                <span className={styles.highlightIcon}>
-                  <Users aria-hidden="true" />
-                </span>
-                <span>16-25</span>
-                <p>Target youth ages</p>
+            <div className={styles.heroCardBody}>
+              <h2>Our Mission</h2>
+              <p>
+                At <strong>Mission 007 NFP</strong>, our purpose is to empower and inspire youth
+                ages 16-25 to unlock their full potential and pursue their dreams
+                with confidence. We provide mentorship, resources, and a
+                supportive community to help young individuals set meaningful
+                goals, develop essential skills, and overcome challenges.
+              </p>
+              <div className={styles.heroHighlights}>
+                <div>
+                  <span className={styles.highlightIcon}>
+                    <Users aria-hidden="true" />
+                  </span>
+                  <span>16-25</span>
+                  <p>Target youth ages</p>
+                </div>
+                <div>
+                  <span className={styles.highlightIcon}>
+                    <Handshake aria-hidden="true" />
+                  </span>
+                  <span>Mentorship</span>
+                  <p>Guidance that builds confidence</p>
+                </div>
+                <div>
+                  <span className={styles.highlightIcon}>
+                    <Heart aria-hidden="true" />
+                  </span>
+                  <span>Community</span>
+                  <p>Support that lasts beyond programs</p>
+                </div>
               </div>
-              <div>
-                <span className={styles.highlightIcon}>
-                  <Handshake aria-hidden="true" />
-                </span>
-                <span>Mentorship</span>
-                <p>Guidance that builds confidence</p>
-              </div>
-              <div>
-                <span className={styles.highlightIcon}>
-                  <Heart aria-hidden="true" />
-                </span>
-                <span>Community</span>
-                <p>Support that lasts beyond programs</p>
-              </div>
+              <a href="#" className={styles.heroCardCta}>
+                Contact Us
+              </a>
             </div>
           </div>
         </section>
@@ -73,7 +109,7 @@ export default function AboutUsPage() {
         <section className={styles.section}>
           <h2>What we provide</h2>
           <p>
-            Mission 007 NFP connects youth with trusted mentors, practical
+            <strong>Mission 007 NFP</strong> connects youth with trusted mentors, practical
             resources, and experiences that turn goals into action. Our programs
             are designed to be accessible, affirming, and focused on real-world
             outcomes.
@@ -160,10 +196,12 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
+        <TestimonialsCarousel testimonials={apiTestimonials} />
+
         <section className={styles.section}>
           <h2>Our promise to youth and families</h2>
           <p>
-            Mission 007 NFP is committed to showing up consistently for young
+            <strong>Mission 007 NFP</strong> is committed to showing up consistently for young
             people. We listen, we advocate, and we celebrate progress at every
             step. Our work is rooted in respect, accountability, and a belief
             that every young person deserves the chance to thrive.

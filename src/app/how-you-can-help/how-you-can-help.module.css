@@ -84,7 +84,7 @@
 .heroHighlights span {
   display: block;
   font-weight: 700;
-  color: #2563eb;
+  color: #0baeb7;
   font-size: 1.1rem;
 }
 
@@ -149,7 +149,7 @@
 .cardIcon {
   width: 32px;
   height: 32px;
-  color: #2563eb;
+  color: #0baeb7;
 }
 
 .primaryButton {
@@ -159,7 +159,7 @@
   gap: 0.5rem;
   padding: 0.85rem 1.75rem;
   border-radius: 999px;
-  background: #2563eb;
+  background: #0baeb7;
   color: #ffffff;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -172,7 +172,7 @@
 }
 
 .link {
-  color: #2563eb;
+  color: #0baeb7;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
@@ -206,7 +206,7 @@
 
 .list li::before {
   content: "•";
-  color: #2563eb;
+  color: #0baeb7;
   position: absolute;
   left: 0;
 }
