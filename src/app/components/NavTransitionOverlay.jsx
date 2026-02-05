@@ -51,7 +51,7 @@ const PALETTE = [
   `rgb(${hslToRgb(TEAL_H, TEAL_S, L4).join(",")})`,
 ];
 
-const WIPE_DURATION_MS = 500;
+const WIPE_DURATION_MS = 400;
 const BARS_COUNT = 56; // even count so bars are clearly visible; evenly spaced
 
 // Fast–slow–fast: ease-in-out so animation progresses quickly at start/end, slowly in middle
@@ -157,7 +157,9 @@ export function NavTransitionProvider({ children }) {
 
   return (
     <NavTransitionContext.Provider value={{ startTransition }}>
-      {children}
+      <div className={isActive ? "nav-wipe-content nav-wipe-content--blurred" : "nav-wipe-content"}>
+        {children}
+      </div>
       <div
         className="nav-transition-overlay"
         aria-hidden={!isActive}
