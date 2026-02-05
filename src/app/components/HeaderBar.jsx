@@ -31,7 +31,7 @@ const HeaderBar = () => {
     return (
         <div>
             <div className={styles.page} style={{ padding: '0', margin: '0' }}>
-            <div id="header" className={isHome ? 'header--home' : ''}>
+            <div id="header" className={isHome ? 'header--home' : 'header--with-home'}>
       <Link href="/" onClick={(e) => { if (pathname !== '/') { e.preventDefault(); closeMenu(); startTransition('/'); } else closeMenu(); }}
         ><img
           src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
@@ -52,6 +52,15 @@ const HeaderBar = () => {
       </label>
 
       <nav className="navbar">
+        {!isHome && (
+          <Link
+            href="/"
+            className={navLinkClass('/', '', () => false)}
+            onClick={(e) => handleNavClick(e, '/')}
+          >
+            Home
+          </Link>
+        )}
         <Link
           href="/about-us"
           className={navLinkClass('/about-us')}

@@ -2269,6 +2269,12 @@ _#_#_#_#_#_# */
   z-index: 5;
 }
 
+/* Slightly taller bar when Home link is present so CTA isn't cut off */
+#header.header--with-home {
+  min-height: 4rem;
+  padding: 1.15rem 5%;
+}
+
 .logo {
   width: 5em;
 }
@@ -2463,6 +2469,10 @@ _#_#_#_#_#_# */
   #header {
     padding: 1.3rem 5%;
   }
+  #header.header--with-home {
+    min-height: 4.25rem;
+    padding: 1.4rem 5%;
+  }
 }
 
 @media (max-width: 700px) {
@@ -2524,6 +2534,11 @@ _#_#_#_#_#_# */
 
   #check:checked ~ .navbar {
     height: 16rem;
+  }
+
+  /* Extra height when Home link is present so CTA isn't cut off */
+  #header.header--with-home #check:checked ~ .navbar {
+    height: 20rem;
   }
 
   .nav-item {
