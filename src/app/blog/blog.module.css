@@ -1,0 +1,10 @@
+/* Blog layout: same dark header as other inner pages for consistency */
+.page {
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+.page :global(#header) {
+  background: rgba(0, 0, 0, 0.96);
+  backdrop-filter: blur(8px);
+}
