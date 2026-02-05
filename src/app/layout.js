@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { NavTransitionProvider } from "./components/NavTransitionOverlay";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,10 @@ export default function RootLayout({ children }) {
 </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NavTransitionProvider>
-          {children}
+          <div className="site-root">
+            {children}
+            <Footer />
+          </div>
         </NavTransitionProvider>
       </body>
     </html>

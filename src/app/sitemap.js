@@ -5,19 +5,10 @@
  */
 
 import { getBlogPosts } from "./blog/_data";
+import { STATIC_ROUTES } from "./site-routes";
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://mmission007.org";
-
-/** Static routes with SEO hints: priority and changeFrequency */
-const STATIC_ROUTES = [
-  { path: "", priority: 1.0, changeFrequency: "weekly" },
-  { path: "about-us", priority: 0.9, changeFrequency: "monthly" },
-  { path: "how-you-can-help", priority: 0.9, changeFrequency: "monthly" },
-  { path: "learn-where-to-start", priority: 0.9, changeFrequency: "monthly" },
-  { path: "photogallery", priority: 0.8, changeFrequency: "weekly" },
-  { path: "blog", priority: 0.8, changeFrequency: "weekly" },
-];
 
 export default async function sitemap() {
   const base = BASE_URL.replace(/\/$/, "");
