@@ -10,11 +10,11 @@ import React, {
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-// 4 shades of teal using golden ratio (φ) for lightness progression – brightness and happiness
-// Base teal H=184°; L steps: 0.88, 0.72, 0.58, 0.46 (each step ÷ φ)
+// 4 shades from base #ae81ad (mauve), same palette structure: golden-ratio (φ) lightness steps
+// #ae81ad → H≈301°, S≈22%; L steps: 0.88, 0.72, 0.58, 0.46 (each step ÷ φ)
 const PHI = 1.618034;
-const TEAL_H = 184;
-const TEAL_S = 0.78;
+const BASE_H = 301;
+const BASE_S = 0.22;
 
 function hslToRgb(h, s, l) {
   h = h / 360;
@@ -45,10 +45,10 @@ const L3 = L2 - (L2 - 0.46) / PHI;
 const L4 = 0.46;
 
 const PALETTE = [
-  `rgb(${hslToRgb(TEAL_H, TEAL_S, L1).join(",")})`,
-  `rgb(${hslToRgb(TEAL_H, TEAL_S, L2).join(",")})`,
-  `rgb(${hslToRgb(TEAL_H, TEAL_S, L3).join(",")})`,
-  `rgb(${hslToRgb(TEAL_H, TEAL_S, L4).join(",")})`,
+  `rgb(${hslToRgb(BASE_H, BASE_S, L1).join(",")})`,
+  `rgb(${hslToRgb(BASE_H, BASE_S, L2).join(",")})`,
+  `rgb(${hslToRgb(BASE_H, BASE_S, L3).join(",")})`,
+  `rgb(${hslToRgb(BASE_H, BASE_S, L4).join(",")})`,
 ];
 
 const WIPE_DURATION_MS = 400;
