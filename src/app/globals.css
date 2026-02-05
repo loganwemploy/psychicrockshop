@@ -1197,23 +1197,34 @@ _#_#_#_#_#_# */
 
 .yg-gallery-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 0.5rem 0.5rem;
   box-sizing: border-box;
   font-family: "Inter", Arial, sans-serif;
 }
 
-/* Year filter */
+@media (max-width: 600px) {
+  .yg-gallery-container {
+    padding: 0 0;
+  }
+}
+
+/* Year filter – single row, scroll when needed (matches homepage behavior) */
 .yg-filter-bar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 0.75rem;
   margin-bottom: 2rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
 }
 
 .yg-filter-btn {
+  flex-shrink: 0;
   background-color: #fff;
   border: 1px solid #d1d5db;
   color: #374151;
@@ -1235,6 +1246,13 @@ _#_#_#_#_#_# */
   background-color: #111827;
   color: #fff;
   border-color: #111827;
+}
+
+@media (max-width: 380px) {
+  .yg-filter-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+  }
 }
 
 .yg-gallery-year-heading {
@@ -1331,6 +1349,14 @@ _#_#_#_#_#_# */
   box-sizing: border-box;
 }
 
+@media (max-width: 600px) {
+  .yg-masonry-grid {
+    padding: 8px;
+    gap: 8px;
+    grid-auto-rows: minmax(160px, 1fr);
+  }
+}
+
 @media (min-width: 900px) {
   .yg-masonry-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1366,12 +1392,6 @@ _#_#_#_#_#_# */
   object-fit: cover;
   display: block;
   border-radius: 12px;
-}
-
-@media (max-width: 600px) {
-  .yg-masonry-grid {
-    grid-auto-rows: minmax(160px, 1fr);
-  }
 }
 
 .hero-section {
@@ -2878,5 +2898,39 @@ blockquote {
   background: #0baeb7;
   color: #fff;
   box-shadow: 0 2px 8px rgba(11, 174, 183, 0.3);
+}
+
+/* Nav transition overlay: canvas wipes in (ease-in) and out (ease-out) on nav click */
+.nav-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  transform: translateX(-100%);
+  transition: transform 500ms;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.nav-transition-overlay[data-phase="wipeIn"] {
+  transform: translateX(0);
+  transition-timing-function: ease-in;
+  pointer-events: auto;
+}
+
+.nav-transition-overlay[data-phase="wipeOut"] {
+  transform: translateX(100%);
+  transition-timing-function: ease-out;
+}
+
+.nav-transition-overlay #nav-transition-canvas {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 200vh;
+  object-fit: cover;
+  pointer-events: none;
 }
 

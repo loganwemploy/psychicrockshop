@@ -23,6 +23,26 @@
   }
 }
 
+/* Photo gallery: full-width section, minimal padding so photos are wider like homepage */
+.gallerySection {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .gallerySection {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .hero {
   display: grid;
   gap: 2.5rem;

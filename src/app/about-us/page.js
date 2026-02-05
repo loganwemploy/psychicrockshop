@@ -53,8 +53,8 @@ export default async function AboutUsPage() {
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <img
-              src="https://dl4.pushbulletusercontent2.com/kAHMs1AaqTnU3TxzyRWiVsvVBqLeJh6M/IMG_2231.JPG"
-              alt="Mentorship moment with Mission 007 youth"
+              src="https://mmission007.org/wp-content/uploads/2025/10/IMG_6765.webp"
+              alt="ribbon cutting moment with Mission 007 "
               className={styles.heroImage}
             />
             <p className={styles.eyebrow}>About <strong>Mission 007 NFP</strong></p>
@@ -150,7 +150,9 @@ export default async function AboutUsPage() {
           </div>
         </section>
 
-        <PhotoGallery />
+        <div className={styles.gallerySection}>
+          <PhotoGallery />
+        </div>
 
         <section className={styles.split}>
           <div>

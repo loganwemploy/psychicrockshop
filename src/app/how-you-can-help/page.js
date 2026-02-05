@@ -1,12 +1,6 @@
 import HeaderBar from "../components/HeaderBar";
-import {
-  Building2,
-  HandHeart,
-  Landmark,
-  Mail,
-  ShieldCheck,
-  Wallet,
-} from "lucide-react";
+import { Building2, HandHeart, Mail } from "lucide-react";
+import DonateSection from "./DonateSection";
 import styles from "./how-you-can-help.module.css";
 
 export const metadata = {
@@ -54,57 +48,7 @@ export default function HowYouCanHelpPage() {
           </div> */}
         </section>
 
-        <section className={styles.section}>
-          <h2>Ways to securely donate</h2>
-          <p>
-            Choose how you would like to securely donate. If you have questions
-            or would like to discuss other ways to support our work, reach out
-            to us directly.
-          </p>
-          <div className={styles.donationGrid}>
-            <article className={styles.card}>
-              <Landmark className={styles.cardIcon} aria-hidden="true" />
-              <h3>Securely donate via Chase</h3>
-              <p>
-                Make a secure contribution through our Chase giving link to
-                support mentorship, programming, and community outreach.
-              </p>
-              <a
-                href="#"
-                className={styles.primaryButton}
-                aria-label="Securely donate via Chase"
-              >
-                Securely donate with Chase
-              </a>
-            </article>
-            <article className={styles.card}>
-              <Wallet className={styles.cardIcon} aria-hidden="true" />
-              <h3>Securely donate via Cash App</h3>
-              <p>
-                Send a direct gift through Cash App to help fuel youth
-                development opportunities.
-              </p>
-              <a
-                href="#"
-                className={styles.primaryButton}
-                aria-label="Securely donate via Cash App"
-              >
-                Securely donate with Cash App
-              </a>
-            </article>
-            <article className={styles.card}>
-              <Mail className={styles.cardIcon} aria-hidden="true" />
-              <h3>Securely donate by check</h3>
-              <p>
-                Prefer to give by check? Make checks payable to Mission 007
-                Mentorship and contact us for mailing instructions.
-              </p>
-              <a href="mailto:007mmission@gmail.com" className={styles.link}>
-                Request mailing details
-              </a>
-            </article>
-          </div>
-        </section>
+        <DonateSection />
 
         <section className={styles.section}>
           <h2>Become a sponsor or donor</h2>

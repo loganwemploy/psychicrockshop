@@ -1,20 +1,13 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useNavTransition } from './NavTransitionOverlay'
 
 import styles from "../page.module.css";
 const HeaderBar = () => {
-    // const [eventInfos, setEventInfos] = useState()
-    // useEffect(() => {
-    //  fetch('https://mmission007.org/wp-json/wp/v2/photogallerymm')
-    //  .then(res => res.json())
-    //  .then(data => console.log(data[0].acf.description))
-    //  .catch(err=>console.log(err.message))
-    // }, [])
-    
-
-    
+    const [menuOpen, setMenuOpen] = useState(false)
+    const { startTransition } = useNavTransition()
 
     const pathname = usePathname()
 
@@ -26,18 +19,33 @@ const HeaderBar = () => {
     }
     const isBlogActive = () => pathname === '/blog' || (pathname?.startsWith && pathname.startsWith('/blog/'))
 
+    const closeMenu = () => setMenuOpen(false)
+
+    const handleNavClick = (e, href) => {
+      if (href === pathname) return
+      e.preventDefault()
+      closeMenu()
+      startTransition(href)
+    }
+
     return (
         <div>
             <div className={styles.page} style={{ padding: '0', margin: '0' }}>
             <div id="header" className={isHome ? 'header--home' : ''}>
-      <Link href="/"
+      <Link href="/" onClick={(e) => { if (pathname !== '/') { e.preventDefault(); closeMenu(); startTransition('/'); } else closeMenu(); }}
         ><img
           src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
           alt="logo"
           className="logo"
       /></Link>
 
-      <input type="checkbox" id="check" />
+      <input
+        type="checkbox"
+        id="check"
+        checked={menuOpen}
+        onChange={(e) => setMenuOpen(e.target.checked)}
+        aria-expanded={menuOpen}
+      />
       <label htmlFor="check" className="icons">
         <i className="bx bx-menu" id="menu-icon"></i>
         <i className="bx bx-x" id="close-icon"></i>
@@ -48,6 +56,7 @@ const HeaderBar = () => {
           href="/about-us"
           className={navLinkClass('/about-us')}
           aria-current={pathname !== '/' && pathname === '/about-us' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/about-us')}
         >
           About Us
         </Link>
@@ -55,6 +64,7 @@ const HeaderBar = () => {
           href="/how-you-can-help"
           className={navLinkClass('/how-you-can-help')}
           aria-current={pathname !== '/' && pathname === '/how-you-can-help' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/how-you-can-help')}
         >
           How You Can Help
         </Link>
@@ -62,6 +72,7 @@ const HeaderBar = () => {
           href="/blog"
           className={navLinkClass('/blog', '', isBlogActive)}
           aria-current={pathname === '/blog' || pathname?.startsWith?.('/blog/') ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/blog')}
         >
           Blog
         </Link>
@@ -69,6 +80,7 @@ const HeaderBar = () => {
           href="/learn-where-to-start"
           className={navLinkClass('/learn-where-to-start', 'nav-cta')}
           aria-current={pathname !== '/' && pathname === '/learn-where-to-start' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/learn-where-to-start')}
         >
           Learn Where to Start
         </Link>
