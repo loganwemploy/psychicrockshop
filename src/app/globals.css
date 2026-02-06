@@ -2769,7 +2769,17 @@ _#_#_#_#_#_# */
   }
 }
 
+/* Mobile nav — all spacing from golden ratio (φ, φ⁻¹, φ²) only */
 @media (max-width: 700px) {
+  #header {
+    --b: 1rem;
+    --phi: 1.618034;
+    --phi-inv: 0.618034;
+    --phi-sq: 2.618034;
+    /* One row = margin φ⁻¹·b ×2 + line-height φ·b */
+    --row: calc(var(--b) * (2 * var(--phi-inv) + var(--phi)));
+  }
+
   #header::before {
     position: absolute;
     content: "";
@@ -2826,26 +2836,35 @@ _#_#_#_#_#_# */
     left: 0;
     width: 100%;
     height: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-height: min(calc(6 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv)), 85vh);
     background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(50px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
+    box-shadow: 0 calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi)) rgba(0, 0, 0, 0.1);
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: height 0.3s ease;
   }
 
+  /* Home: 5 items — padding φ·b top, φ⁻¹·b bottom & sides */
   #check:checked ~ .navbar {
-    height: 16rem;
+    height: calc(5 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv));
+    padding: calc(var(--b) * var(--phi)) calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi-inv));
   }
 
-  /* Extra height when Home link is present so CTA isn't cut off */
+  /* Other pages: 6 items — same golden padding */
   #header.header--with-home #check:checked ~ .navbar {
-    height: 20rem;
+    height: calc(6 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv));
+    padding: calc(var(--b) * var(--phi)) calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi-inv));
   }
 
+  /* Per item: margin φ⁻¹·b top/bottom, line-height φ (all golden) */
   .nav-item {
     display: block;
     font-size: 1rem;
-    margin: 2rem 0;
+    line-height: var(--phi);
+    margin: calc(var(--b) * var(--phi-inv)) 0;
     text-align: center;
     transform: translateY(-50px);
     opacity: 0;
