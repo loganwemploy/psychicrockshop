@@ -2769,15 +2769,14 @@ _#_#_#_#_#_# */
   }
 }
 
-/* Mobile nav — all spacing from golden ratio (φ, φ⁻¹, φ²) only */
+/* Mobile nav — touch-friendly: 48px min tap target (Apple 44pt / Material 48dp), thumb-safe spacing */
 @media (max-width: 700px) {
   #header {
-    --b: 1rem;
-    --phi: 1.618034;
-    --phi-inv: 0.618034;
-    --phi-sq: 2.618034;
-    /* One row = margin φ⁻¹·b ×2 + line-height φ·b */
-    --row: calc(var(--b) * (2 * var(--phi-inv) + var(--phi)));
+    --touch-min: 3rem;           /* 48px min — comfortable for adult thumb */
+    --touch-padding-y: 0.75rem;  /* 12px vert padding so hit area ≥ 48px */
+    --touch-padding-x: 1rem;    /* 16px horizontal — thumb zone, avoid mis-taps */
+    --touch-gap: 0.5rem;        /* 8px min between targets (WCAG / Apple HIG) */
+    --row: calc(var(--touch-min) + var(--touch-gap));
   }
 
   #header::before {
@@ -2838,37 +2837,42 @@ _#_#_#_#_#_# */
     height: 0;
     padding: 0;
     box-sizing: border-box;
-    max-height: min(calc(6 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv)), 85vh);
+    max-height: min(calc(6 * var(--row) + 1rem + 0.75rem), 90vh);
     background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(50px);
-    box-shadow: 0 calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi)) rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
     overflow-y: auto;
     transition: height 0.3s ease;
   }
 
-  /* Home: 5 items — padding φ·b top, φ⁻¹·b bottom & sides */
+  /* Home: 5 items — top/side padding for thumb comfort */
   #check:checked ~ .navbar {
-    height: calc(5 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv));
-    padding: calc(var(--b) * var(--phi)) calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi-inv));
+    height: calc(5 * var(--row) + 1rem + 0.75rem);
+    padding: 1rem var(--touch-padding-x) 0.75rem;
   }
 
-  /* Other pages: 6 items — same golden padding */
+  /* Other pages: 6 items */
   #header.header--with-home #check:checked ~ .navbar {
-    height: calc(6 * var(--row) + var(--b) * var(--phi) + var(--b) * var(--phi-inv));
-    padding: calc(var(--b) * var(--phi)) calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi-inv));
+    height: calc(6 * var(--row) + 1rem + 0.75rem);
+    padding: 1rem var(--touch-padding-x) 0.75rem;
   }
 
-  /* Per item: margin φ⁻¹·b top/bottom, line-height φ (all golden) */
+  /* Thumb-friendly tap targets: min 48px height, 8px gap between, full-width hit area */
   .nav-item {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-min);
+    padding: var(--touch-padding-y) var(--touch-padding-x);
+    margin: calc(var(--touch-gap) / 2) 0;
     font-size: 1rem;
-    line-height: var(--phi);
-    margin: calc(var(--b) * var(--phi-inv)) 0;
+    line-height: 1.4;
     text-align: center;
     transform: translateY(-50px);
     opacity: 0;
     transition: all 0.3s ease;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.15);
   }
 
   .nav-item:hover::after {
