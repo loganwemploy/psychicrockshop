@@ -1,8 +1,19 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+
+/** Defer work until after first paint and when the browser is idle, so we don't block LCP. Starts within maxWaitMs so gallery loads before the user scrolls to it. */
+function runWhenIdle(callback, maxWaitMs = 2000) {
+  if (typeof window === "undefined") return () => {};
+  if (window.requestIdleCallback) {
+    const id = requestIdleCallback(callback, { timeout: maxWaitMs });
+    return () => cancelIdleCallback(id);
+  }
+  const id = setTimeout(callback, 100);
+  return () => clearTimeout(id);
+}
 
 const BREAKPOINT_TABLET = 900;
 const BREAKPOINT_DESKTOP = 1200;
@@ -55,6 +66,7 @@ export default function PhotoGallery() {
   const [activeCards, setActiveCards] = useState({});
   const [activeYear, setActiveYear] = useState("all");
   const chunkSize = useChunkSize();
+  const mountedRef = useRef(true);
 
   const rankCounts = useMemo(() => {
     const counts = {};
@@ -77,59 +89,69 @@ export default function PhotoGallery() {
   }, []);
 
   useEffect(() => {
-    async function fetchPhotos() {
-      try {
-        const res = await fetch(
-          "https://mmission007.org/wp-json/wp/v2/photogallerymm"
-        );
-        const data = await res.json();
+    mountedRef.current = true;
+    const cancel = runWhenIdle(() => {
+      async function fetchPhotos() {
+        try {
+          const res = await fetch(
+            "https://mmission007.org/wp-json/wp/v2/photogallerymm"
+          );
+          const data = await res.json();
+          if (!mountedRef.current) return;
 
-        const mapped = await Promise.all(
-          data.map(async (item) => {
-            let imageURL = null;
-            if (item._links?.["wp:attachment"]?.[0]?.href) {
-              const attachmentRes = await fetch(
-                item._links["wp:attachment"][0].href
-              );
-              const attachmentData = await attachmentRes.json();
-              if (attachmentData?.[0]?.source_url) {
-                imageURL = attachmentData[0].source_url;
+          const mapped = await Promise.all(
+            data.map(async (item) => {
+              let imageURL = null;
+              if (item._links?.["wp:attachment"]?.[0]?.href) {
+                const attachmentRes = await fetch(
+                  item._links["wp:attachment"][0].href
+                );
+                const attachmentData = await attachmentRes.json();
+                if (attachmentData?.[0]?.source_url) {
+                  imageURL = attachmentData[0].source_url;
+                }
               }
-            }
-            return {
-              id: item.id,
-              imagemm: imageURL,
-              title: item.acf?.title,
-              description: item.acf?.description,
-              year_select: item.acf?.year_select,
-              rank_order: item.acf?.rank_order
-                ? Number(item.acf.rank_order)
-                : null,
-              date: item.date,
-            };
-          })
-        );
+              return {
+                id: item.id,
+                imagemm: imageURL,
+                title: item.acf?.title,
+                description: item.acf?.description,
+                year_select: item.acf?.year_select,
+                rank_order: item.acf?.rank_order
+                  ? Number(item.acf.rank_order)
+                  : null,
+                date: item.date,
+              };
+            })
+          );
+          if (!mountedRef.current) return;
 
-        const sorted = mapped.sort((a, b) => {
-          if (a.rank_order !== null && b.rank_order !== null) {
-            if (a.rank_order !== b.rank_order)
-              return a.rank_order - b.rank_order;
+          const sorted = mapped.sort((a, b) => {
+            if (a.rank_order !== null && b.rank_order !== null) {
+              if (a.rank_order !== b.rank_order)
+                return a.rank_order - b.rank_order;
+              const aDate = a.date ? new Date(a.date) : 0;
+              const bDate = b.date ? new Date(b.date) : 0;
+              return aDate - bDate;
+            }
+            if (a.rank_order !== null && b.rank_order === null) return -1;
+            if (a.rank_order === null && b.rank_order !== null) return 1;
             const aDate = a.date ? new Date(a.date) : 0;
             const bDate = b.date ? new Date(b.date) : 0;
-            return aDate - bDate;
-          }
-          if (a.rank_order !== null && b.rank_order === null) return -1;
-          if (a.rank_order === null && b.rank_order !== null) return 1;
-          const aDate = a.date ? new Date(a.date) : 0;
-          const bDate = b.date ? new Date(b.date) : 0;
-          return bDate - aDate;
-        });
-        setPhotos(sorted);
-      } catch (err) {
-        console.log(err.message);
+            return bDate - aDate;
+          });
+          setPhotos(sorted);
+        } catch (err) {
+          if (mountedRef.current) console.log(err.message);
+        }
       }
-    }
-    fetchPhotos();
+      fetchPhotos();
+    }, 2000);
+
+    return () => {
+      mountedRef.current = false;
+      cancel();
+    };
   }, []);
 
   const handleImageLoad = (id) => {

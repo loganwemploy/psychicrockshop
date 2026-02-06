@@ -78,6 +78,14 @@ const HeaderBar = () => {
           How You Can Help
         </Link>
         <Link
+          href="/photogallery"
+          className={navLinkClass('/photogallery')}
+          aria-current={pathname !== '/' && pathname === '/photogallery' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/photogallery')}
+        >
+          Photo Gallery
+        </Link>
+        <Link
           href="/blog"
           className={navLinkClass('/blog', '', isBlogActive)}
           aria-current={pathname === '/blog' || pathname?.startsWith?.('/blog/') ? 'page' : undefined}
