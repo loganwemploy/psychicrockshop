@@ -93,7 +93,7 @@ export default function HowYouCanHelpPage() {
             </p>
           </div>
           <img
-            src="https://dl4.pushbulletusercontent2.com/Wzc8GWorBArziT9x32WT3jLZIyD7rE41/shauntiaribboncut.png"
+            src="https://dl4.pushbulletusercontent2.com/BUy8VeVUCeZOVqMD0M8AFdiy3Wb9HfD1/Screenshot%202026-02-03%20at%207.06.53%E2%80%AFPM.png"
             alt="Mission 007 youth community event"
             className={styles.imageBlock}
           />
