@@ -2838,7 +2838,7 @@ _#_#_#_#_#_# */
     padding: 0;
     box-sizing: border-box;
     max-height: min(calc(6 * var(--row) + 1rem + 0.75rem), 90vh);
-    background-color: #090909;
+    background-color: #000;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.023'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     backdrop-filter: blur(50px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
