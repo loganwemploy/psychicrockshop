@@ -2,12 +2,16 @@
 import { useState } from "react";
 import "./QuizletPaths.module.css";
 
+/* 618ms = 1000/φ — golden-ratio-derived duration for satisfying completion feedback */
+const CHECK_ANIMATION_MS = 750;
+
 export default function QuizletPaths() {
   const [step, setStep] = useState("main");
   const [answers, setAnswers] = useState({});
   const [formData, setFormData] = useState({ name: "", email: "", location: "" });
   const [status, setStatus] = useState(null);
   const [submittedData, setSubmittedData] = useState(null);
+  const [animatingKey, setAnimatingKey] = useState(null);
 
   const mainOptions = [
     { label: "Looking for guidance", next: "guidance" },
@@ -56,6 +60,43 @@ export default function QuizletPaths() {
     setStep("form");
   };
 
+  const handleMainSelectWithFeedback = (nextStep, optionIndex) => {
+    setAnimatingKey(`main-${optionIndex}`);
+    setTimeout(() => {
+      handleMainSelect(nextStep);
+      setAnimatingKey(null);
+    }, CHECK_ANIMATION_MS);
+  };
+
+  const handleOptionSelectWithFeedback = (key, value, optionIndex) => {
+    setAnimatingKey(`${key}-${optionIndex}`);
+    setTimeout(() => {
+      handleOptionSelect(key, value);
+      setAnimatingKey(null);
+    }, CHECK_ANIMATION_MS);
+  };
+
+  const getStepperState = () => {
+    const isContactPath = answers.main === "contact";
+    if (isContactPath) {
+      const stepIndex = step === "main" ? 0 : 1;
+      const totalSteps = 2;
+      const messages = ["Keep going", "Just about done"];
+      return { stepIndex, totalSteps, message: messages[stepIndex] };
+    }
+    const stepIndex =
+      step === "main" ? 0
+      : questionSets[step] ? 1
+      : step === "form" && status === "success" ? 3
+      : step === "form" ? 2
+      : 0;
+    const totalSteps = 4;
+    const messages = ["Keep going", "Almost there", "Just about done", "Finished! Good job!"];
+    return { stepIndex, totalSteps, message: messages[stepIndex] };
+  };
+
+  const { stepIndex, totalSteps, message } = getStepperState();
+
   const handleGoBack = () => {
     if (step === "form") return setStep(answers.main);
     if (questionSets[step]) return setStep("main");
@@ -89,7 +130,29 @@ export default function QuizletPaths() {
 
   return (
     <div className="quiz-container">
+      <div className="quiz-card-rainbow-wrap">
       <div className="quiz-card">
+        {/* --- PROGRESS STEPPER --- */}
+        <div className="quiz-stepper" role="progressbar" aria-valuenow={stepIndex + 1} aria-valuemin={1} aria-valuemax={totalSteps} aria-label={`Step ${stepIndex + 1} of ${totalSteps}`}>
+          <div className="quiz-stepper-track">
+            {Array.from({ length: totalSteps }).map((_, i) => (
+              <div key={i} className="quiz-stepper-step">
+                <span
+                  className={`quiz-stepper-dot ${i <= stepIndex ? "completed" : ""} ${i === stepIndex ? "current" : ""}`}
+                  aria-hidden
+                />
+                {i < totalSteps - 1 && (
+                  <span
+                    className={`quiz-stepper-line ${i < stepIndex ? "completed" : ""}`}
+                    aria-hidden
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="quiz-stepper-message">{message}</p>
+        </div>
+
         {/* --- MAIN QUESTION SET --- */}
         {step === "main" && (
           <>
@@ -99,10 +162,22 @@ export default function QuizletPaths() {
                 <li key={i}>
                   <button
                     type="button"
-                    onClick={() => handleMainSelect(opt.next)}
+                    onClick={() => handleMainSelectWithFeedback(opt.next, i)}
                     className="option-button"
+                    data-animating={animatingKey === `main-${i}`}
+                    disabled={!!animatingKey}
                   >
-                    {opt.label}
+                    <span className="quiz-option-check-wrap">
+                      <span className="quiz-option-check-container">
+                        <span className="quiz-option-check-background">
+                          <svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                            <path d="M7 25L27.3077 44L58.5 7" stroke="white" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <span className="quiz-option-check-shadow" />
+                      </span>
+                    </span>
+                    <span className="option-button-label">{opt.label}</span>
                   </button>
                 </li>
               ))}
@@ -119,10 +194,22 @@ export default function QuizletPaths() {
                 <li key={i}>
                   <button
                     type="button"
-                    onClick={() => handleOptionSelect(step, opt)}
+                    onClick={() => handleOptionSelectWithFeedback(step, opt, i)}
                     className="option-button"
+                    data-animating={animatingKey === `${step}-${i}`}
+                    disabled={!!animatingKey}
                   >
-                    {opt}
+                    <span className="quiz-option-check-wrap">
+                      <span className="quiz-option-check-container">
+                        <span className="quiz-option-check-background">
+                          <svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                            <path d="M7 25L27.3077 44L58.5 7" stroke="white" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <span className="quiz-option-check-shadow" />
+                      </span>
+                    </span>
+                    <span className="option-button-label">{opt}</span>
                   </button>
                 </li>
               ))}
@@ -225,6 +312,7 @@ export default function QuizletPaths() {
             <p>Something went wrong. Please try again.</p>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

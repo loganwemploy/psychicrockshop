@@ -541,6 +541,67 @@ _#_#_#_#_#_# */
   margin: 1.32em 0 0 0;
 }
 
+/* Rainbow border wrapper — same gradient as QuickLinksModal .rainbowDivider.
+   Box shadow: golden ratio φ ≈ 1.618, φ⁻¹ ≈ 0.618.
+   Animation: gradient snakes around at φ² s (≈2.618s) per cycle; golden angle 137.5° for direction. */
+.quiz-card-rainbow-wrap {
+  --b: 1rem;
+  --phi: 1.618;
+  --phi-inv: 0.618;
+  --phi-sq: 2.618;
+  --golden-angle: 137.5deg;
+  padding: 4px;
+  border-radius: 18px;
+  /* Gradient at golden angle; doubled for seamless loop when animating position */
+  background: linear-gradient(
+    var(--golden-angle),
+    #ff4d4d 0%,
+    #ffb84d 10%,
+    #ffe94d 20%,
+    #4dd27b 30%,
+    #4da3ff 40%,
+    #b84dff 50%,
+    #ff4d4d 50%,
+    #ffb84d 60%,
+    #ffe94d 70%,
+    #4dd27b 80%,
+    #4da3ff 90%,
+    #b84dff 100%
+  );
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: quiz-rainbow-snake calc(var(--phi-sq) * 1s) linear infinite;
+  box-shadow:
+    0 calc(var(--b) * var(--phi-inv)) calc(var(--b) * var(--phi)) rgba(15, 23, 42, 0.08),
+    0 calc(var(--b) * var(--phi)) calc(var(--b) * var(--phi) * var(--phi)) rgba(15, 23, 42, 0.06),
+    0 calc(var(--b) * var(--phi) * var(--phi-inv)) calc(var(--b) * var(--phi) * var(--phi)) rgba(15, 23, 42, 0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-card-rainbow-wrap {
+    animation: none;
+    background-size: 100% 100%;
+    background: linear-gradient(
+      var(--golden-angle),
+      #ff4d4d 0%,
+      #ffb84d 20%,
+      #ffe94d 40%,
+      #4dd27b 60%,
+      #4da3ff 80%,
+      #b84dff 100%
+    );
+  }
+}
+
+@keyframes quiz-rainbow-snake {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 .quiz-card {
   background: #fff;
   border-radius: 14px;
@@ -549,6 +610,64 @@ _#_#_#_#_#_# */
   max-width: 500px;
   width: 100%;
   color: #333;
+}
+
+/* Quiz progress stepper */
+.quiz-stepper {
+  margin-bottom: 1.5rem;
+}
+
+.quiz-stepper-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.quiz-stepper-step {
+  display: flex;
+  align-items: center;
+}
+
+.quiz-stepper-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: 2px solid #d1d5db;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.quiz-stepper-dot.completed {
+  background: #4dd27b;
+  border-color: #4dd27b;
+}
+
+.quiz-stepper-dot.current {
+  background: #4dd27b;
+  border-color: #4dd27b;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px rgba(77, 210, 123, 0.3);
+}
+
+.quiz-stepper-line {
+  width: 24px;
+  height: 2px;
+  background: #e5e7eb;
+  transition: background 0.3s ease;
+}
+
+.quiz-stepper-line.completed {
+  background: #4dd27b;
+}
+
+.quiz-stepper-message {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6b7280;
 }
 
 .title {
@@ -565,7 +684,9 @@ _#_#_#_#_#_# */
 }
 
 .option-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   width: 100%;
   background: #f6f6f6;
   border: 2px solid #464646;
@@ -575,12 +696,171 @@ _#_#_#_#_#_# */
   margin-bottom: 10px;
   cursor: pointer;
   font-size: 1.25rem;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  text-align: left;
 }
 
 .option-button:hover {
   background: rgba(0, 0, 0, 0.12);
-  filter: drop-shadow(2px solid rgba(0,0,0,0.32));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.option-button[data-selected="true"] {
+  border-color: #2e7d32;
+  background: rgba(46, 125, 50, 0.08);
+  pointer-events: none;
+}
+
+.option-button-icon {
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+  color: #2e7d32;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.option-button[data-selected="true"] .option-button-icon {
+  animation: option-collect-pop 0.42s ease-out forwards;
+}
+
+.option-button-label {
+  flex: 1;
+}
+
+@keyframes option-collect-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-12deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.18) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Quiz option check micro-interaction (scoped; no font changes) */
+.quiz-container .quiz-option-check-wrap {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.quiz-container .quiz-option-check-wrap .quiz-option-check-container {
+  width: 100%;
+  height: calc(100% - 0.25rem);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.quiz-container .quiz-option-check-wrap .quiz-option-check-background {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, #5de593, #41d67c);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.84);
+  opacity: 0;
+}
+
+.quiz-container .quiz-option-check-wrap .quiz-option-check-background svg {
+  width: 65%;
+  transform: translateY(0.1rem);
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+}
+
+.quiz-container .quiz-option-check-wrap .quiz-option-check-shadow {
+  position: absolute;
+  bottom: -0.15rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(73, 218, 131, 1), transparent);
+  width: 85%;
+  height: 15%;
+  opacity: 0;
+}
+
+/* Golden-ratio timing scaled to 750ms: phases ~286ms and ~464ms */
+.quiz-container .option-button[data-animating="true"] .quiz-option-check-wrap .quiz-option-check-background {
+  animation: quiz-option-check-container 0.464s ease-out forwards 0.286s;
+}
+
+.quiz-container .option-button[data-animating="true"] .quiz-option-check-wrap .quiz-option-check-background svg {
+  animation: quiz-option-check-draw 0.286s forwards 0.464s ease-out;
+}
+
+.quiz-container .option-button[data-animating="true"] .quiz-option-check-wrap .quiz-option-check-shadow {
+  animation: quiz-option-check-shadow 0.464s ease-out forwards 0.286s;
+}
+
+@keyframes quiz-option-check-container {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.25) inset;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(0.9);
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.25) inset;
+  }
+  43.75% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.25) inset;
+  }
+  62.5% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25) inset;
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.25) inset;
+  }
+}
+
+@keyframes quiz-option-check-draw {
+  from {
+    stroke-dashoffset: 80;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes quiz-option-check-shadow {
+  0% {
+    opacity: 0;
+    width: 100%;
+    height: 15%;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  43.75% {
+    width: 40%;
+    height: 7%;
+    opacity: 0.35;
+  }
+  100% {
+    width: 85%;
+    height: 15%;
+    opacity: 0.25;
+  }
 }
 
 .back-button {
