@@ -917,6 +917,16 @@ _#_#_#_#_#_# */
   gap: calc(0.5rem * var(--phi-inv));
 }
 
+.contact-block__link {
+  color: #232323;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-block__link:hover {
+  text-decoration: underline;
+}
+
 .contact-block__phone,
 .contact-block__email {
   font-size: 1.0625rem;
@@ -927,6 +937,28 @@ _#_#_#_#_#_# */
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .contact-block__details {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .contact-block__phone,
+  .contact-block__email {
+    font-size: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    word-break: break-word;
+  }
+
+  .contact-block__email.contact-block__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 }
 
 .contact-block__icon {

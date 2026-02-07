@@ -233,13 +233,13 @@ export default function QuizletPaths() {
             <h2 className="contact-block__title">Contact Us</h2>
             <p className="contact-block__lead">We’d love to help you!</p>
             <div className="contact-block__details">
+              <a href="mailto:007mmission@gmail.com" className="contact-block__link contact-block__email">
+                <Mail className="contact-block__icon" aria-hidden="true" />
+                007mmission@gmail.com
+              </a>
               <p className="contact-block__phone">
                 <Phone className="contact-block__icon" aria-hidden="true" />
-                (555) 123-4567
-              </p>
-              <p className="contact-block__email">
-                <Mail className="contact-block__icon" aria-hidden="true" />
-                help@example.com
+                <a href="tel:+10075551234" className="contact-block__link">(555) 123-4567</a>
               </p>
             </div>
             <div className="contact-block__socials socials">
