@@ -1,4 +1,5 @@
 import HeaderBar from "../components/HeaderBar";
+import QuizletPaths from "../components/QuizletPaths";
 import {
   CheckCircle2,
   Compass,
@@ -89,6 +90,15 @@ export default async function LearnWhereToStartPage() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className={styles.section} aria-label="Find your path">
+          <h2>Find your path</h2>
+          <p>
+            Answer a couple of questions to see whether mentorship, events, or
+            getting in touch is the best next step for you.
+          </p>
+          <QuizletPaths />
         </section>
 
         <section className={styles.section}>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Phone, Mail, Twitter, Facebook, Instagram } from "lucide-react";
 import "./QuizletPaths.module.css";
 
 /* 618ms = 1000/φ — golden-ratio-derived duration for satisfying completion feedback */
@@ -99,6 +100,12 @@ export default function QuizletPaths() {
 
   const handleGoBack = () => {
     if (step === "form") return setStep(answers.main);
+    if (step === "contact") {
+      setStep("main");
+      setAnswers({});
+      setAnimatingKey(null);
+      return;
+    }
     if (questionSets[step]) return setStep("main");
   };
 
@@ -150,7 +157,7 @@ export default function QuizletPaths() {
               </div>
             ))}
           </div>
-          <p className="quiz-stepper-message">{message}</p>
+          {step !== "contact" && <p className="quiz-stepper-message">{message}</p>}
         </div>
 
         {/* --- MAIN QUESTION SET --- */}
@@ -223,17 +230,61 @@ export default function QuizletPaths() {
         {/* --- CONTACT OPTION --- */}
         {step === "contact" && (
           <div className="contact-block">
-            <h2 className="title">Contact Us</h2>
-            <p>We’d love to help you!</p>
-            <p>
-              📞 (555) 123-4567
-              <br />
-              ✉️ help@example.com
-            </p>
-            <div className="socials">
-              <a href="#">Twitter</a>
-              <a href="#">Facebook</a>
-              <a href="#">Instagram</a>
+            <h2 className="contact-block__title">Contact Us</h2>
+            <p className="contact-block__lead">We’d love to help you!</p>
+            <div className="contact-block__details">
+              <p className="contact-block__phone">
+                <Phone className="contact-block__icon" aria-hidden="true" />
+                (555) 123-4567
+              </p>
+              <p className="contact-block__email">
+                <Mail className="contact-block__icon" aria-hidden="true" />
+                help@example.com
+              </p>
+            </div>
+            <div className="contact-block__socials socials">
+              <a href="#" className="contact-block__social contact-block__social--twitter" aria-label="Twitter">
+                <span className="contact-block__squiggle" aria-hidden="true">
+                  <svg viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="crayon-rough" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="2" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
+                      </filter>
+                    </defs>
+                    <path className="contact-block__squiggle-path" filter="url(#crayon-rough)" d="M 7 7 Q 22 5 32 7 T 49 6 Q 35 11 18 16 Q 8 19 7 18 Q 12 20 28 18 Q 45 17 50 18" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <Twitter className="contact-block__social-icon" aria-hidden="true" />
+              </a>
+              <a href="#" className="contact-block__social contact-block__social--facebook" aria-label="Facebook">
+                <span className="contact-block__squiggle" aria-hidden="true">
+                  <svg viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="crayon-rough-fb" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="2" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
+                      </filter>
+                    </defs>
+                    <path className="contact-block__squiggle-path" filter="url(#crayon-rough-fb)" d="M 7 7 Q 22 5 32 7 T 49 6 Q 35 11 18 16 Q 8 19 7 18 Q 12 20 28 18 Q 45 17 50 18" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <Facebook className="contact-block__social-icon" aria-hidden="true" />
+              </a>
+              <a href="#" className="contact-block__social contact-block__social--instagram" aria-label="Instagram">
+                <span className="contact-block__squiggle" aria-hidden="true">
+                  <svg viewBox="0 0 56 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="crayon-rough-ig" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="2" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2" xChannelSelector="R" yChannelSelector="G" />
+                      </filter>
+                    </defs>
+                    <path className="contact-block__squiggle-path" filter="url(#crayon-rough-ig)" d="M 7 7 Q 22 5 32 7 T 49 6 Q 35 11 18 16 Q 8 19 7 18 Q 12 20 28 18 Q 45 17 50 18" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <Instagram className="contact-block__social-icon" aria-hidden="true" />
+              </a>
             </div>
             <button onClick={handleGoBack} className="back-button">
               ← Go Back
