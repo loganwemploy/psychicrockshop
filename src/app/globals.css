@@ -3,6 +3,10 @@
   --hero-bg: url('https://dl4.pushbulletusercontent2.com/rDddeB4ppgcGP2oR1nueBHXULIE7a5Rp/image.png');
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   max-width: 100vw;
@@ -618,6 +622,12 @@ _#_#_#_#_#_# */
   color: #333;
 }
 
+@media (max-width: 767px) {
+  .quiz-card {
+    overflow: visible;
+  }
+}
+
 /* Quiz progress stepper */
 .quiz-stepper {
   margin-bottom: 1.5rem;
@@ -915,6 +925,8 @@ _#_#_#_#_#_# */
   display: flex;
   flex-direction: column;
   gap: calc(0.5rem * var(--phi-inv));
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-block__link {
@@ -935,27 +947,46 @@ _#_#_#_#_#_# */
   color: #232323;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
 }
 
-@media (max-width: 767px) {
+/* Tablet & desktop: left-align contact details */
+@media (min-width: 768px) {
   .contact-block__details {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .contact-block__phone,
   .contact-block__email {
-    font-size: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    word-break: break-word;
+    justify-content: flex-start;
+  }
+}
+
+/* Mobile: ensure both phone and email visible, same layout as tablet/desktop */
+@media (max-width: 767px) {
+  .contact-block__details {
+    min-width: 0;
+    align-items: flex-start;
+    text-align: left;
+    overflow: visible;
   }
 
+  .contact-block__details .contact-block__phone,
+  .contact-block__details .contact-block__email {
+    font-size: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    word-break: break-word;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 2.5rem;
+  }
+
+  .contact-block__phone.contact-block__link,
   .contact-block__email.contact-block__link {
-    display: inline-flex;
+    display: inline-flex !important;
     align-items: center;
     gap: 0.5rem;
   }
@@ -1395,6 +1426,15 @@ _#_#_#_#_#_# */
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+/* Scroll target for "Learn More Now" — stops 8em earlier */
+#what-we-provide {
+  scroll-margin-top: 8em;
+}
+
+#quiz {
+  scroll-margin-top: 6em;
 }
 
 /* What we provide — golden-ratio spacing, centered, matches site */
@@ -2529,96 +2569,23 @@ _#_#_#_#_#_# */
   height: 8.75em;
   color: white;
 }
-#customer-call-2 {
-  background-color: #0D8BCB;
-  background-image: url("https://dl4.pushbulletusercontent2.com/Wzc8GWorBArziT9x32WT3jLZIyD7rE41/shauntiaribboncut.png");
-  background-position: right 0%;
-  background-repeat: no-repeat;
-  background-size: 75%;
-  border-radius: 0.9em;
-  padding: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 21.32em;
-  height: 8.75em;
-  color: white;
-}
-#customer-call-3 {
-  background-color: #B1CBA7;
-  background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
-  /* background-color: #0D8BCB; */
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 60%;
-  border-radius: 0.9em;
-  padding: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 21.32em;
-  height: 8.75em;
-  color: white;
-}
-#customer-call-4 {
-  background-color: #BCB8D0;
-  background-image: url("https://dl4.pushbulletusercontent2.com/ZMy5nWO0m3zsvYfwthqf8nSQAadKzlOD/shauntiawholecrew.png");
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 60%;
-  border-radius: 0.9em;
-  padding: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 21.32em;
-  height: 8.75em;
-  color: white;
-}
-#customer-call-5 {
-  background-color: #a7c1cb;
-  background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
-  background-position: right top;
-  background-repeat: no-repeat;
-  background-size: 60%;
-  border-radius: 0.9em;
-  padding: 0.9em;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 21.32em;
-  height: 8.75em;
-  color: white;
-}
 
-/* Customer call cards — responsive */
-.customer-call,
-#customer-call-2,
-#customer-call-3,
-#customer-call-4,
-#customer-call-5 {
+/* Customer call cards — responsive (all use Empowerment styling) */
+.customer-call {
   width: min(90vw, 24rem);
   height: auto;
   aspect-ratio: 16 / 7;
 }
 
 @media (min-width: 768px) {
-  .customer-call,
-  #customer-call-2,
-  #customer-call-3,
-  #customer-call-4,
-  #customer-call-5 {
+  .customer-call {
     width: 78vw;
     aspect-ratio: 16 / 6;
   }
 }
 
 @media (min-width: 1024px) {
-  .customer-call,
-  #customer-call-2,
-  #customer-call-3,
-  #customer-call-4,
-  #customer-call-5 {
+  .customer-call {
     width: 65vw;
     aspect-ratio: 16 / 6;
   }
@@ -2626,13 +2593,31 @@ _#_#_#_#_#_# */
 
 .customer-call__header h2 {
   font-size: clamp(1em, 1.6vw, 1.8em);
-  font-weight: 300;
+  font-weight: 600;
   margin-bottom: 0.1em;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0 4px rgba(0,0,0,0.4);
 }
 
 .customer-call__source {
   font-size: clamp(0.75em, 1.1vw, 1.2em);
   font-weight: 300;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.customer-call__source:hover {
+  opacity: 0.9;
+}
+
+.customer-call__source:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.9);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .customer-call__card {
@@ -2647,42 +2632,58 @@ _#_#_#_#_#_# */
 
 .customer-call__actions {
   display: flex;
-  gap: 0.4em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: stretch;
 }
 
-.btn-accept {
-  background: rgba(90,90,90,0.5);
-  color: white;
-  border: none;
-  padding: 0.35em 0.75em;
+/* Customer-call buttons: WCAG 2.5.5 min 44px touch target, 2.4.7 focus visible */
+.btn-accept,
+.btn-accept-2,
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5em 1em;
   border-radius: 0.4em;
-  font-size: clamp(0.85em, 1.1vw, 1.2em);
+  font-size: clamp(0.9rem, 1.1vw, 1.1em);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
 
-.btn-decline {
-  background: transparent;
-  border: 0.1em solid #0073ff;
-  color: #0073ff;
-  padding: 0.35em;
-  border-radius: 0.4em;
-  font-size: clamp(0.85em, 1.1vw, 1.2em);
-}
+.btn-accept,
 .btn-accept-2 {
-  background: rgba(90,90,90,0.5);
-  color: white;
-  border: none;
-  padding: 0.35em 0.75em;
-  border-radius: 0.4em;
-  font-size: clamp(0.85em, 1.1vw, 1.2em);
+  background: rgba(68,68,68,0.85);
+  color: #fff;
+  border: 2px solid transparent;
 }
 
-.btn-decline-2 {
-  background: transparent;
-  border: 0.1em solid #0073ff;
-  color: #0073ff;
-  padding: 0.35em;
-  border-radius: 0.4em;
-  font-size: clamp(0.85em, 1.1vw, 1.2em);
+.btn-accept:hover,
+.btn-accept-2:hover {
+  background: rgba(50,50,50,0.95);
+}
+
+.btn-contact {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 2px solid #2d2d2d;
+}
+
+.btn-contact:hover {
+  background: #f0f0f0;
+  border-color: #1a1a1a;
+  color: #0a0a0a;
+}
+
+.btn-accept:focus-visible,
+.btn-accept-2:focus-visible,
+.btn-contact:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
 }
 
 @media (min-width: 700px) {
@@ -3458,6 +3459,45 @@ blockquote {
   padding: 0.25rem 1rem;
 }
 
+.quiz-scroll-cta-wrap {
+  --phi: 1.618;
+  margin: 1rem 0 calc(1rem * var(--phi) * var(--phi) * var(--phi));
+}
+
+.quiz-scroll-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #08969c;
+  background: rgba(11, 174, 183, 0.14);
+  border: 1px solid rgba(11, 174, 183, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.quiz-scroll-cta:hover {
+  background: rgba(11, 174, 183, 0.22);
+  border-color: rgba(11, 174, 183, 0.65);
+  color: #067a80;
+}
+
+.quiz-scroll-cta:focus-visible {
+  outline: 2px solid #0baeb7;
+  outline-offset: 2px;
+}
+
+.quiz-scroll-cta .them007-card__cta-arrow {
+  font-size: 1em;
+}
+
 .blog-view-all-cta {
   --phi: 1.618;
   --phi-inv: 0.618;
@@ -3511,9 +3551,11 @@ blockquote {
   }
 }
 
-/* Blog section – extra space above for page cadence */
+/* Blog section – extra space above for page cadence / rhythm */
 .blog-section-divider {
-  margin-top: 3.5rem;
+  --phi: 1.618;
+  margin-top: calc(1rem * var(--phi) * var(--phi) * var(--phi) * var(--phi));
+  margin-bottom: calc(1rem * var(--phi));
 }
 
 /* Blog intro – golden-ratio typography (φ ≈ 1.618) */

@@ -237,10 +237,10 @@ export default function QuizletPaths() {
                 <Mail className="contact-block__icon" aria-hidden="true" />
                 007mmission@gmail.com
               </a>
-              <p className="contact-block__phone">
+              <a href="tel:+10075551234" className="contact-block__link contact-block__phone">
                 <Phone className="contact-block__icon" aria-hidden="true" />
-                <a href="tel:+10075551234" className="contact-block__link">(555) 123-4567</a>
-              </p>
+                (555) 123-4567
+              </a>
             </div>
             <div className="contact-block__socials socials">
               <a href="#" className="contact-block__social contact-block__social--twitter" aria-label="Twitter">

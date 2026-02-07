@@ -81,7 +81,7 @@ export default function Home() {
       
       <br />
       <br />
-      <span className="divider" style={{ marginTop: "12em" }}>
+      <span id="what-we-provide" className="divider" style={{ marginTop: "12em" }}>
         <span className="divider-line"></span>
         <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
           WHAT WE PROVIDE
@@ -111,7 +111,16 @@ export default function Home() {
             transitioning into meaningful education, careers, and adult-life
             opportunities.
           </p>
-
+          <div className="quiz-scroll-cta-wrap">
+            <button
+              type="button"
+              className="quiz-scroll-cta"
+              onClick={() => document.getElementById("quiz")?.scrollIntoView({ behavior: typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
+              aria-label="Take our quick quiz to find your next step"
+            >
+              Take our quick quiz to find your next step <span className="them007-card__cta-arrow" aria-hidden>→</span>
+            </button>
+          </div>
           <span className="divider blog-section-divider" style={{width:'100%'}}>
             <span className="divider-line"></span>
             <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
@@ -132,7 +141,7 @@ export default function Home() {
           </div>
           <div className="spacer"></div>
 
-          <div className="hero-cta-grid" style={{ marginTop: "1.32em" }}>
+          <div id="contact" className="hero-cta-grid" style={{ marginTop: "1.32em" }}>
             <div className="hero-cta-content">
               <div className="hero-cta-text">
                 <h3 style={{ color: "white", lineHeight: "1.52" }}>
@@ -235,6 +244,7 @@ export default function Home() {
           <div className="hero-text">
             <div className="hero-content">
             
+<div id="quiz">
 <span className="divider">
   <span className="divider-line"></span>
   <span className="divider-text" style={{ letterSpacing: "0.092em", fontWeight: "bold" }}>
@@ -243,6 +253,7 @@ export default function Home() {
   <span className="divider-line reverse"></span>
 </span>
 <QuizletPaths />
+</div>
             </div>
           </div>
 {/* okkkk */}

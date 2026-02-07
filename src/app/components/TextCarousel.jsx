@@ -1,6 +1,17 @@
+"use client";
+
 import React from 'react'
 // Styles live in globals.css
 const TextCarousel = () => {
+  const getScrollBehavior = () =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+  const scrollToWhatWeProvide = () => {
+    document.getElementById('what-we-provide')?.scrollIntoView({ behavior: getScrollBehavior() });
+  };
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: getScrollBehavior() });
+  };
   //  I want to remove the words  trade classes and this 
 
 // Mission Statement for Mission 007 NFP:
@@ -29,13 +40,27 @@ const TextCarousel = () => {
        <div className="customer-call">
   <div className="customer-call__header">
     <h2>Empowerment</h2>
-    <div className="customer-call__source">learn more</div>
+    <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">learn more</button>
   </div>
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept">✅ Learn More Now</button>
-      <button className="btn-decline">✖️</button>
+      <button
+        type="button"
+        className="btn-accept"
+        onClick={scrollToWhatWeProvide}
+        aria-label="Learn more, scroll to What we provide"
+      >
+        ✅ Learn More Now
+      </button>
+      <button
+        type="button"
+        className="btn-contact"
+        onClick={scrollToContact}
+        aria-label="Contact Us, go to contact section"
+      >
+        Contact Us
+      </button>
     </div>
 
     {/* <div className="customer-call__details">
@@ -53,13 +78,27 @@ const TextCarousel = () => {
               <div className="customer-call" id="customer-call-2">
   <div className="customer-call__header">
     <h2>Mentorship</h2>
-    <div className="customer-call__source">Learn More</div>
+    <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">Learn More</button>
   </div>
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Learn More Now</button>
-      <button className="btn-decline-2">✖️</button>
+      <button
+        type="button"
+        className="btn-accept-2"
+        onClick={scrollToWhatWeProvide}
+        aria-label="Learn more, scroll to What we provide"
+      >
+        ✅ Learn More Now
+      </button>
+      <button
+        type="button"
+        className="btn-contact"
+        onClick={scrollToContact}
+        aria-label="Contact Us, go to contact section"
+      >
+        Contact Us
+      </button>
     </div>
 
     {/* <div className="customer-call__details">
@@ -75,13 +114,27 @@ const TextCarousel = () => {
               <div className="customer-call" id="customer-call-3">
   <div className="customer-call__header">
     <h2>Skill Development</h2>
-    <div className="customer-call__source">Learn More</div>
+    <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">Learn More</button>
   </div>
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Learn More Now</button>
-      <button className="btn-decline-2">✖️</button>
+      <button
+        type="button"
+        className="btn-accept-2"
+        onClick={scrollToWhatWeProvide}
+        aria-label="Learn more, scroll to What we provide"
+      >
+        ✅ Learn More Now
+      </button>
+      <button
+        type="button"
+        className="btn-contact"
+        onClick={scrollToContact}
+        aria-label="Contact Us, go to contact section"
+      >
+        Contact Us
+      </button>
     </div>
 
     {/* <div className="customer-call__details">
@@ -97,13 +150,27 @@ const TextCarousel = () => {
               <div className="customer-call" id="customer-call-4">
   <div className="customer-call__header">
     <h2>Inspiraton / Pathways to Success</h2>
-    <div className="customer-call__source">Learn More</div>
+    <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">Learn More</button>
   </div>
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Learn More Now</button>
-      <button className="btn-decline-2">✖️</button>
+      <button
+        type="button"
+        className="btn-accept-2"
+        onClick={scrollToWhatWeProvide}
+        aria-label="Learn more, scroll to What we provide"
+      >
+        ✅ Learn More Now
+      </button>
+      <button
+        type="button"
+        className="btn-contact"
+        onClick={scrollToContact}
+        aria-label="Contact Us, go to contact section"
+      >
+        Contact Us
+      </button>
     </div>
 
     {/* <div className="customer-call__details">
@@ -119,13 +186,27 @@ const TextCarousel = () => {
               <div className="customer-call" id="customer-call-5">
   <div className="customer-call__header">
     <h2>Community Building</h2>
-    <div className="customer-call__source">Learn More</div>
+    <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">Learn More</button>
   </div>
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept-2">✅ Learn More Now</button>
-      <button className="btn-decline-2">✖️</button>
+      <button
+        type="button"
+        className="btn-accept-2"
+        onClick={scrollToWhatWeProvide}
+        aria-label="Learn more, scroll to What we provide"
+      >
+        ✅ Learn More Now
+      </button>
+      <button
+        type="button"
+        className="btn-contact"
+        onClick={scrollToContact}
+        aria-label="Contact Us, go to contact section"
+      >
+        Contact Us
+      </button>
     </div>
 
     {/* <div className="customer-call__details">
@@ -165,8 +246,8 @@ const TextCarousel = () => {
 
   <div className="customer-call__card">
     <div className="customer-call__actions">
-      <button className="btn-accept">✅ Learn More Now</button>
-      <button className="btn-decline">✖️</button>
+      <button type="button" className="btn-accept" onClick={scrollToWhatWeProvide}>✅ Learn More Now</button>
+      <button type="button" className="btn-contact" onClick={scrollToContact}>Contact Us</button>
     </div>
 
     <div className="customer-call__details">
