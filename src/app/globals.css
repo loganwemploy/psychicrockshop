@@ -141,12 +141,11 @@ nav.headernav {
  #_#_#_#_#*/
 .content-slider {
   width: 100%;
-  height: 20vh;
-  
+  height: 14.125em;
+  position: relative;
 }
 
 .slider {
-  /* height: 320px; */
   width: auto;
   margin: 0.1em auto 0;
   overflow: visible;
@@ -156,6 +155,7 @@ nav.headernav {
 .mask {
   overflow: hidden;
   height: clamp(240px, calc(24vh + 120px), 620px);
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -176,18 +176,25 @@ nav.headernav {
 }
 
 .slider ul {
-  margin: 0 0 0 0;
+  margin: 0;
   padding: 0;
   position: relative;
+  height: clamp(240px, calc(24vh + 120px), 620px);
+  list-style: none;
+}
+
+@media (min-width: 1375px) {
+  .slider ul {
+    height: clamp(320px, calc(30vh + 160px), 760px);
+  }
 }
 
 .slider li {
-  /* height: 320px; */
   position: absolute;
   top: -200px;
-  list-style: none;
   left: 50%;
-  transform: translate3d(-50%,0,0);
+  transform: translate3d(-50%, 0, 0);
+  list-style: none;
 }
 
 .slider .quote {
@@ -2570,22 +2577,90 @@ _#_#_#_#_#_# */
   color: white;
 }
 
-/* Customer call cards — responsive (all use Empowerment styling) */
-.customer-call {
+#customer-call-2 {
+  background-color: #0D8BCB;
+  background-image: url("https://dl4.pushbulletusercontent2.com/Wzc8GWorBArziT9x32WT3jLZIyD7rE41/shauntiaribboncut.png");
+  background-position: right 0%;
+  background-repeat: no-repeat;
+  background-size: 75%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+#customer-call-3 {
+  background-color: #B1CBA7;
+  background-image: url("https://dl4.pushbulletusercontent2.com/5zDaeGzo0cjQVKhBXUwdZFTODvk5bVbD/shauntia007BNWHT.png");
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+#customer-call-4 {
+  background-color: #BCB8D0;
+  background-image: url("https://dl4.pushbulletusercontent2.com/ZMy5nWO0m3zsvYfwthqf8nSQAadKzlOD/shauntiawholecrew.png");
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+#customer-call-5 {
+  background-color: #a7c1cb;
+  background-image: url("https://dl4.pushbulletusercontent2.com/7CreBQ8g8Sa28wQ98vXtlkKi6WH5Y9jf/shauntiawithgroup.png");
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  border-radius: 0.9em;
+  padding: 0.9em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+/* Customer call cards — responsive */
+.customer-call,
+#customer-call-2,
+#customer-call-3,
+#customer-call-4,
+#customer-call-5 {
   width: min(90vw, 24rem);
   height: auto;
   aspect-ratio: 16 / 7;
 }
 
 @media (min-width: 768px) {
-  .customer-call {
+  .customer-call,
+  #customer-call-2,
+  #customer-call-3,
+  #customer-call-4,
+  #customer-call-5 {
     width: 78vw;
     aspect-ratio: 16 / 6;
   }
 }
 
 @media (min-width: 1024px) {
-  .customer-call {
+  .customer-call,
+  #customer-call-2,
+  #customer-call-3,
+  #customer-call-4,
+  #customer-call-5 {
     width: 65vw;
     aspect-ratio: 16 / 6;
   }
@@ -2597,6 +2672,27 @@ _#_#_#_#_#_# */
   margin-bottom: 0.1em;
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0 4px rgba(0,0,0,0.4);
+}
+
+/* Light-background cards: dark text for WCAG contrast */
+#customer-call-3 .customer-call__header h2,
+#customer-call-4 .customer-call__header h2,
+#customer-call-5 .customer-call__header h2 {
+  color: #1a1a1a;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.9), 0 0 3px rgba(255,255,255,0.6);
+}
+
+#customer-call-3 .customer-call__source,
+#customer-call-4 .customer-call__source,
+#customer-call-5 .customer-call__source {
+  color: #2d2d2d;
+}
+
+#customer-call-3 .customer-call__source:focus-visible,
+#customer-call-4 .customer-call__source:focus-visible,
+#customer-call-5 .customer-call__source:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
 }
 
 .customer-call__source {

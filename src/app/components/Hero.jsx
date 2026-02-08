@@ -15,14 +15,12 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
         <div className='hero' style={
             { 
             width: '100vw',
-            
             height: 'auto',
             minHeight:'50vh',
             overflow: 'hidden',
             display:'flex',
             flexDirection:'column',
             margin:'3.2ch 0 0 0'
-            // background: '#f1e4d4'
          }
             }>
               {/*  */}
