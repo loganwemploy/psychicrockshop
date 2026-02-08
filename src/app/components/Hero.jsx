@@ -36,7 +36,7 @@ const shortFoundersMessage = "As a dedicated mentor with Mission 007 Mentorship,
  {/* end */}
         <TextCarousel />
         {/* Css for this divider lives in globals.css */}
-        <span className="divider" style={{marginTop:'0.52em'}}>
+        <span className="divider" style={{marginTop:'-1.67em'}}>
   <span className="divider-line"></span>
   <span className="divider-text" style={{letterSpacing:'0.092em'}}>WHO ARE WE?</span>
   <span className="divider-line reverse"></span>

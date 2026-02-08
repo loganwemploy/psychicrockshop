@@ -149,7 +149,7 @@ const TextCarousel = () => {
               {/* note wrapper  */}
               <div className="customer-call" id="customer-call-4">
   <div className="customer-call__header">
-    <h2>Inspiraton / Pathways to Success</h2>
+    <h2>Inspiration / Pathways to Success</h2>
     <button type="button" className="customer-call__source" onClick={scrollToWhatWeProvide} aria-label="Learn more, scroll to What we provide">Learn More</button>
   </div>
 

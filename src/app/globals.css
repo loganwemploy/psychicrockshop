@@ -2389,6 +2389,11 @@ _#_#_#_#_#_# */
 @media (max-width: 650px) {
   .event-card {
     flex-direction: row;
+    margin-bottom: 0.75rem;
+  }
+
+  .event-card:last-child {
+    margin-bottom: 0;
   }
 
   .event-left {
@@ -2672,27 +2677,6 @@ _#_#_#_#_#_# */
   margin-bottom: 0.1em;
   color: #ffffff;
   text-shadow: 0 1px 2px rgba(0,0,0,0.5), 0 0 4px rgba(0,0,0,0.4);
-}
-
-/* Light-background cards: dark text for WCAG contrast */
-#customer-call-3 .customer-call__header h2,
-#customer-call-4 .customer-call__header h2,
-#customer-call-5 .customer-call__header h2 {
-  color: #1a1a1a;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.9), 0 0 3px rgba(255,255,255,0.6);
-}
-
-#customer-call-3 .customer-call__source,
-#customer-call-4 .customer-call__source,
-#customer-call-5 .customer-call__source {
-  color: #2d2d2d;
-}
-
-#customer-call-3 .customer-call__source:focus-visible,
-#customer-call-4 .customer-call__source:focus-visible,
-#customer-call-5 .customer-call__source:focus-visible {
-  outline: 2px solid #1a1a1a;
-  outline-offset: 2px;
 }
 
 .customer-call__source {
