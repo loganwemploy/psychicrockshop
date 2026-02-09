@@ -94,6 +94,14 @@ const HeaderBar = () => {
           Blog
         </Link>
         <Link
+          href="/shop"
+          className={navLinkClass('/shop')}
+          aria-current={pathname !== '/' && pathname === '/shop' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/shop')}
+        >
+          Shop
+        </Link>
+        <Link
           href="/learn-where-to-start"
           className={navLinkClass('/learn-where-to-start', 'nav-cta')}
           aria-current={pathname !== '/' && pathname === '/learn-where-to-start' ? 'page' : undefined}

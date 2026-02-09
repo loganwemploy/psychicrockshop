@@ -10,4 +10,5 @@ export const STATIC_ROUTES = [
   { path: "learn-where-to-start", label: "Learn Where to Start", priority: 0.9, changeFrequency: "monthly" },
   { path: "photogallery", label: "Photo Gallery", priority: 0.8, changeFrequency: "weekly" },
   { path: "blog", label: "Blog", priority: 0.8, changeFrequency: "weekly" },
+  { path: "shop", label: "Shop", priority: 0.8, changeFrequency: "weekly" },
 ];
