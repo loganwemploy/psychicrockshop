@@ -1,0 +1,209 @@
+/* OrderModeLayout – 2-column map + order panel. Plain CSS, no Tailwind. */
+
+.container {
+  --panel-radius: 12px;
+  --panel-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --panel-border: 1px solid #e8e2d6;
+  --tab-active-bg: #8B2E1A;
+  --tab-active-color: #fff;
+  --tab-inactive-bg: #fff;
+  --tab-inactive-color: #1a1a1a;
+  --tab-inactive-border: 1px solid #d4cfc4;
+  --input-radius: 10px;
+  --input-border: 1px solid #d4cfc4;
+  --toggle-active-bg: #8B2E1A;
+  --toggle-inactive-bg: #fff;
+
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+
+.mapPlaceholder {
+  flex: 1 1 70%;
+  min-height: 400px;
+  background: linear-gradient(145deg, #5a4a3a 0%, #3d3328 50%, #2a2520 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+.panelWrap {
+  flex: 0 0 30%;
+  min-width: 320px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+.panel {
+  width: 100%;
+  max-width: 420px;
+  background: var(--tab-inactive-bg);
+  border-radius: var(--panel-radius);
+  box-shadow: var(--panel-shadow);
+  border: var(--panel-border);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.tabs {
+  display: flex;
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: var(--tab-inactive-border);
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: var(--tab-inactive-bg);
+  color: var(--tab-inactive-color);
+  border-right: var(--tab-inactive-border);
+  transition: background 0.2s, color 0.2s;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab:hover:not(.tabActive) {
+  background: #f7f5f0;
+}
+
+.tabActive {
+  background: var(--tab-active-bg);
+  color: var(--tab-active-color);
+  border-color: var(--tab-active-bg);
+}
+
+.toggleRow {
+  display: flex;
+  gap: 0;
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  border: var(--tab-inactive-border);
+  margin-bottom: 20px;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: var(--toggle-inactive-bg);
+  color: var(--tab-inactive-color);
+  border-right: var(--tab-inactive-border);
+  transition: background 0.2s, color 0.2s;
+}
+
+.toggleBtn:last-child {
+  border-right: none;
+}
+
+.toggleBtn:hover:not(.toggleActive) {
+  background: #f7f5f0;
+}
+
+.toggleActive {
+  background: var(--toggle-active-bg);
+  color: var(--tab-active-color);
+  border-color: var(--toggle-active-bg);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formRow {
+  display: flex;
+  gap: 12px;
+}
+
+.formRow .inputWrap {
+  flex: 1;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  font-size: 14px;
+  border: var(--input-border);
+  border-radius: var(--input-radius);
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input::placeholder {
+  color: #7a7266;
+}
+
+.input:hover {
+  border-color: #b8b0a0;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--tab-active-bg);
+  box-shadow: 0 0 0 2px rgba(139, 46, 26, 0.15);
+}
+
+.inputIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  color: #6b6358;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .mapPlaceholder {
+    min-height: 280px;
+    flex: 0 0 auto;
+  }
+
+  .panelWrap {
+    flex: 1 1 auto;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .panel {
+    max-width: 100%;
+  }
+}

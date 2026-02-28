@@ -221,7 +221,7 @@ const TextCarousel = () => {
         </li>
         {/* <li className="anim4" style={{padding:'0'}}>
         <div className="hero__cta">
-					<img style={{maxWidth:'3em'}} src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1" alt=""/>
+					<img style={{maxWidth:'3em'}} src="https://dl4.pushbulletusercontent2.com/dGLvQNacaSYF4R560iIwxmyBlN0xWAat/IMG_0937.jpg" alt=""/>
 					<p className="cta__txt">
 						From cityscapes to beaches, we guide you. We handle details so you can focus on getting lost in the moment.
 					</p>

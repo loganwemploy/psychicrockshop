@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Phone, Mail, Twitter, Facebook, Instagram } from "lucide-react";
+import { INPUT_MAX_LENGTHS, sanitizeText, sanitizeEmail } from "../lib/inputSecurity";
 import "./QuizletPaths.module.css";
 
 /* 618ms = 1000/φ — golden-ratio-derived duration for satisfying completion feedback */
@@ -111,16 +112,24 @@ export default function QuizletPaths() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const maxLen = name === "email" ? INPUT_MAX_LENGTHS.email : name === "name" ? INPUT_MAX_LENGTHS.name : INPUT_MAX_LENGTHS.location;
+    const sanitized = name === "email" ? sanitizeEmail(value) : sanitizeText(value, maxLen);
+    setFormData((prev) => ({ ...prev, [name]: sanitized }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus(null);
 
+    const safeFormData = {
+      name: sanitizeText(formData.name, INPUT_MAX_LENGTHS.name),
+      email: sanitizeEmail(formData.email),
+      location: sanitizeText(formData.location, INPUT_MAX_LENGTHS.location),
+    };
+
     const payload = {
       answers,
-      formData,
+      formData: safeFormData,
       submittedAt: new Date().toISOString(),
     };
 
@@ -233,13 +242,13 @@ export default function QuizletPaths() {
             <h2 className="contact-block__title">Contact Us</h2>
             <p className="contact-block__lead">We’d love to help you!</p>
             <div className="contact-block__details">
-              <a href="mailto:007mmission@gmail.com" className="contact-block__link contact-block__email">
+              <a href="mailto:info@psychiccrystalbookshop.com" className="contact-block__link contact-block__email">
                 <Mail className="contact-block__icon" aria-hidden="true" />
-                007mmission@gmail.com
+                info@psychiccrystalbookshop.com
               </a>
-              <a href="tel:+10075551234" className="contact-block__link contact-block__phone">
+              <a href="tel:+18472620158" className="contact-block__link contact-block__phone">
                 <Phone className="contact-block__icon" aria-hidden="true" />
-                (555) 123-4567
+                847-262-0158
               </a>
             </div>
             <div className="contact-block__socials socials">
@@ -306,6 +315,8 @@ export default function QuizletPaths() {
                 onChange={handleFormChange}
                 required
                 className="input-field"
+                maxLength={INPUT_MAX_LENGTHS.name}
+                autoComplete="name"
               />
               <label className={`input-label ${formData.name ? "filled" : ""}`}>Name</label>
             </div>
@@ -318,6 +329,8 @@ export default function QuizletPaths() {
                 onChange={handleFormChange}
                 required
                 className="input-field"
+                maxLength={INPUT_MAX_LENGTHS.email}
+                autoComplete="email"
               />
               <label className={`input-label ${formData.email ? "filled" : ""}`}>Email</label>
             </div>
@@ -330,6 +343,8 @@ export default function QuizletPaths() {
                 onChange={handleFormChange}
                 required
                 className="input-field"
+                maxLength={INPUT_MAX_LENGTHS.location}
+                autoComplete="postal-code"
               />
               <label className={`input-label ${formData.location ? "filled" : ""}`}>
                 ZIP code or Town

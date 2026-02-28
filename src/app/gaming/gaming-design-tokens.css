@@ -1,0 +1,163 @@
+/**
+ * Gaming layout design tokens
+ * Golden ratio (φ ≈ 1.618), golden spiral, golden angle (137.5°), Pythagorean proportions.
+ * Each breakpoint redefines the same token names so one chain of rules applies at every size.
+ *
+ * Scale: base unit u; then u·φ^0, u·φ^1, u·φ^2 … (Fibonacci-like: 8, 13, 21, 34, 55).
+ * Golden angle: 137.5° → major 61.8% (1/φ), minor 38.2%.
+ * Pythagorean: 3-4-5 and φ-rectangle (diagonal = √(1+φ²)) for harmonious proportions.
+ */
+
+/* φ and 1/φ (approximate) */
+.gaming-root {
+  --gaming-phi: 1.618;
+  --gaming-phi-inv: 0.618;
+  /* Golden angle as fraction: 137.5/360 */
+  --gaming-golden-major: 61.8%;
+  --gaming-golden-minor: 38.2%;
+  /* Pythagorean 3-4-5: parts of 12 for columns */
+  --gaming-pyth-3: 25%;
+  --gaming-pyth-4: 33.333%;
+  --gaming-pyth-5: 41.667%;
+}
+
+/* ========== Base (default / mobile first) ========== */
+.gaming-root {
+  --gaming-u: 8px;
+  /* Spacing scale: u · φ^n (Fibonacci-like) */
+  --gaming-space-xxs: var(--gaming-u);
+  --gaming-space-xs: calc(var(--gaming-u) * var(--gaming-phi));
+  --gaming-space-sm: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi));
+  --gaming-space-md: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi) * var(--gaming-phi));
+  --gaming-space-lg: calc(var(--gaming-u) * 5.236);
+  --gaming-space-xl: calc(var(--gaming-u) * 8.472);
+  --gaming-space-2xl: calc(var(--gaming-u) * 13.708);
+  /* Section vs item: double for rhythm (golden spiral step) */
+  --gaming-section-gap: var(--gaming-space-md);
+  --gaming-item-gap: var(--gaming-space-sm);
+  --gaming-pill-gap: var(--gaming-space-xs);
+  /* Radii: φ-based steps */
+  --gaming-radius-sm: var(--gaming-space-xxs);
+  --gaming-radius-md: var(--gaming-space-xs);
+  --gaming-radius-lg: var(--gaming-space-sm);
+  --gaming-radius-xl: var(--gaming-space-md);
+  /* Nav / chrome */
+  --gaming-nav-height: 56px;
+  --gaming-sidebar-width: 256px;
+  /* Container: golden-rectangle–friendly max-width (e.g. 896 ≈ 34*26.35) */
+  --gaming-container-max: 896px;
+  /* Hero: height from φ (e.g. width/φ feel); 260 ≈ 21*12.38 */
+  --gaming-hero-height: 260px;
+  /* Safe area */
+  --gaming-safe-bottom: calc(var(--gaming-space-md) + env(safe-area-inset-bottom, 0px));
+  /* Fluid padding: clamp from u to u·φ² */
+  --fluid-padding: clamp(var(--gaming-u), 4vw + var(--gaming-space-xs), var(--gaming-space-sm));
+}
+
+/* ========== 768px ========== */
+@media (min-width: 768px) {
+  .gaming-root {
+    --gaming-u: 8px;
+    --gaming-space-xxs: var(--gaming-u);
+    --gaming-space-xs: calc(var(--gaming-u) * var(--gaming-phi));
+    --gaming-space-sm: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi));
+    --gaming-space-md: calc(var(--gaming-u) * 4.236);
+    --gaming-space-lg: calc(var(--gaming-u) * 6.854);
+    --gaming-space-xl: calc(var(--gaming-u) * 11.09);
+    --gaming-space-2xl: calc(var(--gaming-u) * 17.944);
+    --gaming-section-gap: var(--gaming-space-md);
+    --gaming-item-gap: var(--gaming-space-sm);
+    --gaming-pill-gap: var(--gaming-space-xs);
+    --gaming-radius-sm: var(--gaming-space-xxs);
+    --gaming-radius-md: var(--gaming-space-xs);
+    --gaming-radius-lg: var(--gaming-space-sm);
+    --gaming-radius-xl: var(--gaming-space-md);
+    --gaming-nav-height: 56px;
+    --gaming-sidebar-width: 256px;
+    --gaming-container-max: 896px;
+    --gaming-hero-height: 272px;
+    --gaming-safe-bottom: calc(var(--gaming-space-md) + env(safe-area-inset-bottom, 0px));
+    --fluid-padding: clamp(var(--gaming-space-xs), 3vw + var(--gaming-space-xs), var(--gaming-space-sm));
+  }
+}
+
+/* ========== 1024px ========== */
+@media (min-width: 1024px) {
+  .gaming-root {
+    --gaming-u: 10px;
+    --gaming-space-xxs: var(--gaming-u);
+    --gaming-space-xs: calc(var(--gaming-u) * var(--gaming-phi));
+    --gaming-space-sm: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi));
+    --gaming-space-md: calc(var(--gaming-u) * 4.236);
+    --gaming-space-lg: calc(var(--gaming-u) * 6.854);
+    --gaming-space-xl: calc(var(--gaming-u) * 11.09);
+    --gaming-space-2xl: calc(var(--gaming-u) * 17.944);
+    --gaming-section-gap: var(--gaming-space-md);
+    --gaming-item-gap: var(--gaming-space-sm);
+    --gaming-pill-gap: var(--gaming-space-xs);
+    --gaming-radius-sm: var(--gaming-space-xxs);
+    --gaming-radius-md: var(--gaming-space-xs);
+    --gaming-radius-lg: var(--gaming-space-sm);
+    --gaming-radius-xl: var(--gaming-space-md);
+    --gaming-nav-height: 56px;
+    --gaming-sidebar-width: 256px;
+    --gaming-container-max: 896px;
+    --gaming-hero-height: 284px;
+    --gaming-safe-bottom: calc(var(--gaming-space-md) + env(safe-area-inset-bottom, 0px));
+    --fluid-padding: clamp(var(--gaming-space-sm), 2.5vw + var(--gaming-space-xs), var(--gaming-space-md));
+  }
+}
+
+/* ========== 1280px ========== */
+@media (min-width: 1280px) {
+  .gaming-root {
+    --gaming-u: 10px;
+    --gaming-space-xxs: var(--gaming-u);
+    --gaming-space-xs: calc(var(--gaming-u) * var(--gaming-phi));
+    --gaming-space-sm: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi));
+    --gaming-space-md: calc(var(--gaming-u) * 4.236);
+    --gaming-space-lg: calc(var(--gaming-u) * 6.854);
+    --gaming-space-xl: calc(var(--gaming-u) * 11.09);
+    --gaming-space-2xl: calc(var(--gaming-u) * 17.944);
+    --gaming-section-gap: var(--gaming-space-lg);
+    --gaming-item-gap: var(--gaming-space-md);
+    --gaming-pill-gap: var(--gaming-space-xs);
+    --gaming-radius-sm: var(--gaming-space-xxs);
+    --gaming-radius-md: var(--gaming-space-xs);
+    --gaming-radius-lg: var(--gaming-space-sm);
+    --gaming-radius-xl: var(--gaming-space-md);
+    --gaming-nav-height: 60px;
+    --gaming-sidebar-width: 256px;
+    --gaming-container-max: 896px;
+    --gaming-hero-height: 294px;
+    --gaming-safe-bottom: calc(var(--gaming-space-lg) + env(safe-area-inset-bottom, 0px));
+    --fluid-padding: clamp(var(--gaming-space-sm), 2vw + var(--gaming-space-xs), var(--gaming-space-md));
+  }
+}
+
+/* ========== 1536px ========== */
+@media (min-width: 1536px) {
+  .gaming-root {
+    --gaming-u: 13px;
+    --gaming-space-xxs: var(--gaming-u);
+    --gaming-space-xs: calc(var(--gaming-u) * var(--gaming-phi));
+    --gaming-space-sm: calc(var(--gaming-u) * var(--gaming-phi) * var(--gaming-phi));
+    --gaming-space-md: calc(var(--gaming-u) * 4.236);
+    --gaming-space-lg: calc(var(--gaming-u) * 6.854);
+    --gaming-space-xl: calc(var(--gaming-u) * 11.09);
+    --gaming-space-2xl: calc(var(--gaming-u) * 17.944);
+    --gaming-section-gap: var(--gaming-space-lg);
+    --gaming-item-gap: var(--gaming-space-md);
+    --gaming-pill-gap: var(--gaming-space-xs);
+    --gaming-radius-sm: var(--gaming-space-xxs);
+    --gaming-radius-md: var(--gaming-space-xs);
+    --gaming-radius-lg: var(--gaming-space-sm);
+    --gaming-radius-xl: var(--gaming-space-md);
+    --gaming-nav-height: 64px;
+    --gaming-sidebar-width: 272px;
+    --gaming-container-max: 944px;
+    --gaming-hero-height: 308px;
+    --gaming-safe-bottom: calc(var(--gaming-space-lg) + env(safe-area-inset-bottom, 0px));
+    --fluid-padding: clamp(var(--gaming-space-sm), 1.5vw + var(--gaming-space-xs), var(--gaming-space-lg));
+  }
+}

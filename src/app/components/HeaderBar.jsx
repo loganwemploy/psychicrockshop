@@ -34,7 +34,7 @@ const HeaderBar = () => {
             <div id="header" className={isHome ? 'header--home' : 'header--with-home'}>
       <Link href="/" onClick={(e) => { if (pathname !== '/') { e.preventDefault(); closeMenu(); startTransition('/'); } else closeMenu(); }}
         ><img
-          src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
+          src="https://dl4.pushbulletusercontent2.com/dGLvQNacaSYF4R560iIwxmyBlN0xWAat/IMG_0937.jpg"
           alt="logo"
           className="logo"
       /></Link>
@@ -100,6 +100,14 @@ const HeaderBar = () => {
           onClick={(e) => handleNavClick(e, '/shop')}
         >
           Shop
+        </Link>
+        <Link
+          href="/gaming"
+          className={navLinkClass('/gaming')}
+          aria-current={pathname !== '/' && pathname === '/gaming' ? 'page' : undefined}
+          onClick={(e) => handleNavClick(e, '/gaming')}
+        >
+          Gaming
         </Link>
         <Link
           href="/learn-where-to-start"

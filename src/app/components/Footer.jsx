@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { STATIC_ROUTES } from "../site-routes";
+import { INPUT_MAX_LENGTHS } from "../lib/inputSecurity";
 import {
   Facebook,
   Instagram,
@@ -9,6 +10,7 @@ import {
   Twitter,
   Youtube,
   Phone,
+  Send,
 } from "lucide-react";
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -46,7 +48,7 @@ export default function Footer() {
               <Link className="pg-footer__logo-link" href="/">
                 <span className="pg-footer__hidden-text">Home</span>
                 <img
-                  src="https://i0.wp.com/mmission007.org/wp-content/uploads/2025/06/IMG_5305-scaled.png?w=2560&ssl=1"
+                  src="https://dl4.pushbulletusercontent2.com/dGLvQNacaSYF4R560iIwxmyBlN0xWAat/IMG_0937.jpg"
                   alt="Mission 007 NFP"
                   width={120}
                   height={48}
@@ -123,19 +125,51 @@ export default function Footer() {
               </p>
             </div>
           </div>
-          <div className="pg-footer__social">
-            {SOCIAL_LINKS.map(({ name, href, Icon }) => (
-              <a
-                key={name}
-                className="pg-footer__social-link"
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={name}
+          <div id="contact" className="pg-footer__social-track">
+            <div className="pg-footer__social">
+              {SOCIAL_LINKS.map(({ name, href, Icon }) => (
+                <a
+                  key={name}
+                  className="pg-footer__social-link"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={name}
+                >
+                  <Icon size={22} strokeWidth={1.8} aria-hidden />
+                </a>
+              ))}
+            </div>
+            <div className="pg-footer__message">
+              <label htmlFor="pg-footer-message" className="pg-footer__message-label">
+                Leave us a message.
+              </label>
+              <form
+                className="pg-footer__message-form"
+                onSubmit={(e) => e.preventDefault()}
+                aria-label="Leave us a message"
               >
-                <Icon size={22} strokeWidth={1.8} aria-hidden />
-              </a>
-            ))}
+                <div className="pg-footer__message-row">
+                  <input
+                    id="pg-footer-message"
+                    type="text"
+                    className="pg-footer__message-input"
+                    placeholder="Type a short message…"
+                    aria-label="Leave us a message"
+                    maxLength={INPUT_MAX_LENGTHS.shortMessage}
+                    autoComplete="off"
+                  />
+                  <button
+                    type="submit"
+                    className="pg-footer__message-submit"
+                    aria-label="Send message"
+                    title="Send message"
+                  >
+                    <Send size={18} strokeWidth={2} aria-hidden />
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div className="pg-footer__copyright">
