@@ -223,10 +223,9 @@ function scrollSectionIntoView(mainScroll, section) {
 }
 
 /**
- * One section per wheel. Observer reports which section has most visibility, but
- * we IGNORE observer updates during scroll lock so we never "skip" a section
- * (e.g. Readings) when the observer fires mid-scroll. We set currentSectionIndex
- * optimistically when we start a scroll so state matches the scroll target.
+ * One section per wheel. On desktop we skip the IntersectionObserver and derive
+ * current section from scroll position (offsetTop). On smaller screens we use
+ * the observer so state stays in sync.
  */
 export function initScrollSnap(containerRef) {
   const root = containerRef?.current;
@@ -237,33 +236,46 @@ export function initScrollSnap(containerRef) {
   const sectionCount = sections.length;
   if (sectionCount === 0) return () => {};
 
+  const isDesktop = () => typeof window !== "undefined" && window.matchMedia("(min-width: 769px)").matches;
   let currentSectionIndex = 0;
   let scrollLockUntil = 0;
   const LOCK_MS = 1100;
-  const ratioBySection = new Map();
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (Date.now() < scrollLockUntil) return;
-      entries.forEach((e) => ratioBySection.set(e.target, e.intersectionRatio));
-      let bestRatio = 0;
-      let bestIndex = 0;
-      sections.forEach((s, i) => {
-        const r = ratioBySection.get(s) ?? 0;
-        if (r > bestRatio) {
-          bestRatio = r;
-          bestIndex = i;
-        }
-      });
-      currentSectionIndex = bestIndex;
-    },
-    {
-      root: mainScroll,
-      rootMargin: "0px",
-      threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1],
+  function getCurrentIndexFromScroll() {
+    const scrollTop = mainScroll.scrollTop;
+    const vh = mainScroll.clientHeight;
+    for (let i = sectionCount - 1; i >= 0; i--) {
+      if (scrollTop >= sections[i].offsetTop - 2) return i;
     }
-  );
-  sections.forEach((s) => observer.observe(s));
+    return 0;
+  }
+
+  let observer = null;
+  if (!isDesktop()) {
+    const ratioBySection = new Map();
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (Date.now() < scrollLockUntil) return;
+        entries.forEach((e) => ratioBySection.set(e.target, e.intersectionRatio));
+        let bestRatio = 0;
+        let bestIndex = 0;
+        sections.forEach((s, i) => {
+          const r = ratioBySection.get(s) ?? 0;
+          if (r > bestRatio) {
+            bestRatio = r;
+            bestIndex = i;
+          }
+        });
+        currentSectionIndex = bestIndex;
+      },
+      {
+        root: mainScroll,
+        rootMargin: "0px",
+        threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1],
+      }
+    );
+    sections.forEach((s) => observer.observe(s));
+  }
 
   function scrollToSection(index) {
     const i = Math.max(0, Math.min(index, sectionCount - 1));
@@ -276,6 +288,7 @@ export function initScrollSnap(containerRef) {
       e.preventDefault();
       return;
     }
+    if (isDesktop()) currentSectionIndex = getCurrentIndexFromScroll();
     const vh = mainScroll.clientHeight;
     const atBottom = mainScroll.scrollTop >= mainScroll.scrollHeight - vh - 2;
 
@@ -295,7 +308,7 @@ export function initScrollSnap(containerRef) {
   mainScroll.addEventListener("wheel", onWheel, { passive: false });
   return () => {
     mainScroll.removeEventListener("wheel", onWheel);
-    sections.forEach((s) => observer.unobserve(s));
+    if (observer) sections.forEach((s) => observer.unobserve(s));
   };
 }
 
