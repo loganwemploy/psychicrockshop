@@ -14,20 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "psychic &amp; rock shop | Crystal & Psychic Healing",
-  description: "psychic &amp; rock shop. Crystal therapy, tarot readings, energy cleansing, and spiritual services. Pain relief and energetic alignment.",
+  title: "Psychic & Crystal Bookshop | Crystal & Psychic Healing",
+  description: "Psychic & Crystal Bookshop. Crystal therapy, tarot readings, energy cleansing, and spiritual services. Pain relief and energetic alignment.",
   keywords: "crystal healing, tarot reading, psychic reading, energy cleansing, spiritual wellness, crystal therapy, Julibe",
   author: "Julibe",
   themeColor: "#3f1677",
   openGraph: {
-    title: "psychic &amp; rock shop | Crystal & Psychic Healing",
+    title: "Psychic & Crystal Bookshop | Crystal & Psychic Healing",
     description: "Crystal therapy, tarot readings, energy cleansing, and spiritual services.",
     type: "website",
     images: ["https://dl4.pushbulletusercontent2.com/dGLvQNacaSYF4R560iIwxmyBlN0xWAat/IMG_0937.jpg"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "psychic &amp; rock shop | Crystal & Psychic Healing",
+    title: "Psychic & Crystal Bookshop | Crystal & Psychic Healing",
     description: "Crystal therapy, tarot readings, energy cleansing, and spiritual services.",
     images: ["https://dl4.pushbulletusercontent2.com/dGLvQNacaSYF4R560iIwxmyBlN0xWAat/IMG_0937.jpg"],
   },
