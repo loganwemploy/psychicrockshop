@@ -1,4 +1,4 @@
-/* scoped under .k7-scope */
+/* scoped under .shopcrystal-scope */
 @font-face {
 	font-family: "Acumin";
 	src: url("https://raw.githubusercontent.com/Julibe/Guau/master/public/fonts/acumin.woff2") format("woff2");
@@ -12,19 +12,19 @@
 	font-style: normal;
 }
 
-.k7-scope *,
-.k7-scope * {
+.shopcrystal-scope *,
+.shopcrystal-scope * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	cursor: none;
+	cursor: auto;
 	box-shadow: none !important;
 	text-shadow: none !important;
 	transition: background 0.5s, color 0.5s, border 0.5s, width 0.5s var(--ease-elastic), height 0.5s var(--ease-elastic), opacity 0.5s;
 }
 
-.k7-scope,
-.k7-scope {
+.shopcrystal-scope,
+.shopcrystal-scope {
 	--font-title: "Pulsar", sans-serif;
 	--font-body: "Acumin", sans-serif;
 	--header-height: 100px;
@@ -42,14 +42,32 @@
 	z-index: 0;
 }
 
-.k7-scope .k7-scope-inner {
+.shopcrystal-scope .shopcrystal-scope-inner {
 	position: relative;
 	width: 100%;
 	height: 100%;
 }
 
-.k7-scope a,
-.k7-scope button {
+.shopcrystal-scope .shopcrystal-skip-link {
+	position: absolute;
+	top: -100px;
+	left: 1rem;
+	z-index: 50000;
+	padding: 0.75rem 1.25rem;
+	background: var(--ui-text);
+	color: var(--ui-theme);
+	font-weight: bold;
+	border-radius: 8px;
+	transition: top 0.2s ease;
+}
+.shopcrystal-scope .shopcrystal-skip-link:focus {
+	top: 1rem;
+	outline: 3px solid currentColor;
+	outline-offset: 2px;
+}
+
+.shopcrystal-scope a,
+.shopcrystal-scope button {
 	text-decoration: none;
 	color: inherit;
 	font-family: var(--font-title);
@@ -63,8 +81,8 @@
 	user-select: none;
 }
 
-.k7-scope a::after,
-.k7-scope button::after {
+.shopcrystal-scope a::after,
+.shopcrystal-scope button::after {
 	content: "";
 	position: absolute;
 	bottom: -5px;
@@ -75,16 +93,16 @@
 	transition: all 1s var(--ease-elastic);
 }
 
-.k7-scope a:hover::after,
-.k7-scope button:hover::after {
+.shopcrystal-scope a:hover::after,
+.shopcrystal-scope button:hover::after {
 	width: 100%;
 }
 
-.k7-scope h1 {
+.shopcrystal-scope h1 {
 	opacity: 1;
 }
 
-.k7-scope button {
+.shopcrystal-scope button {
 	padding: 10px 15px;
 	font-size: 1rem;
 	border: 2px solid var(--ui-text);
@@ -93,7 +111,7 @@
 	color: var(--ui-text);
 }
 
-.k7-scope #k7-canvas-bg {
+.shopcrystal-scope #shopcrystal-canvas-bg {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -103,7 +121,7 @@
 	pointer-events: none;
 }
 
-.k7-scope #k7-canvas-cf {
+.shopcrystal-scope #shopcrystal-canvas-cf {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -113,7 +131,7 @@
 	z-index: 9999;
 }
 
-.k7-scope .k7-ptr {
+.shopcrystal-scope .shopcrystal-ptr {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -127,7 +145,7 @@
 	transition: unset;
 }
 
-.k7-scope .k7-ring {
+.shopcrystal-scope .shopcrystal-ring {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -140,7 +158,7 @@
 	border: 2px solid var(--ui-text);
 }
 
-.k7-scope.k7-hover-on .k7-ring {
+.shopcrystal-scope.shopcrystal-hover-on .shopcrystal-ring {
 	width: 60px;
 	height: 60px;
 	background-color: var(--ui-text);
@@ -148,7 +166,7 @@
 	border-color: transparent;
 }
 
-.k7-scope .k7-bar {
+.shopcrystal-scope .shopcrystal-bar {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -164,20 +182,20 @@
 	user-select: none;
 }
 
-.k7-scope .k7-bar .k7-mark {
+.shopcrystal-scope .shopcrystal-bar .shopcrystal-mark {
 	height: 70px;
 	width: auto;
 	object-fit: contain;
 	border-radius: 10%;
 }
 
-.k7-scope .k7-bar .k7-rail {
+.shopcrystal-scope .shopcrystal-bar .shopcrystal-rail {
 	display: flex;
 	gap: 3rem;
 	align-items: center;
 }
 
-.k7-scope .k7-stack {
+.shopcrystal-scope .shopcrystal-stack {
 	height: 100vh;
 	width: 100vw;
 	overflow-y: scroll;
@@ -185,7 +203,7 @@
 	scroll-behavior: smooth;
 }
 
-.k7-scope .k7-pane {
+.shopcrystal-scope .shopcrystal-pane {
 	height: 100vh;
 	width: 100vw;
 	scroll-snap-align: start;
@@ -193,14 +211,14 @@
 	overflow: hidden;
 }
 
-.k7-scope .k7-wrap {
+.shopcrystal-scope .shopcrystal-wrap {
 	display: flex;
 	height: 100%;
 	width: 100%;
 	padding-top: 0;
 }
 
-.k7-scope .k7-wrap .k7-txt {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -209,9 +227,10 @@
 	padding-top: var(--header-height);
 	color: var(--ui-text);
 	z-index: 2;
+	transform: translate3d(2px,10px,0)
 }
 
-.k7-scope .k7-wrap .k7-txt .k7-tag {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt .shopcrystal-tag {
 	font-size: 0.9rem;
 	text-transform: uppercase;
 	letter-spacing: 4px;
@@ -220,12 +239,12 @@
 	opacity: 0;
 }
 
-.k7-scope .k7-wrap .k7-txt .k7-head-wrap {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt .shopcrystal-head-wrap {
 	position: relative;
 	margin-bottom: 1.2rem;
 }
 
-.k7-scope .k7-wrap .k7-txt h1 {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt h1 {
 	font-family: var(--font-title);
 	font-size: clamp(2.5rem, 4.5vw, 4rem);
 	line-height: 1;
@@ -234,14 +253,14 @@
 	opacity: 0;
 }
 
-.k7-scope .k7-wrap .k7-txt h2.k7-lead {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt h2.shopcrystal-lead {
 	font-size: 1.3rem;
 	font-weight: bold;
 	margin-bottom: 0.8rem;
 	opacity: 0;
 }
 
-.k7-scope .k7-wrap .k7-txt p {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt p {
 	font-size: 1.05rem;
 	line-height: 1.6;
 	opacity: 0;
@@ -249,7 +268,7 @@
 	max-width: 90%;
 }
 
-.k7-scope .k7-wrap .k7-img {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img {
 	flex: 2;
 	height: calc(100% - var(--header-height));
 	position: relative;
@@ -260,8 +279,8 @@
 	align-items: center;
 }
 
-.k7-scope .k7-wrap .k7-img img,
-.k7-scope .k7-wrap .k7-img video {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img img,
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img video {
 	width: 100%;
 	height: 100%;
 	object-position: center;
@@ -270,39 +289,40 @@
 	transform: scale(1.1);
 }
 
-.k7-scope .k7-wrap .k7-img img {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img img {
 	object-fit: contain;
 	width: 75%;
 	height: 75%;
 }
 
-.k7-scope .k7-wrap .k7-img video {
+.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img video {
 	object-fit: cover;
 	position: relative;
 	mask-image: linear-gradient(90deg, transparent 10%, #000 30%, #000 100%);
 	-webkit-mask-image: linear-gradient(90deg, transparent 10%, #000 30%, #000 100%);
+	height: 127%;
 }
 
-/* Welcome section: full-width video, subject centered in frame */
-.k7-scope #k7-welcome .k7-wrap .k7-img {
+/* Welcome section: full-width video, subject face (top ~20%) kept in frame */
+.shopcrystal-scope #shopcrystal-welcome .shopcrystal-wrap .shopcrystal-img {
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 }
-.k7-scope #k7-welcome .k7-wrap .k7-img video {
+.shopcrystal-scope #shopcrystal-welcome .shopcrystal-wrap .shopcrystal-img video {
 	object-fit: cover;
-	object-position: 50% 38%;
+	object-position: 50% 15%;
 	width: 100%;
 	height: 100%;
 	mask-image: none;
 	-webkit-mask-image: none;
 }
 
-.k7-scope #k7-hero {
+.shopcrystal-scope #shopcrystal-hero {
 	background-color: black;
 	z-index: 10;
 }
 
-.k7-scope #k7-hero .k7-veil {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-veil {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -311,7 +331,7 @@
 	background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 100%);
 }
 
-.k7-scope #k7-hero .k7-veil .k7-hero-mark {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-veil .shopcrystal-hero-mark {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -321,7 +341,7 @@
 	border-radius: 10%;
 }
 
-.k7-scope #k7-hero .k7-mesh {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-mesh {
 	position: absolute;
 	top: -50%;
 	left: -50%;
@@ -334,14 +354,14 @@
 	transform: rotate(-15deg);
 }
 
-.k7-scope #k7-hero .k7-mesh .k7-mesh-line {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-mesh .shopcrystal-mesh-line {
 	display: flex;
 	gap: 20px;
 	width: fit-content;
 	white-space: nowrap;
 }
 
-.k7-scope #k7-hero .k7-mesh .k7-mesh-tile {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-mesh .shopcrystal-mesh-tile {
 	flex: 0 0 280px;
 	height: 280px;
 	border-radius: 20px;
@@ -349,11 +369,11 @@
 	overflow: hidden;
 }
 
-.k7-scope #k7-hero .k7-mesh .k7-mesh-tile img {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-mesh .shopcrystal-mesh-tile img {
 	object-fit: cover;
 }
 
-.k7-scope #k7-hero .k7-hint {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-hint {
 	position: absolute;
 	bottom: 40px;
 	left: 50%;
@@ -364,7 +384,7 @@
 	letter-spacing: 3px;
 	font-size: 0.8rem;
 	font-weight: bold;
-	animation: k7-bounce 2s infinite;
+	animation: shopcrystal-bounce 2s infinite;
 	pointer-events: none;
 	display: flex;
 	flex-direction: column;
@@ -372,22 +392,22 @@
 	gap: 10px;
 }
 
-.k7-scope #k7-hero .k7-hint::after {
+.shopcrystal-scope #shopcrystal-hero .shopcrystal-hint::after {
 	content: "↓";
 	font-size: 1.5rem;
 }
 
-@keyframes k7-bounce {
+@keyframes shopcrystal-bounce {
 	0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
 	40% { transform: translateX(-50%) translateY(-10px); }
 	60% { transform: translateX(-50%) translateY(-5px); }
 }
 
-.k7-scope .k7-strip {
+.shopcrystal-scope .shopcrystal-strip {
 	position: relative;
 }
 
-.k7-scope .k7-strip-inner {
+.shopcrystal-scope .shopcrystal-strip-inner {
 	display: flex;
 	height: 100%;
 	width: 100%;
@@ -396,17 +416,17 @@
 	scroll-behavior: smooth;
 }
 
-.k7-scope .k7-strip-inner::-webkit-scrollbar {
+.shopcrystal-scope .shopcrystal-strip-inner::-webkit-scrollbar {
 	display: none;
 }
 
-.k7-scope .k7-cell {
+.shopcrystal-scope .shopcrystal-cell {
 	flex: 0 0 100vw;
 	height: 100vh;
 	scroll-snap-align: start;
 }
 
-.k7-scope .k7-arrow {
+.shopcrystal-scope .shopcrystal-arrow {
 	background: transparent;
 	border: none;
 	color: var(--ui-text);
@@ -420,11 +440,11 @@
 	padding: 0;
 }
 
-.k7-scope .k7-arrow:hover {
+.shopcrystal-scope .shopcrystal-arrow:hover {
 	opacity: 1;
 }
 
-.k7-scope .k7-dot {
+.shopcrystal-scope .shopcrystal-dot {
 	width: 8px;
 	height: 8px;
 	padding: 0;
@@ -433,12 +453,12 @@
 	border-radius: 50%;
 }
 
-.k7-scope .k7-dot.active {
+.shopcrystal-scope .shopcrystal-dot.active {
 	background: var(--ui-text);
 	border-radius: 30px;
 }
 
-.k7-scope .k7-rail-v {
+.shopcrystal-scope .shopcrystal-rail-v {
 	justify-content: center;
 	align-items: center;
 	position: fixed;
@@ -452,11 +472,11 @@
 	user-select: none;
 }
 
-.k7-scope .k7-rail-v .k7-dot.active {
+.shopcrystal-scope .shopcrystal-rail-v .shopcrystal-dot.active {
 	height: 30px;
 }
 
-.k7-scope .k7-rail-h {
+.shopcrystal-scope .shopcrystal-rail-h {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
@@ -469,11 +489,11 @@
 	user-select: none;
 }
 
-.k7-scope .k7-rail-h .k7-dot.active {
+.shopcrystal-scope .shopcrystal-rail-h .shopcrystal-dot.active {
 	width: 30px;
 }
 
-.k7-scope button.k7-btn {
+.shopcrystal-scope button.shopcrystal-btn {
 	background: var(--ui-theme);
 	color: var(--ui-text);
 	height: 60px;
@@ -486,13 +506,13 @@
 	user-select: none;
 }
 
-.k7-scope button.k7-btn:hover {
+.shopcrystal-scope button.shopcrystal-btn:hover {
 	background: var(--ui-text);
 	color: var(--ui-theme) !important;
 	transform: translateY(-5px);
 }
 
-.k7-scope .k7-pills {
+.shopcrystal-scope .shopcrystal-pills {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
@@ -500,7 +520,7 @@
 	opacity: 0;
 }
 
-.k7-scope .k7-pill {
+.shopcrystal-scope .shopcrystal-pill {
 	background: transparent;
 	border: 2px solid var(--ui-text);
 	color: var(--ui-text);
@@ -512,28 +532,28 @@
 	user-select: none;
 }
 
-.k7-scope .k7-pill:hover {
+.shopcrystal-scope .shopcrystal-pill:hover {
 	background: var(--ui-text);
 	color: var(--ui-theme) !important;
 }
 
-.k7-scope .k7-float {
+.shopcrystal-scope .shopcrystal-float {
 	display: block;
 	font-size: 4.5rem;
 	position: absolute;
 	top: -60px;
 	right: 0;
-	animation: k7-float-kf 5s ease-in-out infinite;
+	animation: shopcrystal-float-kf 5s ease-in-out infinite;
 	z-index: 5;
 	pointer-events: none;
 }
 
-@keyframes k7-float-kf {
+@keyframes shopcrystal-float-kf {
 	0%, 100% { transform: translateY(0) rotate(0); }
 	50% { transform: translateY(-20px) rotate(10deg); }
 }
 
-.k7-scope .k7-overlay {
+.shopcrystal-scope .shopcrystal-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -543,53 +563,82 @@
 	z-index: 35000;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
+	padding: 1rem 1rem 2rem;
+	overflow-y: auto;
 	opacity: 0;
 	pointer-events: none;
 }
 
-.k7-scope .k7-overlay.active {
+.shopcrystal-scope .shopcrystal-overlay.active {
 	opacity: 1;
 	pointer-events: auto;
 }
 
-.k7-scope .k7-overlay.active .k7-dialog {
+.shopcrystal-scope .shopcrystal-overlay.active .shopcrystal-dialog {
 	transform: scale(1);
 }
 
-.k7-scope .k7-dialog {
+.shopcrystal-scope .shopcrystal-dialog {
 	background-color: #ba86ff;
 	background-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12c0-.622-.095-1.221-.27-1.785A5.982 5.982 0 0 0 10 12c1.67 0 3.182-.683 4.27-1.785A5.998 5.998 0 0 0 14 12h2a4 4 0 0 1 4-4V6c-1.67 0-3.182.683-4.27 1.785C15.905 7.22 16 6.622 16 6c0-.622-.095-1.221-.27-1.785A5.982 5.982 0 0 0 20 6V4a4 4 0 0 1-4-4h-2c0 .622.095 1.221.27 1.785A5.982 5.982 0 0 0 10 0C8.33 0 6.818.683 5.73 1.785 5.905 1.22 6 .622 6 0H4a4 4 0 0 1-4 4v2c1.67 0 3.182.683 4.27 1.785A5.998 5.998 0 0 1 4 6c0-.622.095-1.221.27-1.785A5.982 5.982 0 0 1 0 6v2a4 4 0 0 1 4 4h2zm-4 0a2 2 0 0 0-2-2v2h2zm16 0a2 2 0 0 1 2-2v2h-2zM0 2a2 2 0 0 0 2-2H0v2zm20 0a2 2 0 0 1-2-2h2v2zm-10 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' fill='%236929d1' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
 	border: 2px solid var(--ui-text);
-	padding: 50px;
-	border-radius: 40px;
-	width: 90%;
-	max-width: 500px;
+	padding: 1.25rem 1.5rem 1.5rem;
+	border-radius: 24px;
+	width: 92%;
+	max-width: 640px;
+	max-height: calc(100vh - 2rem);
+	display: flex;
+	flex-direction: column;
 	text-align: center;
 	transform: scale(0.8);
 	position: relative;
+	margin: 0 auto;
+	flex-shrink: 0;
 }
 
-.k7-scope .k7-dialog #k7-dialog-icon {
-	font-size: 6rem;
+.shopcrystal-scope .shopcrystal-dialog #shopcrystal-dialog-icon {
+	font-size: 2.5rem;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 20px;
+	margin-bottom: 0.5rem;
 }
 
-.k7-scope .k7-dialog .k7-dialog-title {
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-title {
 	font-family: var(--font-title);
-	font-size: 2.5rem;
-	margin-bottom: 1rem;
+	font-size: 1.5rem;
+	margin-bottom: 0.75rem;
+	line-height: 1.2;
 }
 
-.k7-scope .k7-dialog .k7-dialog-body {
-	font-size: 1.2rem;
-	line-height: 1.6;
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body {
+	font-size: 0.95rem;
+	line-height: 1.5;
+	overflow-y: auto;
+	flex: 1;
+	min-height: 0;
+	text-align: left;
 }
 
-.k7-scope .k7-dialog .k7-dialog-body .k7-legal,
-.k7-scope .k7-dialog .k7-dialog-body .k7-legal {
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1.25rem;
+}
+
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
+	max-width: 100%;
+	max-height: 200px;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	display: block;
+	border-radius: 12px;
+}
+
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .shopcrystal-legal,
+.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .shopcrystal-legal {
 	margin-top: 1rem;
 	padding: 0.75rem;
 	font-size: 0.9rem;
@@ -597,25 +646,28 @@
 	font-style: italic;
 }
 
-.k7-scope .k7-dialog-close {
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	width: 50px;
-	height: 50px;
+.shopcrystal-scope .shopcrystal-dialog-close {
+	position: sticky;
+	top: 0;
+	left: 100%;
+	margin-left: auto;
+	width: 44px;
+	height: 44px;
+	flex-shrink: 0;
 	background: transparent;
 	border: 2px solid var(--ui-text);
 	color: var(--ui-text);
 	border-radius: 50%;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	user-select: none;
 	cursor: pointer;
+	z-index: 1;
 }
 
-.k7-scope .k7-dialog-content {
+.shopcrystal-scope .shopcrystal-dialog-content {
 	display: grid;
 	grid-template-columns: 1.618fr 1fr;
 	gap: 1.618rem;
@@ -624,17 +676,17 @@
 	text-align: left;
 }
 
-.k7-scope .k7-dialog-main h2 {
+.shopcrystal-scope .shopcrystal-dialog-main h2 {
 	font-family: var(--font-title);
 	font-size: 2rem;
 	margin-bottom: 0.8rem;
 }
 
-.k7-scope .k7-dialog-main p {
+.shopcrystal-scope .shopcrystal-dialog-main p {
 	margin-bottom: 0.9rem;
 }
 
-.k7-scope .k7-dialog-side {
+.shopcrystal-scope .shopcrystal-dialog-side {
 	padding: 1.2rem 1.4rem;
 	border-radius: 24px;
 	border: 1px solid rgba(255, 255, 255, 0.6);
@@ -643,7 +695,7 @@
 	line-height: 1.6;
 }
 
-.k7-scope .k7-dialog-side h3 {
+.shopcrystal-scope .shopcrystal-dialog-side h3 {
 	font-family: var(--font-title);
 	font-size: 1.1rem;
 	margin-bottom: 0.5rem;
@@ -651,21 +703,21 @@
 	letter-spacing: 0.12em;
 }
 
-.k7-scope .k7-cta-prime {
+.shopcrystal-scope .shopcrystal-cta-prime {
 	margin-left: 2rem;
 }
 
 @media screen and (max-width: 768px) {
-	.k7-scope .k7-dialog-content {
+	.shopcrystal-scope .shopcrystal-dialog-content {
 		grid-template-columns: 1fr;
 		max-width: 100%;
 	}
-	.k7-scope .k7-cta-prime {
+	.shopcrystal-scope .shopcrystal-cta-prime {
 		display: none;
 	}
 }
 
-.k7-scope #k7-links nav ul {
+.shopcrystal-scope #shopcrystal-links nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -675,7 +727,7 @@
 	padding: 0;
 }
 
-.k7-scope #k7-links .k7-link {
+.shopcrystal-scope #shopcrystal-links .shopcrystal-link {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -686,44 +738,44 @@
 	opacity: 0.8;
 }
 
-.k7-scope #k7-links .k7-link i {
+.shopcrystal-scope #shopcrystal-links .shopcrystal-link i {
 	font-size: 1rem;
 }
 
-.k7-scope #k7-links .k7-link span {
+.shopcrystal-scope #shopcrystal-links .shopcrystal-link span {
 	display: none;
 }
 
-.k7-scope #k7-links .k7-link:hover {
+.shopcrystal-scope #shopcrystal-links .shopcrystal-link:hover {
 	transform: translateY(-5px);
 	opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
-	.k7-scope * {
+	.shopcrystal-scope * {
 		cursor: auto;
 	}
-	.k7-scope .k7-ptr,
-	.k7-scope .k7-ring {
+	.shopcrystal-scope .shopcrystal-ptr,
+	.shopcrystal-scope .shopcrystal-ring {
 		display: none !important;
 	}
-	.k7-scope {
+	.shopcrystal-scope {
 		--header-height: 70px;
 	}
-	.k7-scope .k7-bar {
+	.shopcrystal-scope .shopcrystal-bar {
 		padding: 0 1.5rem;
 	}
-	.k7-scope .k7-bar .k7-mark {
+	.shopcrystal-scope .shopcrystal-bar .shopcrystal-mark {
 		height: 40px;
 	}
-	.k7-scope .k7-bar .k7-rail {
+	.shopcrystal-scope .shopcrystal-bar .shopcrystal-rail {
 		display: none;
 	}
-	.k7-scope .k7-wrap {
+	.shopcrystal-scope .shopcrystal-wrap {
 		flex-direction: column;
 		padding-top: var(--header-height);
 	}
-	.k7-scope .k7-wrap .k7-img {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img {
 		flex: 1;
 		width: 100%;
 		height: auto;
@@ -731,21 +783,21 @@
 		flex-basis: auto;
 		order: 1;
 	}
-	.k7-scope .k7-wrap .k7-img img {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img img {
 		width: 80%;
 		height: 80%;
 	}
-	.k7-scope .k7-wrap .k7-img video {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-img video {
 		mask-image: linear-gradient(to top, transparent 10%, #000 30%, #000 100%);
 		-webkit-mask-image: linear-gradient(to top, transparent 10%, #000 30%, #000 100%);
 	}
-	.k7-scope #k7-welcome .k7-wrap .k7-img video {
+	.shopcrystal-scope #shopcrystal-welcome .shopcrystal-wrap .shopcrystal-img video {
 		object-fit: cover;
-		object-position: 50% 32%;
+		object-position: 50% 29%;
 		mask-image: none;
 		-webkit-mask-image: none;
 	}
-	.k7-scope .k7-wrap .k7-txt {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt {
 		flex: 1;
 		width: 100%;
 		padding: 1.5rem;
@@ -753,26 +805,26 @@
 		justify-content: flex-start;
 		order: 2;
 	}
-	.k7-scope .k7-wrap .k7-txt h1 {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt h1 {
 		font-size: 2.2rem;
 		margin-top: 10px;
 	}
-	.k7-scope .k7-wrap .k7-txt p {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt p {
 		font-size: 0.95rem;
 		margin-bottom: 1rem;
 	}
-	.k7-scope .k7-wrap .k7-txt .k7-tag {
+	.shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt .shopcrystal-tag {
 		font-size: 0.75rem;
 		margin-bottom: 0.4rem;
 	}
-	.k7-scope .k7-rail-h {
+	.shopcrystal-scope .shopcrystal-rail-h {
 		left: 50%;
 		bottom: 15px;
 	}
-	.k7-scope .k7-rail-v {
+	.shopcrystal-scope .shopcrystal-rail-v {
 		right: 10px;
 	}
-	.k7-scope #k7-hero .k7-veil .k7-hero-mark {
+	.shopcrystal-scope #shopcrystal-hero .shopcrystal-veil .shopcrystal-hero-mark {
 		width: 80%;
 		max-width: 300px;
 	}

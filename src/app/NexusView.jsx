@@ -5,7 +5,6 @@ import gsap from "gsap";
 import "./nexus-view.css";
 import {
   crystalImages,
-  initCursor,
   initSparkParticles,
   initIntroGrid,
   initNavigation,
@@ -60,6 +59,7 @@ function scrollTo(id) {
 
 export default function NexusView() {
   const containerRef = useRef(null);
+  const modalCloseRef = useRef(null);
   const [modal, setModal] = useState({
     open: false,
     title: "",
@@ -86,7 +86,7 @@ export default function NexusView() {
   const triggerConfetti = () => {
     const root = containerRef.current;
     if (!root) return;
-    const canvas = root.querySelector("#k7-canvas-cf");
+    const canvas = root.querySelector("#shopcrystal-canvas-cf");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     canvas.width = root.offsetWidth;
@@ -133,7 +133,6 @@ export default function NexusView() {
     window.nxCloseModal = closeModal;
     window.nxShareTwitter = shareTwitter;
     const cleanups = [];
-    cleanups.push(initCursor(containerRef) || (() => {}));
     cleanups.push(initSparkParticles(containerRef) || (() => {}));
     initIntroGrid(containerRef, crystalImages, gsap);
     cleanups.push(initNavigation(containerRef, gsap) || (() => {}));
@@ -155,7 +154,7 @@ export default function NexusView() {
       if (hasSeen) return;
       const timer = window.setTimeout(() => {
         const fn = window.nxOpenModal || openModal;
-        fn("Grand Reopening ✨", "content-grand-reopening", "✨");
+        fn("Grand Reopening ✨", "shopcrystal-ct-0", "✨");
         try {
           window.sessionStorage.setItem("nxReopenSeen", "1");
         } catch {
@@ -168,49 +167,89 @@ export default function NexusView() {
     }
   }, []);
 
-  return (
-    <div className="k7-scope" ref={containerRef}>
-      <canvas id="k7-canvas-bg" aria-hidden="true" />
-      <canvas id="k7-canvas-cf" aria-hidden="true" />
-      <div className="k7-ptr" id="k7-ptr" aria-hidden="true" />
-      <div className="k7-ring" id="k7-ring" aria-hidden="true" />
+  useEffect(() => {
+    if (!modal.open) return;
+    const prevActive = document.activeElement;
+    modalCloseRef.current?.focus();
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const root = document.getElementById("shopcrystal-dialog-root");
+      if (!root) return;
+      const focusables = root.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      if (prevActive && typeof prevActive.focus === "function") prevActive.focus();
+    };
+  }, [modal.open]);
 
-      <header className="k7-bar">
-        <div className="k7-mark-wrap k7-hover k7-pull">
+  return (
+    <div className="shopcrystal-scope" ref={containerRef}>
+      <a
+        href="#shopcrystal-main"
+        className="shopcrystal-skip-link"
+      >
+        Skip to main content
+      </a>
+      <canvas id="shopcrystal-canvas-bg" aria-hidden="true" />
+      <canvas id="shopcrystal-canvas-cf" aria-hidden="true" />
+
+      <header className="shopcrystal-bar">
+        <div className="shopcrystal-mark-wrap shopcrystal-hover shopcrystal-pull">
           <img
             src={LOGO}
             alt="psychic &amp; rock shop logo"
             title="Crystal & Psychic Healing"
-            className="k7-mark"
+            className="shopcrystal-mark"
           />
         </div>
-        <nav className="k7-rail" role="navigation" aria-label="Main navigation">
-          <a href="#k7-hero" className="k7-hover k7-pull">
+        <nav className="shopcrystal-rail" role="navigation" aria-label="Main navigation">
+          <a href="#shopcrystal-hero" className="shopcrystal-hover shopcrystal-pull">
             Home
           </a>
-          <a href="#k7-block-a" className="k7-hover k7-pull">
+          <a href="#shopcrystal-block-a" className="shopcrystal-hover shopcrystal-pull">
             Energy Crystals
           </a>
-          <a href="#k7-block-d" className="k7-hover k7-pull">
+          <a href="#shopcrystal-block-d" className="shopcrystal-hover shopcrystal-pull">
             Energy Cleansing
           </a>
-          <a href="#k7-block-e" className="k7-hover k7-pull">
+          <a href="#shopcrystal-block-e" className="shopcrystal-hover shopcrystal-pull">
             Health
           </a>
-          <a href="#k7-block-f" className="k7-hover k7-pull">
+          <a href="#shopcrystal-block-f" className="shopcrystal-hover shopcrystal-pull">
             About
           </a>
         </nav>
         <button
           type="button"
-          className="k7-cta-prime k7-hover k7-pull"
+          className="shopcrystal-cta-prime shopcrystal-hover shopcrystal-pull"
           onClick={() =>
-            openModal("Grand Reopening ✨", "k7-ct-0", "✨")
+            openModal("Grand Reopening ✨", "shopcrystal-ct-0", "✨")
           }
         >
           Grand Reopening
         </button>
-        <div id="k7-links">
+        <div id="shopcrystal-links">
           <nav>
             <ul>
               <li>
@@ -218,7 +257,7 @@ export default function NexusView() {
                   href="https://www.instagram.com/psychic_crystal_bookshop?igsh=MXBibml0NWhhaHI0cQ%3D%3D&utm_source=qr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="k7-link k7-hover k7-pull"
+                  className="shopcrystal-link shopcrystal-hover shopcrystal-pull"
                   aria-label="Instagram"
                 >
                   <i className="fa-brands fa-instagram" aria-hidden="true" />
@@ -230,7 +269,7 @@ export default function NexusView() {
                   href="https://www.tiktok.com/@psychic_crystal_bookshop?_r=1&_t=ZP-94CJty8jLf5"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="k7-link k7-hover k7-pull"
+                  className="shopcrystal-link shopcrystal-hover shopcrystal-pull"
                   aria-label="TikTok"
                 >
                   <i className="fa-brands fa-tiktok" aria-hidden="true" />
@@ -242,7 +281,7 @@ export default function NexusView() {
                   href="https://share.google/fBV5ikbimElfe42Mu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="k7-link k7-hover k7-pull"
+                  className="shopcrystal-link shopcrystal-hover shopcrystal-pull"
                   aria-label="Google listing"
                 >
                   <i className="fa-brands fa-google" aria-hidden="true" />
@@ -252,7 +291,7 @@ export default function NexusView() {
               <li>
                 <a
                   href="mailto:info@psychiccrystalbookshop.com"
-                  className="k7-link k7-hover k7-pull"
+                  className="shopcrystal-link shopcrystal-hover shopcrystal-pull"
                   aria-label="Email"
                 >
                   <i className="fa-solid fa-envelope" aria-hidden="true" />
@@ -262,7 +301,7 @@ export default function NexusView() {
               <li>
                 <a
                   href="tel:+18472620158"
-                  className="k7-link k7-hover k7-pull"
+                  className="shopcrystal-link shopcrystal-hover shopcrystal-pull"
                   aria-label="Call"
                 >
                   <i className="fa-solid fa-phone" aria-hidden="true" />
@@ -275,83 +314,85 @@ export default function NexusView() {
       </header>
 
       <div
-        id="k7-dialog-root"
-        className={`k7-overlay ${modal.open ? "active" : ""}`}
+        id="shopcrystal-dialog-root"
+        className={`shopcrystal-overlay ${modal.open ? "active" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="m_title"
-        aria-describedby="m_desc"
+        aria-labelledby="shopcrystal-dialog-title"
+        aria-describedby="shopcrystal-dialog-body"
+        aria-label="Modal dialog"
       >
-        <div className="k7-dialog">
+        <div className="shopcrystal-dialog">
           <button
+            ref={modalCloseRef}
             type="button"
-            className="k7-dialog-close k7-hover k7-pull"
+            className="shopcrystal-dialog-close shopcrystal-hover shopcrystal-pull"
             onClick={closeModal}
-            aria-label="Close"
+            aria-label="Close dialog"
           >
             ×
           </button>
-          <span id="k7-dialog-icon" role="img" aria-hidden="true">
+          <span id="shopcrystal-dialog-icon" role="img" aria-hidden="true">
             {modal.icon}
           </span>
-          <h1 className="k7-dialog-title" id="k7-dialog-title">
+          <h1 className="shopcrystal-dialog-title" id="shopcrystal-dialog-title">
             {modal.title}
           </h1>
           <div
-            id="k7-dialog-body"
-            className="k7-dialog-body"
+            id="shopcrystal-dialog-body"
+            className="shopcrystal-dialog-body"
             dangerouslySetInnerHTML={{ __html: modal.contentHtml }}
           />
         </div>
       </div>
 
-      <main className="k7-stack" id="k7-main">
+      <main className="shopcrystal-stack" id="shopcrystal-main" role="main">
           <section
-          className="k7-pane"
-          id="k7-hero"
+          className="shopcrystal-pane"
+          id="shopcrystal-hero"
           data-ui-color="rgb(63, 22, 119)"
           data-ui-text-color="rgb(255, 255, 255)"
           onClick={() => {
             triggerConfetti();
-            scrollTo("k7-welcome");
+            scrollTo("shopcrystal-welcome");
           }}
-          onKeyDown={(e) => e.key === "Enter" && (triggerConfetti(), scrollTo("k7-welcome"))}
+          onKeyDown={(e) => e.key === "Enter" && (triggerConfetti(), scrollTo("shopcrystal-welcome"))}
           role="button"
           tabIndex={0}
           aria-label="Go to welcome"
         >
-          <div className="k7-veil">
+          <div className="shopcrystal-veil">
             <img
               src={LOGO}
-              className="k7-hero-mark"
+              className="shopcrystal-hero-mark"
               alt="psychic &amp; rock shop logo"
               title="Click to start"
             />
           </div>
-          <div className="k7-mesh" id="k7-mesh-inner" aria-hidden="true" />
-          <div className="k7-hint" aria-label="Scroll to explore">
+          <div className="shopcrystal-mesh" id="shopcrystal-mesh-inner" aria-hidden="true" />
+          <div className="shopcrystal-hint" aria-label="Scroll to explore">
             Scroll to Explore
           </div>
         </section>
 
         <section
-          id="welcome"
-          className="k7-pane"
+          id="shopcrystal-welcome"
+          className="shopcrystal-pane"
           data-ui-color="rgb(192, 95, 231)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">Welcome</span>
-              <div className="k7-head-wrap">
-                <span className="k7-float k7-tilt" role="img" aria-label="Crystal">
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">Welcome</span>
+              <div className="shopcrystal-head-wrap">
+                <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crystal">
                   🔮
                 </span>
                 <h1>
                   Welcome to <strong>psychic &amp; rock shop</strong>!
                 </h1>
               </div>
-              <h2 className="k7-lead">
+              <h2 className="shopcrystal-lead">
                 Pain relief, energy alignment, and spiritual services.
               </h2>
               <p>
@@ -361,17 +402,17 @@ export default function NexusView() {
               </p>
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                 onClick={() => {
                   triggerConfetti();
-                  scrollTo("k7-block-a");
+                  scrollTo("shopcrystal-block-a");
                 }}
                 aria-label="Explore more"
               >
                 Explore More! ✨
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video
                 src={WELCOME_VIDEO_URL}
                 autoPlay
@@ -386,54 +427,54 @@ export default function NexusView() {
         </section>
 
         <section
-          className="k7-pane k7-strip"
-          id="k7-block-a"
+          className="shopcrystal-pane shopcrystal-strip"
+          id="shopcrystal-block-a"
           data-ui-color="rgb(255, 31, 26)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-strip-inner">
+          <div className="shopcrystal-strip-inner">
             <div
-              className="k7-pane k7-cell"
-              id="k7-a1"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-a1"
               data-ui-color="rgb(166, 194, 217)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Intuitive Readings</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Sparkles">✨</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Intuitive Readings</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Sparkles">✨</span>
                     <h1>Tarot Card Reading Session</h1>
                   </div>
-                  <h2 className="k7-lead">Personalized card spreads for clarity, guidance, and insight into life questions and decisions.</h2>
+                  <h2 className="shopcrystal-lead">Personalized card spreads for clarity, guidance, and insight into life questions and decisions.</h2>
                   <p>Tarot Card Reading Session. Gain clarity and guidance through a one-on-one tarot reading tailored to your questions.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-a2"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-a2"); }}
                   >
                     Learn More Now! 🔮
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <video src={TAROT_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Tarot card reading session" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-a2"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-a2"
               data-ui-color="rgb(240, 15, 33)"
               data-ui-text-color="rgb(255,255,255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Crystals</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Heart">❤️</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Crystals</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Heart">❤️</span>
                     <h1>Crimson Vitality Grid</h1>
                   </div>
-                  <h2 className="k7-lead">
+                  <h2 className="shopcrystal-lead">
                     Red jasper + garnet sets to stimulate blood flow and ease joint stiffness.
                   </h2>
                   <p>
@@ -442,16 +483,16 @@ export default function NexusView() {
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => {
                       triggerConfetti();
-                      scrollTo("k7-a3");
+                      scrollTo("shopcrystal-a3");
                     }}
                   >
                     Rose Aura! 🌸
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img
                     src={IMG("products/crimson_surge.webp")}
                     alt="Crimson Surge beef"
@@ -460,35 +501,35 @@ export default function NexusView() {
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-a3"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-a3"
               data-ui-color="rgb(216, 135, 154)"
               data-ui-text-color="rgb(255,255,255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Crystals</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Flower">🌸</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Crystals</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Flower">🌸</span>
                     <h1>Rose Aura Harmony</h1>
                   </div>
-                  <h2 className="k7-lead">Rose quartz for emotional tension release and stress-induced shoulder tightness.</h2>
+                  <h2 className="shopcrystal-lead">Rose quartz for emotional tension release and stress-induced shoulder tightness.</h2>
                   <p>
                     Rose Aura Harmony. A gentle fusion of rose quartz energy
                     to soften tension and support emotional release in shoulders and heart space.
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => {
                       triggerConfetti();
-                      scrollTo("k7-a4");
+                      scrollTo("shopcrystal-a4");
                     }}
                   >
                     Ember Protection! ⭐
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img
                     src={IMG("products/rose_drift.webp")}
                     alt="Rose Drift"
@@ -497,35 +538,35 @@ export default function NexusView() {
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-a4"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-a4"
               data-ui-color="rgb(230, 180, 81)"
               data-ui-text-color="rgb(255,255,255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Crystals</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Star">⭐</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Crystals</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Star">⭐</span>
                     <h1>Ember Protection Flame</h1>
                   </div>
-                  <h2 className="k7-lead">Carnelian + smoky quartz for inflammation support and energetic shielding.</h2>
+                  <h2 className="shopcrystal-lead">Carnelian + smoky quartz for inflammation support and energetic shielding.</h2>
                   <p>
                     Ember Protection Flame. Golden carnelian and smoky quartz
                     for warmth, inflammation support, and a protective energetic field.
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => {
                       triggerConfetti();
-                      scrollTo("k7-block-b");
+                      scrollTo("shopcrystal-block-b");
                     }}
                   >
                     Pocket Sets! ✨
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img
                     src={IMG("products/ember_glow.webp")}
                     alt="Ember Glow"
@@ -538,92 +579,92 @@ export default function NexusView() {
 
         {/* Food Snacks */}
         <section
-          className="k7-pane k7-strip"
-          id="k7-block-b"
+          className="shopcrystal-pane shopcrystal-strip"
+          id="shopcrystal-block-b"
           data-ui-color="rgb(15, 80, 155)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-strip-inner">
+          <div className="shopcrystal-strip-inner">
             <div
-              className="k7-pane k7-cell"
-              id="k7-b1"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-b1"
               data-ui-color="rgb(15, 80, 155)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Pocket & Travel Sets</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Crystal">💎</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Pocket & Travel Sets</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crystal">💎</span>
                     <h1>Pocket Protection Pack</h1>
                   </div>
-                  <h2 className="k7-lead">Small crystal bundles for daily stress reduction and numbness support.</h2>
+                  <h2 className="shopcrystal-lead">Small crystal bundles for daily stress reduction and numbness support.</h2>
                   <p>Pocket Protection Pack. Irresistible on-the-go support for stress and tingling!</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-b2"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-b2"); }}
                   >
                     Azure Calm! 🌊
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <video src={POCKET_PROTECTION_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Pocket Protection Pack" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-b2"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-b2"
               data-ui-color="rgb(142, 199, 218)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Pocket & Travel Sets</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Wave">🌊</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Pocket & Travel Sets</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Wave">🌊</span>
                     <h1>Azure Calm Kit</h1>
                   </div>
-                  <h2 className="k7-lead">Blue lace agate + sodalite for migraines, headaches, neck tension.</h2>
+                  <h2 className="shopcrystal-lead">Blue lace agate + sodalite for migraines, headaches, neck tension.</h2>
                   <p>Azure Calm Kit. Your go-to for head and neck relief—cool, calming frequencies.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-b3"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-b3"); }}
                   >
                     Mystic Sleep! 🌙
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/azure_crunch.webp")} alt="Azure Crunch" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-b3"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-b3"
               data-ui-color="rgb(186, 173, 217)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Pocket & Travel Sets</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Crystal">🔮</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Pocket & Travel Sets</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crystal">🔮</span>
                     <h1>Mystic Sleep Blend</h1>
                   </div>
-                  <h2 className="k7-lead">Amethyst + moonstone for headache relief and nervous system reset.</h2>
+                  <h2 className="shopcrystal-lead">Amethyst + moonstone for headache relief and nervous system reset.</h2>
                   <p>Mystic Sleep Blend. An enchanting blend for rest and headache relief.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-block-c"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-c"); }}
                   >
                     Deep Healing! 🌿
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/crispy_munchies.webp")} alt="Mystic Dream" />
                 </div>
               </div>
@@ -633,26 +674,26 @@ export default function NexusView() {
 
         {/* Food Wet */}
         <section
-          className="k7-pane k7-strip"
-          id="k7-block-c"
+          className="shopcrystal-pane shopcrystal-strip"
+          id="shopcrystal-block-c"
           data-ui-color="rgb(255, 31, 26)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-strip-inner">
+          <div className="shopcrystal-strip-inner">
             <div
-              className="k7-pane k7-cell"
-              id="k7-c1"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-c1"
               data-ui-color="rgb(255, 31, 26)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Cleansing Love Life</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Ritual">✨</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Cleansing Love Life</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Ritual">✨</span>
                     <h1>Cleansing Love Life Ritual</h1>
                   </div>
-                  <h2 className="k7-lead">Clear heavy, stuck, or painful patterns in your love life so new, healthy connection can flow in.</h2>
+                  <h2 className="shopcrystal-lead">Clear heavy, stuck, or painful patterns in your love life so new, healthy connection can flow in.</h2>
                   <p>
                     Celine&apos;s gift is tuning into where old hurt, betrayal, or disappointment is still sitting in your energy field
                     and gently lifting it away. During this ritual she combines crystals, focused intention, and spoken prayer over your
@@ -661,13 +702,13 @@ export default function NexusView() {
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => { triggerConfetti(); scrollTo("regal-morsels"); }}
                   >
                     Cleanse My Love Life 💗
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <video
                     src={LOVE_LIFE_CLEANSING_VIDEO_URL}
                     autoPlay
@@ -681,19 +722,19 @@ export default function NexusView() {
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-c2"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-c2"
               data-ui-color="rgb(216, 135, 154)"
               data-ui-text-color="rgb(255,255,255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Cleansing Love Life</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Crown">👑</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Cleansing Love Life</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crown">👑</span>
                     <h1>Reconnecting With a Loved One</h1>
                   </div>
-                  <h2 className="k7-lead">A focused ritual to help reopen the path to a past lover or missed connection that is still meant to be in your life.</h2>
+                  <h2 className="shopcrystal-lead">A focused ritual to help reopen the path to a past lover or missed connection that is still meant to be in your life.</h2>
                   <p>
                     In this work, Celine reads the true energetic story between you and the other person—where communication broke,
                     where pride, fear, or interference tangled the bond—and then begins clearing those blocks on a soul level.
@@ -703,13 +744,13 @@ export default function NexusView() {
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-block-d"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-d"); }}
                   >
                     Help Me Reconnect 🤍
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/regal_morsels.webp")} alt="Regal Morsels" />
                 </div>
               </div>
@@ -719,26 +760,26 @@ export default function NexusView() {
 
         {/* Groom */}
         <section
-          className="k7-pane k7-strip"
-          id="k7-block-d"
+          className="shopcrystal-pane shopcrystal-strip"
+          id="shopcrystal-block-d"
           data-ui-color="rgb(221, 213, 204)"
           data-ui-text-color="rgb(37, 35, 36)"
         >
-          <div className="k7-strip-inner">
+          <div className="shopcrystal-strip-inner">
             <div
-              className="k7-pane k7-cell"
-              id="k7-d1"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-d1"
               data-ui-color="rgb(221, 213, 204)"
               data-ui-text-color="rgb(37, 35, 36)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Readings</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Intuition">🔮</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Readings</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Intuition">🔮</span>
                     <h1>Readings With Celine</h1>
                   </div>
-                  <h2 className="k7-lead">Palm readings, astrology chart readings, and psychic readings to illuminate your path and relationships.</h2>
+                  <h2 className="shopcrystal-lead">Palm readings, astrology chart readings, and psychic readings to illuminate your path and relationships.</h2>
                   <p>
                     Celine uses her clairvoyant gift to read the lines of your palm, the placements in your birth chart, and the images she
                     receives psychically to reveal what is really happening beneath the surface. These readings can bring clarity around love,
@@ -748,16 +789,16 @@ export default function NexusView() {
                   </p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => {
                       triggerConfetti();
-                      scrollTo("k7-a2");
+                      scrollTo("shopcrystal-a2");
                     }}
                   >
                     Book a Reading ✨
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <video
                     src={READINGS_VIDEO_URL}
                     autoPlay
@@ -771,85 +812,85 @@ export default function NexusView() {
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-d2"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-d2"
               data-ui-color="rgb(166, 194, 213)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Cleansing Services</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Mist">❄️</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Cleansing Services</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Mist">❄️</span>
                     <h1>Crystal Water Infusion Therapy</h1>
                   </div>
-                  <h2 className="k7-lead">Vibrational mist therapy for migraines, headaches, sinus pressure.</h2>
+                  <h2 className="shopcrystal-lead">Vibrational mist therapy for migraines, headaches, sinus pressure.</h2>
                   <p>Crystal Water Infusion Therapy. Refreshing crystal-infused mists for head and sinus relief.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-d3"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-d3"); }}
                   >
                     Shadow Release! 💜
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/aqua_mists.webp")} alt="Aqua Mists" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-d3"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-d3"
               data-ui-color="rgb(191, 84, 235)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Cleansing Services</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Galaxy">🌌</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Cleansing Services</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Galaxy">🌌</span>
                     <h1>Shadow Release Clearing</h1>
                   </div>
-                  <h2 className="k7-lead">Trauma-based tension release (shoulders, neck, joints).</h2>
+                  <h2 className="shopcrystal-lead">Trauma-based tension release (shoulders, neck, joints).</h2>
                   <p>Shadow Release Clearing. A dreamy blend for deep tension and trauma release.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-d4"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-d4"); }}
                   >
                     Solar Vitality! ☀️
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/eclipse_haze.webp")} alt="Eclipse Haze" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-d4"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-d4"
               data-ui-color="rgb(248, 200, 12)"
               data-ui-text-color="rgb(255, 255, 255)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Energy Cleansing Services</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Sun">☀️</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Energy Cleansing Services</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Sun">☀️</span>
                     <h1>Solar Vitality Activation</h1>
                   </div>
-                  <h2 className="k7-lead">Energy boost for circulation, stiffness, chronic fatigue.</h2>
+                  <h2 className="shopcrystal-lead">Energy boost for circulation, stiffness, chronic fatigue.</h2>
                   <p>Solar Vitality Activation. Bursting with revitalizing energy for circulation and vitality.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-block-e"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-e"); }}
                   >
                     Vital Energy! 💪
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/solar_flare.webp")} alt="Solar Flare" />
                 </div>
               </div>
@@ -859,64 +900,64 @@ export default function NexusView() {
 
         {/* Health */}
         <section
-          className="k7-pane k7-strip"
-          id="k7-block-e"
+          className="shopcrystal-pane shopcrystal-strip"
+          id="shopcrystal-block-e"
           data-ui-color="rgb(255, 231, 134)"
           data-ui-text-color="rgb(0, 0, 0)"
         >
-          <div className="k7-strip-inner">
+          <div className="shopcrystal-strip-inner">
             <div
-              className="k7-pane k7-cell"
-              id="k7-e1"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-e1"
               data-ui-color="rgb(255, 231, 134)"
               data-ui-text-color="rgb(0, 0, 0)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Health</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Energy">💪</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Health</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Energy">💪</span>
                     <h1>Vital Energy Infusions</h1>
                   </div>
-                  <h2 className="k7-lead">Crystal-guided sessions targeting:</h2>
+                  <h2 className="shopcrystal-lead">Crystal-guided sessions targeting:</h2>
                   <p>Shoulder & joint pain · Elbow inflammation · Numbness & tingling · Migraines & tension headaches · Stress-related muscle locking.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-e2"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-e2"); }}
                   >
                     Sunbeam Radiance! 🌟
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
                 </div>
               </div>
             </div>
             <div
-              className="k7-pane k7-cell"
-              id="k7-e2"
+              className="shopcrystal-pane shopcrystal-cell"
+              id="shopcrystal-e2"
               data-ui-color="rgb(255, 231, 134)"
               data-ui-text-color="rgb(0,0,0)"
             >
-              <div className="k7-wrap">
-                <div className="k7-txt">
-                  <span className="k7-tag">Health</span>
-                  <div className="k7-head-wrap">
-                    <span className="k7-float k7-tilt" role="img" aria-label="Sun">🌞</span>
+              <div className="shopcrystal-wrap">
+                <div className="shopcrystal-txt">
+                  <span className="shopcrystal-tag">Health</span>
+                  <div className="shopcrystal-head-wrap">
+                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Sun">🌞</span>
                     <h1>Sunbeam Radiance Healing</h1>
                   </div>
-                  <h2 className="k7-lead">Full-body psychic energy alignment session.</h2>
+                  <h2 className="shopcrystal-lead">Full-body psychic energy alignment session.</h2>
                   <p>Sunbeam Radiance Healing. A full-body session that supports circulation, vitality, and energetic balance.</p>
                   <button
                     type="button"
-                    className="k7-btn k7-hover k7-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("k7-block-f"); }}
+                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-f"); }}
                   >
                     Who Are We? 🔮
                   </button>
                 </div>
-                <div className="k7-img">
+                <div className="shopcrystal-img">
                   <img src={IMG("products/sunbeam_radiance.webp")} alt="Sunbeam Radiance" />
                 </div>
               </div>
@@ -926,38 +967,38 @@ export default function NexusView() {
 
         {/* About */}
         <section
-          className="k7-pane"
-          id="k7-block-f"
+          className="shopcrystal-pane"
+          id="shopcrystal-block-f"
           data-ui-color="rgb(137, 191, 222)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">What We Do</span>
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">What We Do</span>
               <h1>Our Offerings</h1>
-              <h2 className="k7-lead">Crystal therapy, energy cleansing, and psychic healing.</h2>
+              <h2 className="shopcrystal-lead">Crystal therapy, energy cleansing, and psychic healing.</h2>
               <p>From crystal sets to aura sessions, we&apos;ve got everything to support your pain relief and spiritual wellness!</p>
-              <div className="k7-pills">
+              <div className="shopcrystal-pills">
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Crystal Therapy", "k7-ct-1", "🔮")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Crystal Therapy", "shopcrystal-ct-1", "🔮")}
                   aria-label="Crystal Therapy"
                 >
                   Crystal Therapy 🔮
                 </button>
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Energy Cleansing", "k7-ct-2", "🌊")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Energy Cleansing", "shopcrystal-ct-2", "🌊")}
                   aria-label="Energy Cleansing"
                 >
                   Energy Cleansing 🌊
                 </button>
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Psychic Healing", "content-psychic-healing", "✨")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Psychic Healing", "shopcrystal-ct-3", "✨")}
                   aria-label="Psychic Healing"
                 >
                   Psychic Healing ✨
@@ -966,13 +1007,13 @@ export default function NexusView() {
               <br />
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
-                onClick={() => { triggerConfetti(); scrollTo("k7-block-g"); }}
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-g"); }}
               >
                 Grab a Bargain! 🏷️
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
             </div>
           </div>
@@ -980,29 +1021,29 @@ export default function NexusView() {
 
         {/* Promos */}
         <section
-          className="k7-pane"
-          id="k7-block-g"
+          className="shopcrystal-pane"
+          id="shopcrystal-block-g"
           data-ui-color="rgb(213, 135, 155)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">Promos</span>
-              <div className="k7-head-wrap">
-                <span className="k7-float k7-tilt" role="img" aria-label="Gift">🎁</span>
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">Promos</span>
+              <div className="shopcrystal-head-wrap">
+                <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Gift">🎁</span>
                 <h1>Special Offers!</h1>
               </div>
-              <h2 className="k7-lead">Heal Without Breaking the Bank!</h2>
+              <h2 className="shopcrystal-lead">Heal Without Breaking the Bank!</h2>
               <p>First Session Discount · Free Mini Aura Scan · Buy 2 Crystal Sets, Get 1 Aura Spray Free · Migraine Relief Bundle Special. Confetti on booking confirmation, bundle purchase, and email signup!</p>
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
-                onClick={() => { triggerConfetti(); scrollTo("k7-block-h"); }}
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-h"); }}
               >
                 Shop Deals 🛍️
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
             </div>
           </div>
@@ -1010,30 +1051,30 @@ export default function NexusView() {
 
         {/* Mission */}
         <section
-          className="k7-pane"
-          id="k7-block-h"
+          className="shopcrystal-pane"
+          id="shopcrystal-block-h"
           data-ui-color="rgb(23, 155, 17)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">Our Goal</span>
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">Our Goal</span>
               <h1>Mission</h1>
-              <h2 className="k7-lead">Authentic healing, people-first energy.</h2>
+              <h2 className="shopcrystal-lead">Authentic healing, people-first energy.</h2>
               <p>We believe physical discomfort often begins as energetic imbalance. Our mission is to restore harmony through crystal therapy, psychic insight, and frequency-based care.</p>
-              <div className="k7-pills">
+              <div className="shopcrystal-pills">
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Authentic Healing", "k7-ct-7", "🌟")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Authentic Healing", "shopcrystal-ct-7", "🌟")}
                   aria-label="Authentic Healing"
                 >
                   Authentic Healing 🌟
                 </button>
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("People First Energy", "k7-ct-8", "💜")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("People First Energy", "shopcrystal-ct-8", "💜")}
                   aria-label="People First Energy"
                 >
                   People First Energy 💜
@@ -1042,13 +1083,13 @@ export default function NexusView() {
               <br />
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
-                onClick={() => { triggerConfetti(); scrollTo("k7-block-j"); }}
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-j"); }}
               >
                 About Project 🔮
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
             </div>
           </div>
@@ -1056,38 +1097,38 @@ export default function NexusView() {
 
         {/* About Project */}
         <section
-          className="k7-pane"
-          id="k7-block-j"
+          className="shopcrystal-pane"
+          id="shopcrystal-block-j"
           data-ui-color="rgb(255, 39, 104)"
           data-ui-text-color="rgb(255, 255, 255)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">Project Insights</span>
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">Project Insights</span>
               <h1>About Project</h1>
-              <h2 className="k7-lead">Energy flows where attention goes. Tension stores in shoulders, joints, and nerves.</h2>
+              <h2 className="shopcrystal-lead">Energy flows where attention goes. Tension stores in shoulders, joints, and nerves.</h2>
               <p>Holistic support, not medical replacement. Discover the theory and intention behind this crystal &amp; psychic healing experience.</p>
-              <div className="k7-pills">
+              <div className="shopcrystal-pills">
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Intro", "k7-ct-10", "🚀")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Intro", "shopcrystal-ct-10", "🚀")}
                   aria-label="Intro"
                 >
                   Intro 🚀
                 </button>
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("Theory", "content-theory", "🧠")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("Theory", "shopcrystal-ct-9", "🧠")}
                   aria-label="Theory"
                 >
                   Theory 🧠
                 </button>
                 <button
                   type="button"
-                  className="k7-pill k7-hover k7-pull"
-                  onClick={() => openModal("About", "k7-about", "👋")}
+                  className="shopcrystal-pill shopcrystal-hover shopcrystal-pull"
+                  onClick={() => openModal("About", "shopcrystal-about", "👋")}
                   aria-label="About"
                 >
                   About 👋
@@ -1096,13 +1137,13 @@ export default function NexusView() {
               <br />
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
-                onClick={() => { triggerConfetti(); scrollTo("k7-block-k"); }}
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-k"); }}
               >
                 Get in Touch! 📞
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
             </div>
           </div>
@@ -1110,46 +1151,53 @@ export default function NexusView() {
 
         {/* Contact */}
         <section
-          className="k7-pane"
-          id="k7-block-k"
+          className="shopcrystal-pane"
+          id="shopcrystal-block-k"
           data-ui-color="rgb(22, 203, 166)"
           data-ui-text-color="rgb(0,0,0)"
         >
-          <div className="k7-wrap">
-            <div className="k7-txt">
-              <span className="k7-tag">Say Hello</span>
+          <div className="shopcrystal-wrap">
+            <div className="shopcrystal-txt">
+              <span className="shopcrystal-tag">Say Hello</span>
               <h1>Contact Us</h1>
-              <h2 className="k7-lead">We&apos;d Love to Hear From You!</h2>
+              <h2 className="shopcrystal-lead">We&apos;d Love to Hear From You!</h2>
               <p>Reach out to book a session or request a custom grid.</p>
               <div>
-                <div className="k7-hover k7-pull" tabIndex={0} role="link">
+                <div className="shopcrystal-hover shopcrystal-pull" tabIndex={0} role="link">
                   🔮 Book Energy Reading
                 </div>
-                <div className="k7-hover k7-pull" tabIndex={0} role="link">
+                <div className="shopcrystal-hover shopcrystal-pull" tabIndex={0} role="link">
                   ✨ Schedule Pain Relief Session
                 </div>
-                <div className="k7-hover k7-pull" tabIndex={0} role="link">
+                <div className="shopcrystal-hover shopcrystal-pull" tabIndex={0} role="link">
                   📐 Request Custom Crystal Grid
                 </div>
               </div>
               <button
                 type="button"
-                className="k7-btn k7-hover k7-pull"
-                onClick={() => { triggerConfetti(); scrollTo("k7-hero"); }}
+                className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
+                onClick={() => { triggerConfetti(); scrollTo("shopcrystal-hero"); }}
                 aria-label="Back to top"
               >
                 Back to Top 🏁
               </button>
             </div>
-            <div className="k7-img">
+            <div className="shopcrystal-img">
               <video src={CRYSTAL_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals" />
             </div>
           </div>
         </section>
       </main>
 
-      <div id="k7-modal-store" style={{ display: "none" }} aria-hidden="true">
-        <div id="k7-ct-0">
+      <div id="shopcrystal-modal-store" style={{ display: "none" }} aria-hidden="true">
+        <div id="shopcrystal-ct-0">
+          <div className="grand-reopening-hero">
+            <img
+              src="https://dl4.pushbulletusercontent2.com/HVXsiFhQIgc0L7IAo5D2gcwr9tyxjNx/image.png"
+              alt="Grand Reopening"
+              className="grand-reopening-hero-img"
+            />
+          </div>
           <div className="grand-reopening-content">
             <div className="grand-reopening-main">
               <h2>Grand Reopening Under Celine</h2>
@@ -1173,104 +1221,104 @@ export default function NexusView() {
             </aside>
           </div>
         </div>
-        <div id="k7-ct-1">
+        <div id="shopcrystal-ct-1">
           <h2>Crystal Therapy</h2>
           <p>
             How crystal frequency may support: joint inflammation, shoulder stiffness,
             migraine frequency, nerve numbness. We work with grounding stones, rose quartz,
             carnelian, smoky quartz, and more to support your body&apos;s natural balance.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-2">
+        <div id="shopcrystal-ct-2">
           <h2>Energy Cleansing</h2>
           <p>
             Aura clearing, trauma tension release, stress detox. Our sessions include
             full aura reading and clearing, crystal water infusion therapy, shadow release
             work, and solar vitality activation to refresh your energy field.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-3">
+        <div id="shopcrystal-ct-3">
           <h2>Psychic Healing</h2>
           <p>
             Intuitive body scan, emotional root identification, guided release work.
             Full-body psychic energy alignment to support shoulder &amp; joint pain, migraines,
             numbness, and stress-related muscle locking.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-4">
+        <div id="shopcrystal-ct-4">
           <h2>Shoulder &amp; Tension Relief</h2>
           <p>
             Crystal layouts and energy work focused on shoulder pain, stress-induced tightness,
             and upper body tension. Rose quartz, blue lace agate, and clearing techniques.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-5">
+        <div id="shopcrystal-ct-5">
           <h2>Migraine &amp; Headache Support</h2>
           <p>
             Azure Calm Kit, Mystic Sleep Blend, and crystal water infusion therapy
             to support headache relief, migraines, and nervous system reset.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-6">
+        <div id="shopcrystal-ct-6">
           <h2>Joint &amp; Circulation Support</h2>
           <p>
             Root alignment stones, crimson vitality grid, and chakra balancing for
             joint discomfort, circulation blocks, elbow pain, and nerve numbness.
           </p>
-          <p className="k7-legal">
+          <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
             They are not medical treatments and are not intended to diagnose or cure medical conditions.
             Please consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-ct-7">
+        <div id="shopcrystal-ct-7">
           <h2>Authentic Healing</h2>
           <p>Safe, ethical, and effective care for your energy and your environment. We use quality crystals and respectful practices.</p>
         </div>
-        <div id="k7-ct-8">
+        <div id="shopcrystal-ct-8">
           <h2>People First Energy</h2>
           <p>You and your wellbeing come first. Our approach is human-centered and focused on restoring harmony.</p>
         </div>
-        <div id="k7-ct-9">
+        <div id="shopcrystal-ct-9">
           <h2>Theory</h2>
           <p>
             Energy flows where attention goes. Tension stores in shoulders, joints, and nerves.
             This experience is built on the idea that holistic support can complement your wellness journey.
           </p>
         </div>
-        <div id="k7-ct-10">
+        <div id="shopcrystal-ct-10">
           <h2>About This Experience</h2>
           <p>
             Holistic support, not medical replacement. We offer crystal therapy, energy cleansing,
             and psychic healing as complementary practices. Always consult a licensed healthcare provider for medical concerns.
           </p>
         </div>
-        <div id="k7-about">
+        <div id="shopcrystal-about">
           <h2>Stay Connected</h2>
           <p>
             Find <a href="https://julibe.com/" target="_blank" rel="noopener noreferrer">@Julibe</a> and

@@ -24,7 +24,7 @@ export const crystalImages = [
 ];
 
 export function applyTheme(color, textColor) {
-  const root = document.querySelector(".k7-scope");
+  const root = document.querySelector(".shopcrystal-scope");
   if (!root) return;
   root.style.setProperty("--ui-theme", color);
   root.style.setProperty("--ui-text", textColor);
@@ -33,8 +33,8 @@ export function applyTheme(color, textColor) {
 export function initCursor(containerRef) {
   const root = containerRef?.current;
   if (!root) return;
-  const cursorDot = root.querySelector("#k7-ptr");
-  const cursorOutline = root.querySelector("#k7-ring");
+  const cursorDot = root.querySelector("#shopcrystal-ptr");
+  const cursorOutline = root.querySelector("#shopcrystal-ring");
   if (!cursorDot || !cursorOutline) return;
 
   const onMove = (e) => {
@@ -46,9 +46,9 @@ export function initCursor(containerRef) {
   };
 
   window.addEventListener("mousemove", onMove);
-  root.querySelectorAll("a, button, .k7-hover").forEach((el) => {
-    el.addEventListener("mouseenter", () => root.classList.add("k7-hover-on"));
-    el.addEventListener("mouseleave", () => root.classList.remove("k7-hover-on"));
+  root.querySelectorAll("a, button, .shopcrystal-hover").forEach((el) => {
+    el.addEventListener("mouseenter", () => root.classList.add("shopcrystal-hover-on"));
+    el.addEventListener("mouseleave", () => root.classList.remove("shopcrystal-hover-on"));
   });
   return () => window.removeEventListener("mousemove", onMove);
 }
@@ -56,7 +56,7 @@ export function initCursor(containerRef) {
 export function initSparkParticles(containerRef) {
   const root = containerRef?.current;
   if (!root) return;
-  const canvas = root.querySelector("#k7-canvas-bg");
+  const canvas = root.querySelector("#shopcrystal-canvas-bg");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   let w = 0, h = 0;
@@ -140,18 +140,18 @@ export function initSparkParticles(containerRef) {
 export function initIntroGrid(containerRef, heroImagesList, gsap) {
   const root = containerRef?.current;
   if (!root || !gsap) return;
-  const container = root.querySelector("#k7-mesh-inner");
+  const container = root.querySelector("#shopcrystal-mesh-inner");
   if (!container) return;
   container.innerHTML = "";
   const rows = 6;
   const cols = 120;
   for (let r = 0; r < rows; r++) {
     const line = document.createElement("div");
-    line.className = "k7-mesh-line";
+    line.className = "shopcrystal-mesh-line";
     let lastRandIndex = -1;
     for (let c = 0; c < cols; c++) {
       const item = document.createElement("div");
-      item.className = "k7-mesh-tile";
+      item.className = "shopcrystal-mesh-tile";
       const img = document.createElement("img");
       let currentRandIndex = Math.floor(Math.random() * heroImagesList.length);
       while (currentRandIndex === lastRandIndex) {
@@ -164,7 +164,7 @@ export function initIntroGrid(containerRef, heroImagesList, gsap) {
     }
     container.appendChild(line);
   }
-  const lines = container.querySelectorAll(".k7-mesh-line");
+  const lines = container.querySelectorAll(".shopcrystal-mesh-line");
   lines.forEach((line, i) => {
     const dir = i % 2 === 0 ? 1 : -1;
     gsap.set(line, { x: 0 });
@@ -180,7 +180,7 @@ export function initIntroGrid(containerRef, heroImagesList, gsap) {
 export function initMagneticButtons(containerRef, gsap) {
   const root = containerRef?.current;
   if (!root || !gsap) return;
-  root.querySelectorAll(".k7-pull").forEach((el) => {
+  root.querySelectorAll(".shopcrystal-pull").forEach((el) => {
     el.addEventListener("mousemove", (e) => {
       const rect = el.getBoundingClientRect();
       const posX = e.clientX - rect.left - rect.width / 2;
@@ -196,7 +196,7 @@ export function initMagneticButtons(containerRef, gsap) {
 export function initTiltEffect(containerRef) {
   const root = containerRef?.current;
   if (!root) return;
-  root.querySelectorAll(".k7-tilt").forEach((el) => {
+  root.querySelectorAll(".shopcrystal-tilt").forEach((el) => {
     el.addEventListener("mousemove", (e) => {
       const rect = el.getBoundingClientRect();
       const posX = e.clientX - rect.left;
@@ -216,17 +216,17 @@ export function initTiltEffect(containerRef) {
 export function initNavigation(containerRef, gsap) {
   const root = containerRef?.current;
   if (!root || !gsap) return () => {};
-  const mainScroll = root.querySelector("#k7-main");
+  const mainScroll = root.querySelector("#shopcrystal-main");
   if (!mainScroll) return () => {};
   const verticalSlides = mainScroll.querySelectorAll(":scope > section");
 
   const vNav = document.createElement("div");
-  vNav.className = "k7-rail-v";
+  vNav.className = "shopcrystal-rail-v";
   root.appendChild(vNav);
 
   verticalSlides.forEach((s, i) => {
     const dot = document.createElement("button");
-    dot.className = "k7-dot k7-hover k7-pull";
+    dot.className = "shopcrystal-dot shopcrystal-hover shopcrystal-pull";
     dot.setAttribute("aria-label", `Scroll to section ${i + 1}`);
     dot.onclick = () => s.scrollIntoView({ behavior: "smooth" });
     vNav.appendChild(dot);
@@ -234,16 +234,16 @@ export function initNavigation(containerRef, gsap) {
 
   const cleanups = [];
 
-  root.querySelectorAll(".k7-strip").forEach((wrapper) => {
-    const slides = wrapper.querySelectorAll(".k7-cell");
-    const container = wrapper.querySelector(".k7-strip-inner");
+  root.querySelectorAll(".shopcrystal-strip").forEach((wrapper) => {
+    const slides = wrapper.querySelectorAll(".shopcrystal-cell");
+    const container = wrapper.querySelector(".shopcrystal-strip-inner");
     if (!container) return;
 
     const hNav = document.createElement("nav");
-    hNav.className = "k7-rail-h";
+    hNav.className = "shopcrystal-rail-h";
 
     const prevBtn = document.createElement("button");
-    prevBtn.className = "k7-arrow prev k7-hover";
+    prevBtn.className = "shopcrystal-arrow prev shopcrystal-hover";
     prevBtn.innerHTML = "&#10094;";
     prevBtn.title = "Previous slide";
     prevBtn.setAttribute("aria-label", "Go to previous slide");
@@ -252,14 +252,14 @@ export function initNavigation(containerRef, gsap) {
 
     slides.forEach((s, i) => {
       const dot = document.createElement("button");
-      dot.className = "k7-dot k7-hover";
+      dot.className = "shopcrystal-dot shopcrystal-hover";
       dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
       dot.onclick = () => container.scrollTo({ left: i * window.innerWidth, behavior: "smooth" });
       hNav.appendChild(dot);
     });
 
     const nextBtn = document.createElement("button");
-    nextBtn.className = "k7-arrow next k7-hover";
+    nextBtn.className = "shopcrystal-arrow next shopcrystal-hover";
     nextBtn.innerHTML = "&#10095;";
     nextBtn.title = "Next slide";
     nextBtn.setAttribute("aria-label", "Go to next slide");
@@ -285,7 +285,7 @@ export function initNavigation(containerRef, gsap) {
       if (currentSlide?.dataset?.uiColor && currentSlide?.dataset?.uiTextColor) {
         applyTheme(currentSlide.dataset.uiColor, currentSlide.dataset.uiTextColor);
       }
-      hNav.querySelectorAll(".k7-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
+      hNav.querySelectorAll(".shopcrystal-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
     };
 
     container.addEventListener("scroll", onScroll);
@@ -299,10 +299,10 @@ export function initNavigation(containerRef, gsap) {
         if (!e.isIntersecting) return;
         const target = e.target;
         let color, text;
-        if (target.classList.contains("k7-strip")) {
-          const container = target.querySelector(".k7-strip-inner");
+        if (target.classList.contains("shopcrystal-strip")) {
+          const container = target.querySelector(".shopcrystal-strip-inner");
           const idx = container ? Math.round(container.scrollLeft / window.innerWidth) : 0;
-          const slides = target.querySelectorAll(".k7-cell");
+          const slides = target.querySelectorAll(".shopcrystal-cell");
           color = slides[idx]?.dataset?.uiColor || target.dataset?.uiColor;
           text = slides[idx]?.dataset?.uiTextColor || target.dataset?.uiTextColor;
         } else {
@@ -312,9 +312,9 @@ export function initNavigation(containerRef, gsap) {
         if (color && text) applyTheme(color, text);
         const idx = Array.from(verticalSlides).indexOf(target);
         if (idx !== -1) {
-          vNav.querySelectorAll(".k7-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
+          vNav.querySelectorAll(".shopcrystal-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
         }
-        const animTargets = target.querySelectorAll("h1, p, .k7-tag, .k7-lead, img, video, .k7-pills");
+        const animTargets = target.querySelectorAll("h1, p, .shopcrystal-tag, .shopcrystal-lead, img, video, .shopcrystal-pills");
         if (animTargets.length) {
           gsap.to(animTargets, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 });
         }
