@@ -256,7 +256,7 @@ export function initScrollSnap(containerRef) {
   if (!root) return () => {};
   const mainScroll = root.querySelector("#shopcrystal-main");
   if (!mainScroll) return () => {};
-  const sections = Array.from(mainScroll.querySelectorAll(":scope > section"));
+  const sections = Array.from(mainScroll.querySelectorAll(":scope > section, :scope > footer"));
   const sectionCount = sections.length;
   if (sectionCount === 0) return () => {};
 
@@ -357,7 +357,7 @@ export function initNavigation(containerRef, gsap) {
   if (!root || !gsap) return () => {};
   const mainScroll = root.querySelector("#shopcrystal-main");
   if (!mainScroll) return () => {};
-  const verticalSlides = Array.from(mainScroll.querySelectorAll(":scope > section"));
+  const verticalSlides = Array.from(mainScroll.querySelectorAll(":scope > section, :scope > footer"));
   const sectionCount = verticalSlides.length;
   if (sectionCount === 0) return () => {};
 

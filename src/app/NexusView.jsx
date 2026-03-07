@@ -53,6 +53,8 @@ const CRYSTAL_IMAGES = {
   "products/sunbeam_radiance.webp": PICSUM("sunbeam"),
 };
 const IMG = (path) => CRYSTAL_IMAGES[path] || PICSUM("crystal");
+// Two hands holding (reconnecting / loved one section) — Pexels
+const RECONNECTING_IMAGE_URL = "https://images.pexels.com/photos/1378723/pexels-photo-1378723.jpeg";
 
 const REVIEWS_AGGREGATE = { rating: 4.9, googleCount: 39, yahooCount: 12, yelpCount: 8 };
 const FOOTER_ADDRESS = "6 Golf Center, Hoffman Estates, IL";
@@ -345,7 +347,7 @@ export default function NexusView() {
           <a href="#shopcrystal-reviews" className="shopcrystal-hover shopcrystal-pull">
             Reviews
           </a>
-          <a href="#shopcrystal-footer" className="shopcrystal-hover shopcrystal-pull">
+          <a href="#shopcrystal-contact" className="shopcrystal-hover shopcrystal-pull">
             Contact
           </a>
         </nav>
@@ -596,126 +598,13 @@ export default function NexusView() {
                   <button
                     type="button"
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-a2"); }}
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-b"); }}
                   >
-                    Learn More Now! 🔮
+                    Learn More
                   </button>
                 </div>
                 <div className="shopcrystal-img">
                   <video src={TAROT_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Tarot card reading session" />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-a2"
-              data-ui-color="rgb(240, 15, 33)"
-              data-ui-text-color="rgb(255,255,255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Energy Crystals</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Heart">❤️</span>
-                    <h1>Crimson Vitality Grid</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">
-                    Red jasper + garnet sets to stimulate blood flow and ease joint stiffness.
-                  </h2>
-                  <p>
-                    Crimson Vitality Grid. A hearty blend of grounding red stones
-                    to support circulation and comfort in joints and muscles.
-                  </p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => {
-                      triggerConfetti();
-                      scrollTo("shopcrystal-a3");
-                    }}
-                  >
-                    Rose Aura! 🌸
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img
-                    src={IMG("products/crimson_surge.webp")}
-                    alt="Crimson Surge beef"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-a3"
-              data-ui-color="rgb(216, 135, 154)"
-              data-ui-text-color="rgb(255,255,255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Energy Crystals</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Flower">🌸</span>
-                    <h1>Rose Aura Harmony</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Rose quartz for emotional tension release and stress-induced shoulder tightness.</h2>
-                  <p>
-                    Rose Aura Harmony. A gentle fusion of rose quartz energy
-                    to soften tension and support emotional release in shoulders and heart space.
-                  </p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => {
-                      triggerConfetti();
-                      scrollTo("shopcrystal-a4");
-                    }}
-                  >
-                    Ember Protection! ⭐
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img
-                    src={IMG("products/rose_drift.webp")}
-                    alt="Rose Drift"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-a4"
-              data-ui-color="rgb(230, 180, 81)"
-              data-ui-text-color="rgb(255,255,255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Energy Crystals</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Star">⭐</span>
-                    <h1>Ember Protection Flame</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Carnelian + smoky quartz for inflammation support and energetic shielding.</h2>
-                  <p>
-                    Ember Protection Flame. Golden carnelian and smoky quartz
-                    for warmth, inflammation support, and a protective energetic field.
-                  </p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => {
-                      triggerConfetti();
-                      scrollTo("shopcrystal-block-b");
-                    }}
-                  >
-                    Pocket Sets! ✨
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img
-                    src={IMG("products/ember_glow.webp")}
-                    alt="Ember Glow"
-                  />
                 </div>
               </div>
             </div>
@@ -741,76 +630,20 @@ export default function NexusView() {
                   <span className="shopcrystal-tag">Pocket & Travel Sets</span>
                   <div className="shopcrystal-head-wrap">
                     <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crystal">💎</span>
-                    <h1>Pocket Protection Pack</h1>
+                    <h1>Crystals and more</h1>
                   </div>
                   <h2 className="shopcrystal-lead">Small crystal bundles for daily stress reduction and numbness support.</h2>
-                  <p>Pocket Protection Pack. Irresistible on-the-go support for stress and tingling!</p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-b2"); }}
-                  >
-                    Azure Calm! 🌊
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <video src={POCKET_PROTECTION_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Pocket Protection Pack" />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-b2"
-              data-ui-color="rgb(142, 199, 218)"
-              data-ui-text-color="rgb(255, 255, 255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Pocket & Travel Sets</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Wave">🌊</span>
-                    <h1>Azure Calm Kit</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Blue lace agate + sodalite for migraines, headaches, neck tension.</h2>
-                  <p>Azure Calm Kit. Your go-to for head and neck relief—cool, calming frequencies.</p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-b3"); }}
-                  >
-                    Mystic Sleep! 🌙
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img src={IMG("products/azure_crunch.webp")} alt="Azure Crunch" />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-b3"
-              data-ui-color="rgb(186, 173, 217)"
-              data-ui-text-color="rgb(255, 255, 255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Pocket & Travel Sets</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Crystal">🔮</span>
-                    <h1>Mystic Sleep Blend</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Amethyst + moonstone for headache relief and nervous system reset.</h2>
-                  <p>Mystic Sleep Blend. An enchanting blend for rest and headache relief.</p>
+                  <p>Crystals and more. Irresistible on-the-go support for stress and tingling!</p>
                   <button
                     type="button"
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-c"); }}
                   >
-                    Deep Healing! 🌿
+                    Learn More
                   </button>
                 </div>
                 <div className="shopcrystal-img">
-                  <img src={IMG("products/crispy_munchies.webp")} alt="Mystic Dream" />
+                  <video src={POCKET_PROTECTION_VIDEO_URL} autoPlay muted loop playsInline role="img" aria-label="Crystals and more" />
                 </div>
               </div>
             </div>
@@ -836,14 +669,13 @@ export default function NexusView() {
                   <span className="shopcrystal-tag">Cleansing Love Life</span>
                   <div className="shopcrystal-head-wrap">
                     <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Ritual">✨</span>
-                    <h1>Cleansing Love Life Ritual</h1>
+                    <h1>Cleansing Your Love Life </h1>
                   </div>
                   <h2 className="shopcrystal-lead">Clear heavy, stuck, or painful patterns in your love life so new, healthy connection can flow in.</h2>
                   <p>
                     Celine&apos;s gift is tuning into where old hurt, betrayal, or disappointment is still sitting in your energy field
                     and gently lifting it away. During this ritual she combines crystals, focused intention, and spoken prayer over your
-                    situation to cleanse negative cords, soften heartbreak, and invite in loving, reciprocal energy—something her clients
-                    repeatedly report feeling within days of the session.
+                    situation to cleanse negative cords, soften heartbreak, and invite in loving, reciprocal energy.
                   </p>
                   <button
                     type="button"
@@ -896,14 +728,14 @@ export default function NexusView() {
                   </button>
                 </div>
                 <div className="shopcrystal-img">
-                  <img src={IMG("products/regal_morsels.webp")} alt="Regal Morsels" />
+                  <img src={RECONNECTING_IMAGE_URL} alt="Two hands holding — reconnecting with a loved one" />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Groom */}
+        {/* Readings & energy cleansing */}
         <section
           className="shopcrystal-pane shopcrystal-strip"
           id="shopcrystal-block-d"
@@ -934,7 +766,7 @@ export default function NexusView() {
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                     onClick={() => {
                       triggerConfetti();
-                      scrollTo("shopcrystal-a2");
+                      scrollTo("shopcrystal-block-b");
                     }}
                   >
                     Book a Reading ✨
@@ -950,37 +782,6 @@ export default function NexusView() {
                     role="img"
                     aria-label="Crystals"
                   />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-d2"
-              data-ui-color="rgb(166, 194, 213)"
-              data-ui-text-color="rgb(255, 255, 255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Energy Cleansing Services</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Mist">❄️</span>
-                    <h1>Crystal Water Infusion Therapy</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Vibrational mist therapy for migraines, headaches, sinus pressure.</h2>
-                  <p>These readings can bring clarity around love,
-                    timing, career direction, and hidden blocks—often confirming what you&apos;ve secretly felt and pointing to concrete next
-                    steps. Many clients leave with renewed confidence, emotional relief, and practical insight they can immediately apply in
-                    their love life and personal journey.</p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-d3"); }}
-                  >
-                    Shadow Release! 💜
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img src={IMG("products/aqua_mists.webp")} alt="Aqua Mists" />
                 </div>
               </div>
             </div>
@@ -1002,41 +803,13 @@ export default function NexusView() {
                   <button
                     type="button"
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-d4"); }}
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-cartogolf"); }}
                   >
-                    Solar Vitality! ☀️
+                    Book a Session
                   </button>
                 </div>
                 <div className="shopcrystal-img">
                   <img src={IMG("products/eclipse_haze.webp")} alt="Eclipse Haze" />
-                </div>
-              </div>
-            </div>
-            <div
-              className="shopcrystal-pane shopcrystal-cell"
-              id="shopcrystal-d4"
-              data-ui-color="rgb(248, 200, 12)"
-              data-ui-text-color="rgb(255, 255, 255)"
-            >
-              <div className="shopcrystal-wrap">
-                <div className="shopcrystal-txt">
-                  <span className="shopcrystal-tag">Energy Cleansing Services</span>
-                  <div className="shopcrystal-head-wrap">
-                    <span className="shopcrystal-float shopcrystal-tilt" role="img" aria-label="Sun">☀️</span>
-                    <h1>Solar Vitality Activation</h1>
-                  </div>
-                  <h2 className="shopcrystal-lead">Energy boost for circulation, stiffness, chronic fatigue.</h2>
-                  <p>Solar Vitality Activation. Bursting with revitalizing energy for circulation and vitality.</p>
-                  <button
-                    type="button"
-                    className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-hero"); }}
-                  >
-                    Back to Top 🏁
-                  </button>
-                </div>
-                <div className="shopcrystal-img">
-                  <img src={IMG("products/solar_flare.webp")} alt="Solar Flare" />
                 </div>
               </div>
             </div>
@@ -1047,14 +820,14 @@ export default function NexusView() {
         <section
           id="shopcrystal-cartogolf"
           className="shopcrystal-pane shopcrystal-cartogolf"
-          data-ui-color="rgb(28, 28, 32)"
-          data-ui-text-color="rgb(255, 255, 255)"
+          data-ui-color="rgb(255, 255, 255)"
+          data-ui-text-color="rgb(0, 0, 0)"
         >
           <div className="shopcrystal-wrap shopcrystal-cartogolf-wrap">
             <div className="shopcrystal-txt shopcrystal-cartogolf-txt">
               <span className="shopcrystal-tag">Come see us</span>
               <h1 className="shopcrystal-cartogolf-head">Welcome IN</h1>
-              <h2 className="shopcrystal-lead">Book an appointment today.</h2>
+              <h2 className="shopcrystal-lead">Hours are listed on Google.</h2>
               <div className="shopcrystal-cartogolf-socials" aria-label="Connect with us">
                 <a
                   href="https://www.instagram.com/psychic_crystal_bookshop?igsh=MXBibml0NWhhaHI0cQ%3D%3D&utm_source=qr"
@@ -1208,23 +981,24 @@ export default function NexusView() {
           </div>
         </section>
 
-        {/* Footer: address + intake form */}
-        <footer className="shopcrystal-pane shopcrystal-footer" id="shopcrystal-footer" data-ui-color="rgb(250, 250, 250)" data-ui-text-color="rgb(33, 33, 33)">
-          <div className="shopcrystal-footer-inner">
-            <div className="shopcrystal-footer-address-block">
+        {/* Contact section: one full-screen slide; address + form scroll inside */}
+        <section id="shopcrystal-contact" className="shopcrystal-pane shopcrystal-contact" data-ui-color="rgb(250, 250, 250)" data-ui-text-color="rgb(33, 33, 33)">
+          <div className="shopcrystal-contact-scroll">
+          <div className="shopcrystal-contact-inner">
+            <div className="shopcrystal-contact-address-block">
               <a
                 href={FOOTER_DIRECTIONS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shopcrystal-footer-address-link"
+                className="shopcrystal-contact-address-link"
                 aria-label="Get directions to Psychic & Crystal Bookshop"
               >
                 <MapPin size={28} strokeWidth={2} aria-hidden="true" />
-                <span className="shopcrystal-footer-address-text">{FOOTER_ADDRESS}</span>
+                <span className="shopcrystal-contact-address-text">{FOOTER_ADDRESS}</span>
               </a>
             </div>
-            <div className="shopcrystal-footer-form-wrap">
-              <h2 className="shopcrystal-footer-form-title">Get in Touch</h2>
+            <div className="shopcrystal-contact-form-wrap">
+              <h2 className="shopcrystal-contact-form-title">Get in Touch</h2>
               <form className="shopcrystal-intake-form" onSubmit={handleIntakeSubmit} noValidate>
                 <div className="shopcrystal-intake-field">
                   <label htmlFor="intake-name">Name</label>
@@ -1239,7 +1013,19 @@ export default function NexusView() {
                     autoComplete="name"
                   />
                 </div>
-                <div className="shopcrystal-intake-field">
+                <div className="shopcrystal-intake-field shopcrystal-intake-field-inline">
+                  <label htmlFor="intake-address">Address</label>
+                  <input
+                    id="intake-address"
+                    type="text"
+                    name="address"
+                    value={intakeForm.address}
+                    onChange={handleIntakeChange}
+                    placeholder="Street, state, zip"
+                    autoComplete="street-address"
+                  />
+                </div>
+                <div className="shopcrystal-intake-field shopcrystal-intake-field-inline">
                   <label htmlFor="intake-email">Email</label>
                   <input
                     id="intake-email"
@@ -1250,18 +1036,6 @@ export default function NexusView() {
                     placeholder="you@example.com"
                     required
                     autoComplete="email"
-                  />
-                </div>
-                <div className="shopcrystal-intake-field">
-                  <label htmlFor="intake-address">Address</label>
-                  <input
-                    id="intake-address"
-                    type="text"
-                    name="address"
-                    value={intakeForm.address}
-                    onChange={handleIntakeChange}
-                    placeholder="Street, state, zip"
-                    autoComplete="street-address"
                   />
                 </div>
                 <div className="shopcrystal-intake-field">
@@ -1320,11 +1094,17 @@ export default function NexusView() {
                   {intakeSubmitting ? "Sending…" : "Submit"}
                 </button>
               </form>
-              <p className="shopcrystal-footer-call">
+              <p className="shopcrystal-contact-call">
                 Call Celine at <a href={`tel:${CELINE_PHONE.replace(/-/g, "")}`}>{CELINE_PHONE}</a>
               </p>
             </div>
           </div>
+          </div>
+        </section>
+
+        {/* Footer: copyright only — must be snap target so it's reachable */}
+        <footer className="shopcrystal-pane shopcrystal-footer" id="shopcrystal-footer" data-ui-color="rgb(250, 250, 250)" data-ui-text-color="rgb(33, 33, 33)">
+          <p className="shopcrystal-footer-copy">© 2026</p>
           {toast.show && (
             <div className={`shopcrystal-toast shopcrystal-toast-${toast.type}`} role="status" aria-live="polite">
               {toast.message}
@@ -1382,8 +1162,8 @@ export default function NexusView() {
           <h2>Energy Cleansing</h2>
           <p>
             Aura clearing, trauma tension release, stress detox. Our sessions include
-            full aura reading and clearing, crystal water infusion therapy, shadow release
-            work, and solar vitality activation to refresh your energy field.
+            full aura reading and clearing, shadow release work, and energy alignment
+            to refresh your energy field.
           </p>
           <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
@@ -1419,8 +1199,7 @@ export default function NexusView() {
         <div id="shopcrystal-ct-5">
           <h2>Migraine &amp; Headache Support</h2>
           <p>
-            Azure Calm Kit, Mystic Sleep Blend, and crystal water infusion therapy
-            to support headache relief, migraines, and nervous system reset.
+            Crystals and more to support headache relief, migraines, and nervous system reset.
           </p>
           <p className="shopcrystal-legal">
             <strong>Disclaimer:</strong> These services are spiritual and holistic in nature.
@@ -1431,7 +1210,7 @@ export default function NexusView() {
         <div id="shopcrystal-ct-6">
           <h2>Joint &amp; Circulation Support</h2>
           <p>
-            Root alignment stones, crimson vitality grid, and chakra balancing for
+            Root alignment stones and chakra balancing for
             joint discomfort, circulation blocks, elbow pain, and nerve numbness.
           </p>
           <p className="shopcrystal-legal">

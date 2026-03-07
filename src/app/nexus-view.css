@@ -40,7 +40,7 @@
 	--ui-text: rgb(255, 255, 255);
 	--ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	font-family: var(--font-body);
-	background-color: var(--ui-theme);
+	background-color: transparent;
 	color: var(--ui-text);
 	overflow: hidden;
 	position: fixed;
@@ -48,6 +48,10 @@
 	width: 100vw;
 	height: 100vh;
 	z-index: 0;
+}
+/* Bar uses active section theme for contrast */
+.shopcrystal-scope .shopcrystal-bar {
+	background-color: var(--ui-theme);
 }
 
 .shopcrystal-scope .shopcrystal-scope-inner {
@@ -221,11 +225,30 @@
 	overflow: hidden;
 }
 
+/* Per-section background colors (each section keeps its own bg) */
+#shopcrystal-hero { background-color: rgb(63, 22, 119); }
+#shopcrystal-welcome { background-color: rgb(192, 95, 231); }
+#shopcrystal-block-a { background-color: rgb(255, 31, 26); }
+#shopcrystal-a1 { background-color: rgb(166, 194, 217); }
+#shopcrystal-block-b { background-color: rgb(15, 80, 155); }
+#shopcrystal-b1 { background-color: rgb(15, 80, 155); }
+#shopcrystal-block-c { background-color: rgb(255, 31, 26); }
+#shopcrystal-c1 { background-color: rgb(255, 31, 26); }
+#shopcrystal-c2 { background-color: rgb(216, 135, 154); }
+#shopcrystal-block-d { background-color: rgb(221, 213, 204); }
+#shopcrystal-d1 { background-color: rgb(221, 213, 204); }
+#shopcrystal-d3 { background-color: rgb(191, 84, 235); }
+#shopcrystal-cartogolf { background-color: #f4f5f0; }
+#shopcrystal-reviews { background-color: rgb(245, 245, 245); }
+#shopcrystal-contact { background-color: rgb(250, 250, 250); }
+#shopcrystal-footer { background-color: rgb(250, 250, 250); }
+
 .shopcrystal-scope .shopcrystal-wrap {
 	display: flex;
 	height: 100%;
 	width: 100%;
 	padding-top: 0;
+	background-color: transparent;
 }
 
 .shopcrystal-scope .shopcrystal-wrap .shopcrystal-txt {
@@ -329,18 +352,19 @@
 	-webkit-mask-image: none;
 }
 
-/* Come See Us — Cartogolf section (photo + copy + social column) */
+/* Come See Us — Cartogolf section (photo + copy + social column); white bg, black text */
 .shopcrystal-scope .shopcrystal-cartogolf {
-	background: linear-gradient(135deg, #1c1c20 0%, #2d2a36 50%, #1c1c20 100%);
+	background: #f4f5f0;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-wrap .shopcrystal-cartogolf-txt {
 	flex: 1;
 	max-width: 42%;
+	color: #000;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-txt .shopcrystal-tag {
 	opacity: 1;
 	letter-spacing: 0.35em;
-	color: rgba(255, 255, 255, 0.85);
+	color: rgba(0, 0, 0, 0.85);
 }
 .shopcrystal-scope .shopcrystal-cartogolf-head {
 	font-family: var(--font-title);
@@ -350,11 +374,13 @@
 	letter-spacing: -1px;
 	margin-bottom: 0.5rem;
 	opacity: 1;
+	color: #000;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-txt .shopcrystal-lead {
 	opacity: 1;
 	margin-bottom: 2rem;
 	font-size: 1.1rem;
+	color: #000;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-socials {
 	display: flex;
@@ -368,7 +394,7 @@
 	align-items: center;
 	gap: 0.9rem;
 	text-decoration: none;
-	color: var(--ui-text);
+	color: #000;
 	font-size: 0.95rem;
 	font-weight: 600;
 	letter-spacing: 0.02em;
@@ -377,8 +403,9 @@
 	transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-link:hover {
-	background: rgba(255, 255, 255, 0.12);
+	background: rgba(0, 0, 0, 0.06);
 	transform: translateX(6px);
+	color: #000;
 }
 .shopcrystal-scope .shopcrystal-cartogolf-link i {
 	font-size: 1.25rem;
@@ -607,49 +634,36 @@
 	background: #4285f4;
 }
 
-/* Footer: address + intake form — visible on mobile, tablet, and desktop */
-.shopcrystal-scope .shopcrystal-footer {
+/* Contact section: same as other panes (100vh, snap) so it's reachable; content scrolls inside */
+.shopcrystal-scope .shopcrystal-pane.shopcrystal-contact,
+#shopcrystal-contact {
 	background: #fafafa;
 	color: #212121;
-	min-height: 100vh;
-	height: auto;
-	overflow-x: hidden;
+	/* keep default .shopcrystal-pane: height 100vh, scroll-snap-align start */
+}
+.shopcrystal-scope .shopcrystal-contact-scroll,
+#shopcrystal-contact .shopcrystal-contact-scroll {
 	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	padding: calc(var(--header-height) + 3rem) 2rem 4rem;
+	-webkit-overflow-scrolling: touch;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+	padding: calc(var(--header-height) + 2rem) 2rem 4rem;
+	padding-bottom: 4rem;
 }
-/* Tablet and desktop: ensure footer and form are visible (override pane overflow) */
-@media screen and (min-width: 769px) {
-	.shopcrystal-scope .shopcrystal-pane.shopcrystal-footer {
-		overflow-y: auto;
-		overflow-x: hidden;
-		height: auto;
-		min-height: 100vh;
-	}
-	.shopcrystal-scope .shopcrystal-footer {
-		padding: calc(var(--header-height) + 3rem) 2.5rem 4rem;
-	}
-	.shopcrystal-scope .shopcrystal-footer-form-wrap {
-		padding: 3.5rem 3rem;
-	}
-	.shopcrystal-scope .shopcrystal-intake-form {
-		grid-template-columns: 1fr 1fr;
-		gap: 2rem 2.25rem;
-	}
-}
-.shopcrystal-scope .shopcrystal-footer-inner {
+.shopcrystal-scope .shopcrystal-contact-inner,
+#shopcrystal-contact .shopcrystal-contact-inner {
 	width: 100%;
 	max-width: 680px;
 	margin: 0 auto;
 }
-.shopcrystal-scope .shopcrystal-footer-address-block {
+.shopcrystal-scope .shopcrystal-contact-address-block,
+#shopcrystal-contact .shopcrystal-contact-address-block {
 	margin-bottom: 3.5rem;
 	text-align: center;
 }
-.shopcrystal-scope .shopcrystal-footer-address-link {
+.shopcrystal-scope .shopcrystal-contact-address-link,
+#shopcrystal-contact .shopcrystal-contact-address-link {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.618rem;
@@ -659,30 +673,100 @@
 	font-weight: 500;
 	transition: color 0.2s;
 }
-.shopcrystal-scope .shopcrystal-footer-address-link:hover {
+.shopcrystal-scope .shopcrystal-contact-address-link:hover {
 	color: #1557b0;
 	text-decoration: underline;
 }
-.shopcrystal-scope .shopcrystal-footer-address-link:focus {
+.shopcrystal-scope .shopcrystal-contact-address-link:focus {
 	outline: 2px solid #1a73e8;
 	outline-offset: 2px;
 }
-.shopcrystal-scope .shopcrystal-footer-address-text {
+.shopcrystal-scope .shopcrystal-contact-address-text,
+#shopcrystal-contact .shopcrystal-contact-address-text {
 	font-family: var(--font-body);
 }
-.shopcrystal-scope .shopcrystal-footer-form-wrap {
+.shopcrystal-scope .shopcrystal-contact-form-wrap,
+#shopcrystal-contact .shopcrystal-contact-form-wrap {
 	background: #fff;
 	border-radius: 16px;
 	box-shadow: 0 2px 16px rgba(0,0,0,0.06);
 	padding: 3.5rem 3rem;
 	margin-bottom: 2rem;
 }
-.shopcrystal-scope .shopcrystal-footer-form-title {
+.shopcrystal-scope .shopcrystal-contact-form-title,
+#shopcrystal-contact .shopcrystal-contact-form-title {
 	font-family: var(--font-title);
 	font-size: 1.75rem;
 	margin: 0 0 2.5rem;
 	color: #202124;
 }
+@media screen and (min-width: 769px) {
+	#shopcrystal-contact .shopcrystal-contact-scroll {
+		padding: calc(var(--header-height) + 3rem) 2.5rem 4rem;
+		padding-bottom: 4rem;
+	}
+	#shopcrystal-contact .shopcrystal-contact-form-wrap {
+		padding: 3.5rem 3rem;
+	}
+}
+@media screen and (max-width: 768px) {
+	#shopcrystal-contact .shopcrystal-contact-scroll {
+		padding: calc(var(--header-height) + 2rem) 1.5rem 3rem;
+		padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+	}
+	#shopcrystal-contact .shopcrystal-contact-form-wrap {
+		padding: 2.5rem 1.75rem;
+	}
+}
+
+/* Footer: copyright only; keep as snap target so it's reachable */
+.shopcrystal-scope .shopcrystal-pane.shopcrystal-footer,
+#shopcrystal-footer.shopcrystal-pane {
+	height: auto;
+	min-height: 0;
+}
+.shopcrystal-scope .shopcrystal-footer,
+#shopcrystal-footer {
+	background: #fafafa;
+	color: #212121;
+	min-height: 0;
+	height: auto;
+	padding: 1.25rem 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+}
+.shopcrystal-scope .shopcrystal-footer-copy,
+#shopcrystal-footer .shopcrystal-footer-copy {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #5f6368;
+}
+@media screen and (max-width: 768px) {
+	#shopcrystal-footer {
+		padding: 1rem 1.5rem;
+		padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+	}
+}
+
+.shopcrystal-scope .shopcrystal-contact-call,
+#shopcrystal-contact .shopcrystal-contact-call {
+	margin: 2rem 0 0;
+	font-size: 1.05rem;
+	color: #5f6368;
+	text-align: center;
+}
+#shopcrystal-contact .shopcrystal-contact-call a {
+	color: #1a73e8;
+	text-decoration: none;
+	font-weight: 500;
+}
+#shopcrystal-contact .shopcrystal-contact-call a:hover {
+	text-decoration: underline;
+}
+
 .shopcrystal-scope .shopcrystal-intake-form {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -693,6 +777,10 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
+	grid-column: 1 / -1;
+}
+.shopcrystal-scope .shopcrystal-intake-field-inline {
+	grid-column: span 1;
 }
 .shopcrystal-scope .shopcrystal-intake-field-full {
 	grid-column: 1 / -1;
@@ -797,15 +885,12 @@
 }
 
 @media screen and (max-width: 768px) {
-	.shopcrystal-scope .shopcrystal-footer {
-		padding: calc(var(--header-height) + 2rem) 1.5rem 3rem;
-	}
-	.shopcrystal-scope .shopcrystal-footer-form-wrap {
-		padding: 2.5rem 1.75rem;
-	}
 	.shopcrystal-scope .shopcrystal-intake-form {
 		grid-template-columns: 1fr;
 		gap: 1.75rem;
+	}
+	.shopcrystal-scope .shopcrystal-intake-field-inline {
+		grid-column: 1 / -1;
 	}
 }
 
@@ -1084,10 +1169,10 @@
 	background-color: #ba86ff;
 	background-image: url("data:image/svg+xml,%3Csvg width='20' height='12' viewBox='0 0 20 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 12c0-.622-.095-1.221-.27-1.785A5.982 5.982 0 0 0 10 12c1.67 0 3.182-.683 4.27-1.785A5.998 5.998 0 0 0 14 12h2a4 4 0 0 1 4-4V6c-1.67 0-3.182.683-4.27 1.785C15.905 7.22 16 6.622 16 6c0-.622-.095-1.221-.27-1.785A5.982 5.982 0 0 0 20 6V4a4 4 0 0 1-4-4h-2c0 .622.095 1.221.27 1.785A5.982 5.982 0 0 0 10 0C8.33 0 6.818.683 5.73 1.785 5.905 1.22 6 .622 6 0H4a4 4 0 0 1-4 4v2c1.67 0 3.182.683 4.27 1.785A5.998 5.998 0 0 1 4 6c0-.622.095-1.221.27-1.785A5.982 5.982 0 0 1 0 6v2a4 4 0 0 1 4 4h2zm-4 0a2 2 0 0 0-2-2v2h2zm16 0a2 2 0 0 1 2-2v2h-2zM0 2a2 2 0 0 0 2-2H0v2zm20 0a2 2 0 0 1-2-2h2v2zm-10 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' fill='%236929d1' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
 	border: 2px solid var(--ui-text);
-	padding: 1.25rem 1.5rem 1.5rem;
+	padding: 1.25rem 1.5rem 3.5rem 1.5rem;
 	border-radius: 24px;
-	width: 92%;
-	max-width: 640px;
+	width: 96%;
+	max-width: 720px;
 	max-height: calc(100vh - 2rem);
 	display: flex;
 	flex-direction: column;
@@ -1122,35 +1207,21 @@
 }
 
 .shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: block;
+	width: 100%;
 	margin-bottom: 1.25rem;
 }
 
-/* Flyer photo: mobile 100%, tablet 80%, desktop 67% of modal width */
+/* Flyer: full width of modal, no top/bottom cutoff; body scrolls so close stays reachable */
 .shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
 	width: 100%;
 	max-width: 100%;
-	max-height: 200px;
 	height: auto;
+	max-height: min(78vh, 900px);
 	object-fit: contain;
+	object-position: top center;
 	display: block;
 	border-radius: 12px;
-}
-
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-	.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
-		width: 80%;
-		max-width: 80%;
-	}
-}
-
-@media screen and (min-width: 1025px) {
-	.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
-		width: 67%;
-		max-width: 67%;
-	}
 }
 
 .shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .shopcrystal-legal,
@@ -1162,25 +1233,33 @@
 	font-style: italic;
 }
 
+/* Close always visible and clickable (fixed to viewport for accessibility, no cutoff) */
 .shopcrystal-scope .shopcrystal-dialog-close {
-	position: sticky;
-	top: 0;
-	left: 100%;
-	margin-left: auto;
-	width: 44px;
-	height: 44px;
-	flex-shrink: 0;
-	background: transparent;
-	border: 2px solid var(--ui-text);
-	color: var(--ui-text);
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	width: 48px;
+	height: 48px;
+	background: rgba(0, 0, 0, 0.5);
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	color: #fff;
 	border-radius: 50%;
-	font-size: 1.5rem;
+	font-size: 1.75rem;
+	line-height: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	user-select: none;
 	cursor: pointer;
-	z-index: 1;
+	z-index: 36000;
+	transition: background 0.2s, transform 0.2s;
+}
+.shopcrystal-scope .shopcrystal-dialog-close:hover {
+	background: rgba(0, 0, 0, 0.75);
+}
+.shopcrystal-scope .shopcrystal-dialog-close:focus {
+	outline: 2px solid #fff;
+	outline-offset: 2px;
 }
 
 .shopcrystal-scope .shopcrystal-dialog-content {
