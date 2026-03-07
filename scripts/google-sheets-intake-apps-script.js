@@ -3,8 +3,8 @@
  * Copy this into your Google Sheet: Extensions > Apps Script, then Deploy > New deployment > Web app.
  * Set APP_SCRIPT_WEB_APP_URL in your .env to the Web app URL.
  *
- * Sheet columns: A:name, B:email, C:address, D:phone_number, E:service_interest, F:message,
- * G:time_submitted, H:date_submitted, I:device_type, J:submitted_from
+ * Sheet columns: A:name, B:email, C:address, D:city, E:phone_number, F:service_interest, G:message,
+ * H:time_submitted, I:date_submitted, J:device_type, K:submitted_from
  */
 const SHEET_ID = '13LGBqIWpevC2igU6h92H2RBwyL3THJj9WGJje7ZzsYo';
 const EMAIL_TO = 'logothepogo1212@gmail.com';
@@ -12,6 +12,7 @@ const HEADERS = [
   'name',
   'email',
   'address',
+  'city',
   'phone_number',
   'service_interest',
   'message',

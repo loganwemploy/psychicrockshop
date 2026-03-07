@@ -53,7 +53,11 @@ export function initCursor(containerRef) {
   return () => window.removeEventListener("mousemove", onMove);
 }
 
-export function initSparkParticles(containerRef) {
+/**
+ * @param {React.RefObject} containerRef
+ * @param {React.RefObject<boolean>} [stopRef] - when .current is true, particles stop for the rest of the session
+ */
+export function initSparkParticles(containerRef, stopRef) {
   const root = containerRef?.current;
   if (!root) return;
   const canvas = root.querySelector("#shopcrystal-canvas-bg");
@@ -106,6 +110,15 @@ export function initSparkParticles(containerRef) {
     }
   }
 
+  function isMobileOrTablet() {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 1024px)").matches;
+  }
+
+  function particleCount() {
+    return isMobileOrTablet() ? 4 : 15;
+  }
+
   function resize() {
     w = root.offsetWidth;
     h = root.offsetHeight;
@@ -114,7 +127,8 @@ export function initSparkParticles(containerRef) {
   }
 
   resize();
-  for (let i = 0; i < 15; i++) particles.push(new P());
+  const count = particleCount();
+  for (let i = 0; i < count; i++) particles.push(new P());
 
   const onResize = () => resize();
   const onMouseMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; };
@@ -123,18 +137,29 @@ export function initSparkParticles(containerRef) {
   root.addEventListener("mousemove", onMouseMove);
 
   let raf;
+  let stopped = false;
+  function doCleanup() {
+    if (stopped) return;
+    stopped = true;
+    ctx.clearRect(0, 0, w, h);
+    window.removeEventListener("resize", onResize);
+    root.removeEventListener("mousemove", onMouseMove);
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+  }
+
   function loop() {
+    if (stopRef?.current) {
+      doCleanup();
+      return;
+    }
     ctx.clearRect(0, 0, w, h);
     particles.forEach((p) => { p.update(); p.draw(); });
     raf = requestAnimationFrame(loop);
   }
   loop();
 
-  return () => {
-    window.removeEventListener("resize", onResize);
-    root.removeEventListener("mousemove", onMouseMove);
-    if (raf) cancelAnimationFrame(raf);
-  };
+  return () => { doCleanup(); };
 }
 
 export function initIntroGrid(containerRef, heroImagesList, gsap) {

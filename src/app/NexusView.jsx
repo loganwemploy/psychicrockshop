@@ -83,6 +83,7 @@ function scrollTo(id) {
 
 export default function NexusView() {
   const containerRef = useRef(null);
+  const stopSparkRef = useRef(false);
   const modalCloseRef = useRef(null);
   const [modal, setModal] = useState({
     open: false,
@@ -95,6 +96,7 @@ export default function NexusView() {
     name: "",
     email: "",
     address: "",
+    city: "",
     phone: "",
     service: "",
     message: "",
@@ -161,7 +163,7 @@ export default function NexusView() {
         return;
       }
       showToast("success", "Thank you! We'll be in touch soon.");
-      setIntakeForm({ name: "", email: "", address: "", phone: "", service: "", message: "" });
+      setIntakeForm({ name: "", email: "", address: "", city: "", phone: "", service: "", message: "" });
     } catch {
       showToast("error", "Could not send. Please call Celine at " + CELINE_PHONE + ".");
     } finally {
@@ -219,7 +221,7 @@ export default function NexusView() {
     window.nxCloseModal = closeModal;
     window.nxShareTwitter = shareTwitter;
     const cleanups = [];
-    cleanups.push(initSparkParticles(containerRef) || (() => {}));
+    cleanups.push(initSparkParticles(containerRef, stopSparkRef) || (() => {}));
     initIntroGrid(containerRef, crystalImages, gsap);
     cleanups.push(initScrollSnap(containerRef) || (() => {}));
     cleanups.push(initNavigation(containerRef, gsap) || (() => {}));
@@ -232,6 +234,23 @@ export default function NexusView() {
       delete window.nxCloseModal;
       delete window.nxShareTwitter;
     };
+  }, []);
+
+  // Stop star particles for the rest of the session once user scrolls to Readings With Celine
+  useEffect(() => {
+    const el = document.getElementById("shopcrystal-block-d");
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          stopSparkRef.current = true;
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, root: null }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -319,6 +338,9 @@ export default function NexusView() {
           </a>
           <a href="#shopcrystal-block-d" className="shopcrystal-hover shopcrystal-pull">
             Readings
+          </a>
+          <a href="#shopcrystal-cartogolf" className="shopcrystal-hover shopcrystal-pull">
+            Visit
           </a>
           <a href="#shopcrystal-reviews" className="shopcrystal-hover shopcrystal-pull">
             Reviews
@@ -1022,6 +1044,73 @@ export default function NexusView() {
           </div>
         </section>
 
+        {/* Come See Us — Cartogolf photo + socials */}
+        <section
+          id="shopcrystal-cartogolf"
+          className="shopcrystal-pane shopcrystal-cartogolf"
+          data-ui-color="rgb(28, 28, 32)"
+          data-ui-text-color="rgb(255, 255, 255)"
+        >
+          <div className="shopcrystal-wrap shopcrystal-cartogolf-wrap">
+            <div className="shopcrystal-txt shopcrystal-cartogolf-txt">
+              <span className="shopcrystal-tag">Come see us</span>
+              <h1 className="shopcrystal-cartogolf-head">Welcome IN</h1>
+              <h2 className="shopcrystal-lead">Book an appointment today.</h2>
+              <div className="shopcrystal-cartogolf-socials" aria-label="Connect with us">
+                <a
+                  href="https://www.instagram.com/psychic_crystal_bookshop?igsh=MXBibml0NWhhaHI0cQ%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shopcrystal-cartogolf-link shopcrystal-hover shopcrystal-pull"
+                  aria-label="Instagram"
+                >
+                  <i className="fa-brands fa-instagram" aria-hidden="true" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://www.tiktok.com/@psychic_crystal_bookshop?_r=1&_t=ZP-94CJty8jLf5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shopcrystal-cartogolf-link shopcrystal-hover shopcrystal-pull"
+                  aria-label="TikTok"
+                >
+                  <i className="fa-brands fa-tiktok" aria-hidden="true" />
+                  <span>TikTok</span>
+                </a>
+                <a
+                  href="https://share.google/fBV5ikbimElfe42Mu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shopcrystal-cartogolf-link shopcrystal-hover shopcrystal-pull"
+                  aria-label="Google listing"
+                >
+                  <i className="fa-brands fa-google" aria-hidden="true" />
+                  <span>Google</span>
+                </a>
+                <a
+                  href="mailto:info@psychiccrystalbookshop.com"
+                  className="shopcrystal-cartogolf-link shopcrystal-hover shopcrystal-pull"
+                  aria-label="Email"
+                >
+                  <i className="fa-solid fa-envelope" aria-hidden="true" />
+                  <span>Email</span>
+                </a>
+                <a
+                  href="tel:+18472620158"
+                  className="shopcrystal-cartogolf-link shopcrystal-hover shopcrystal-pull"
+                  aria-label="Call"
+                >
+                  <i className="fa-solid fa-phone" aria-hidden="true" />
+                  <span>Call</span>
+                </a>
+              </div>
+            </div>
+            <div className="shopcrystal-img shopcrystal-cartogolf-img">
+              <img src="/CARTOgolf.jpg" alt="Psychic & Crystal Bookshop — come see us" />
+            </div>
+          </div>
+        </section>
+
         {/* 5-Star Reviews Marquee */}
         <section
           className="shopcrystal-pane shopcrystal-reviews-marquee"
@@ -1172,8 +1261,20 @@ export default function NexusView() {
                     name="address"
                     value={intakeForm.address}
                     onChange={handleIntakeChange}
-                    placeholder="Street, city, state, zip"
+                    placeholder="Street, state, zip"
                     autoComplete="street-address"
+                  />
+                </div>
+                <div className="shopcrystal-intake-field">
+                  <label htmlFor="intake-city">City</label>
+                  <input
+                    id="intake-city"
+                    type="text"
+                    name="city"
+                    value={intakeForm.city}
+                    onChange={handleIntakeChange}
+                    placeholder="City"
+                    autoComplete="address-level2"
                   />
                 </div>
                 <div className="shopcrystal-intake-field">
