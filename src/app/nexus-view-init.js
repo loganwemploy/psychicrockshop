@@ -213,26 +213,162 @@ export function initTiltEffect(containerRef) {
   });
 }
 
+/**
+ * Scroll mainScroll so the section is at the top. Uses offsetTop so the target
+ * is exact in scroll coordinates (no overshoot on strips like Readings).
+ */
+function scrollSectionIntoView(mainScroll, section) {
+  const targetTop = section.offsetTop;
+  mainScroll.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" });
+}
+
+/**
+ * One section per wheel. Observer reports which section has most visibility, but
+ * we IGNORE observer updates during scroll lock so we never "skip" a section
+ * (e.g. Readings) when the observer fires mid-scroll. We set currentSectionIndex
+ * optimistically when we start a scroll so state matches the scroll target.
+ */
+export function initScrollSnap(containerRef) {
+  const root = containerRef?.current;
+  if (!root) return () => {};
+  const mainScroll = root.querySelector("#shopcrystal-main");
+  if (!mainScroll) return () => {};
+  const sections = Array.from(mainScroll.querySelectorAll(":scope > section"));
+  const sectionCount = sections.length;
+  if (sectionCount === 0) return () => {};
+
+  let currentSectionIndex = 0;
+  let scrollLockUntil = 0;
+  const LOCK_MS = 1100;
+  const ratioBySection = new Map();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (Date.now() < scrollLockUntil) return;
+      entries.forEach((e) => ratioBySection.set(e.target, e.intersectionRatio));
+      let bestRatio = 0;
+      let bestIndex = 0;
+      sections.forEach((s, i) => {
+        const r = ratioBySection.get(s) ?? 0;
+        if (r > bestRatio) {
+          bestRatio = r;
+          bestIndex = i;
+        }
+      });
+      currentSectionIndex = bestIndex;
+    },
+    {
+      root: mainScroll,
+      rootMargin: "0px",
+      threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1],
+    }
+  );
+  sections.forEach((s) => observer.observe(s));
+
+  function scrollToSection(index) {
+    const i = Math.max(0, Math.min(index, sectionCount - 1));
+    currentSectionIndex = i;
+    scrollSectionIntoView(mainScroll, sections[i]);
+  }
+
+  function onWheel(e) {
+    if (Date.now() < scrollLockUntil) {
+      e.preventDefault();
+      return;
+    }
+    const vh = mainScroll.clientHeight;
+    const atBottom = mainScroll.scrollTop >= mainScroll.scrollHeight - vh - 2;
+
+    if (e.deltaY > 0) {
+      if (atBottom) return;
+      e.preventDefault();
+      scrollLockUntil = Date.now() + LOCK_MS;
+      scrollToSection(currentSectionIndex + 1);
+    } else if (e.deltaY < 0) {
+      if (currentSectionIndex <= 0) return;
+      e.preventDefault();
+      scrollLockUntil = Date.now() + LOCK_MS;
+      scrollToSection(currentSectionIndex - 1);
+    }
+  }
+
+  mainScroll.addEventListener("wheel", onWheel, { passive: false });
+  return () => {
+    mainScroll.removeEventListener("wheel", onWheel);
+    sections.forEach((s) => observer.unobserve(s));
+  };
+}
+
 export function initNavigation(containerRef, gsap) {
   const root = containerRef?.current;
   if (!root || !gsap) return () => {};
   const mainScroll = root.querySelector("#shopcrystal-main");
   if (!mainScroll) return () => {};
-  const verticalSlides = mainScroll.querySelectorAll(":scope > section");
+  const verticalSlides = Array.from(mainScroll.querySelectorAll(":scope > section"));
+  const sectionCount = verticalSlides.length;
+  if (sectionCount === 0) return () => {};
 
   const vNav = document.createElement("div");
   vNav.className = "shopcrystal-rail-v";
   root.appendChild(vNav);
 
+  function scrollToSection(section) {
+    scrollSectionIntoView(mainScroll, section);
+  }
+
   verticalSlides.forEach((s, i) => {
     const dot = document.createElement("button");
     dot.className = "shopcrystal-dot shopcrystal-hover shopcrystal-pull";
     dot.setAttribute("aria-label", `Scroll to section ${i + 1}`);
-    dot.onclick = () => s.scrollIntoView({ behavior: "smooth" });
+    dot.onclick = () => scrollToSection(s);
     vNav.appendChild(dot);
   });
 
   const cleanups = [];
+  const ratioBySection = new Map();
+  let lastActiveIndex = -1;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => ratioBySection.set(e.target, e.intersectionRatio));
+      let bestRatio = 0;
+      let bestIndex = 0;
+      verticalSlides.forEach((s, i) => {
+        const r = ratioBySection.get(s) ?? 0;
+        if (r > bestRatio) {
+          bestRatio = r;
+          bestIndex = i;
+        }
+      });
+      const activeIndex = bestIndex;
+      if (activeIndex === lastActiveIndex) return;
+      lastActiveIndex = activeIndex;
+
+      const target = verticalSlides[activeIndex];
+      let color, text;
+      if (target.classList.contains("shopcrystal-strip")) {
+        const container = target.querySelector(".shopcrystal-strip-inner");
+        const idx = container ? Math.round(container.scrollLeft / window.innerWidth) : 0;
+        const slides = target.querySelectorAll(".shopcrystal-cell");
+        color = slides[idx]?.dataset?.uiColor || target.dataset?.uiColor;
+        text = slides[idx]?.dataset?.uiTextColor || target.dataset?.uiTextColor;
+      } else {
+        color = target.dataset?.uiColor;
+        text = target.dataset?.uiTextColor;
+      }
+      if (color && text) applyTheme(color, text);
+      vNav.querySelectorAll(".shopcrystal-dot").forEach((d, i) => d.classList.toggle("active", i === activeIndex));
+      const animTargets = target.querySelectorAll("h1, p, .shopcrystal-tag, .shopcrystal-lead, img, video, .shopcrystal-pills");
+      if (animTargets.length) gsap.to(animTargets, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 });
+    },
+    {
+      root: mainScroll,
+      rootMargin: "0px",
+      threshold: [0, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    }
+  );
+  verticalSlides.forEach((s) => observer.observe(s));
+  cleanups.push(() => verticalSlides.forEach((s) => observer.unobserve(s)));
 
   root.querySelectorAll(".shopcrystal-strip").forEach((wrapper) => {
     const slides = wrapper.querySelectorAll(".shopcrystal-cell");
@@ -292,38 +428,6 @@ export function initNavigation(containerRef, gsap) {
     checkArrowVisibility();
     cleanups.push(() => container.removeEventListener("scroll", onScroll));
   });
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        const target = e.target;
-        let color, text;
-        if (target.classList.contains("shopcrystal-strip")) {
-          const container = target.querySelector(".shopcrystal-strip-inner");
-          const idx = container ? Math.round(container.scrollLeft / window.innerWidth) : 0;
-          const slides = target.querySelectorAll(".shopcrystal-cell");
-          color = slides[idx]?.dataset?.uiColor || target.dataset?.uiColor;
-          text = slides[idx]?.dataset?.uiTextColor || target.dataset?.uiTextColor;
-        } else {
-          color = target.dataset?.uiColor;
-          text = target.dataset?.uiTextColor;
-        }
-        if (color && text) applyTheme(color, text);
-        const idx = Array.from(verticalSlides).indexOf(target);
-        if (idx !== -1) {
-          vNav.querySelectorAll(".shopcrystal-dot").forEach((d, i) => d.classList.toggle("active", i === idx));
-        }
-        const animTargets = target.querySelectorAll("h1, p, .shopcrystal-tag, .shopcrystal-lead, img, video, .shopcrystal-pills");
-        if (animTargets.length) {
-          gsap.to(animTargets, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 });
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-  verticalSlides.forEach((s) => observer.observe(s));
-  cleanups.push(() => verticalSlides.forEach((s) => observer.unobserve(s)));
 
   return () => {
     vNav.remove();

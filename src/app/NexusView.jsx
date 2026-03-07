@@ -7,6 +7,7 @@ import {
   crystalImages,
   initSparkParticles,
   initIntroGrid,
+  initScrollSnap,
   initNavigation,
   initMagneticButtons,
   initTiltEffect,
@@ -65,6 +66,7 @@ export default function NexusView() {
     title: "",
     icon: "",
     contentHtml: "",
+    contentId: null,
   });
 
   const openModal = (title, contentId, icon) => {
@@ -75,9 +77,10 @@ export default function NexusView() {
         title: title || "",
         icon: icon || "",
         contentHtml: el ? el.innerHTML : "",
+        contentId,
       });
     } else {
-      setModal({ open: true, title: title || "", icon: icon || "", contentHtml: String(contentId || "") });
+      setModal({ open: true, title: title || "", icon: icon || "", contentHtml: String(contentId || ""), contentId: null });
     }
   };
 
@@ -135,6 +138,7 @@ export default function NexusView() {
     const cleanups = [];
     cleanups.push(initSparkParticles(containerRef) || (() => {}));
     initIntroGrid(containerRef, crystalImages, gsap);
+    cleanups.push(initScrollSnap(containerRef) || (() => {}));
     cleanups.push(initNavigation(containerRef, gsap) || (() => {}));
     initMagneticButtons(containerRef, gsap);
     initTiltEffect(containerRef);
@@ -338,11 +342,48 @@ export default function NexusView() {
           <h1 className="shopcrystal-dialog-title" id="shopcrystal-dialog-title">
             {modal.title}
           </h1>
-          <div
-            id="shopcrystal-dialog-body"
-            className="shopcrystal-dialog-body"
-            dangerouslySetInnerHTML={{ __html: modal.contentHtml }}
-          />
+          <div id="shopcrystal-dialog-body" className="shopcrystal-dialog-body">
+            {modal.contentId === "shopcrystal-ct-0" ? (
+              <>
+                <div className="grand-reopening-hero">
+                  <img
+                    src="https://dl4.pushbulletusercontent2.com/HVXsiFhQIgc0L7IAo5D2gcwr9tyxjNx/image.png"
+                    alt="Grand Reopening"
+                    className="grand-reopening-hero-img"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = "https://picsum.photos/seed/grandopening/600/400";
+                    }}
+                  />
+                </div>
+                <div className="grand-reopening-content">
+                  <div className="grand-reopening-main">
+                    <h2>Grand Reopening Under Celine</h2>
+                    <p>
+                      psychic &amp; rock shop is reopening under Celine&apos;s care as a{" "}
+                      <strong>NEW and IMPROVED Psychic &amp; Crystal Bookshop</strong>,
+                      blending intuitive readings, crystal healing, and a handpicked
+                      library of spiritual titles.
+                    </p>
+                    <p>
+                      Step inside, explore the crystals and books, and let Celine
+                      help you find what your energy is asking for right now.
+                    </p>
+                  </div>
+                  <aside className="grand-reopening-aside">
+                    <h3>Visit the Shop</h3>
+                    <p>
+                      Come by soon to experience the refreshed space, new offerings,
+                      and welcoming vibe in person.
+                    </p>
+                  </aside>
+                </div>
+              </>
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: modal.contentHtml }} />
+            )}
+          </div>
         </div>
       </div>
 
