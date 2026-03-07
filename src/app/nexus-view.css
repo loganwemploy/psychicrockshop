@@ -523,24 +523,27 @@
 	background: #4285f4;
 }
 
-/* Footer: address + intake form (golden-ratio spacing, Google-like) */
+/* Footer: address + intake form — lots of room, no cut-off */
 .shopcrystal-scope .shopcrystal-footer {
 	background: #fafafa;
 	color: #212121;
 	min-height: 100vh;
+	height: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	padding: calc(var(--header-height) + 1.618rem) 1.618rem 3rem;
+	justify-content: flex-start;
+	padding: calc(var(--header-height) + 3rem) 2rem 4rem;
 }
 .shopcrystal-scope .shopcrystal-footer-inner {
 	width: 100%;
-	max-width: 618px;
+	max-width: 680px;
 	margin: 0 auto;
 }
 .shopcrystal-scope .shopcrystal-footer-address-block {
-	margin-bottom: 2.618rem;
+	margin-bottom: 3.5rem;
 	text-align: center;
 }
 .shopcrystal-scope .shopcrystal-footer-address-link {
@@ -566,40 +569,41 @@
 }
 .shopcrystal-scope .shopcrystal-footer-form-wrap {
 	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-	padding: 2.618rem;
+	border-radius: 16px;
+	box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+	padding: 3.5rem 3rem;
+	margin-bottom: 2rem;
 }
 .shopcrystal-scope .shopcrystal-footer-form-title {
 	font-family: var(--font-title);
-	font-size: 1.618rem;
-	margin: 0 0 1.618rem;
+	font-size: 1.75rem;
+	margin: 0 0 2.5rem;
 	color: #202124;
 }
 .shopcrystal-scope .shopcrystal-intake-form {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 1.618rem;
+	gap: 2rem 2.25rem;
 	max-width: 100%;
 }
 .shopcrystal-scope .shopcrystal-intake-field {
 	display: flex;
 	flex-direction: column;
-	gap: 0.382rem;
+	gap: 0.5rem;
 }
 .shopcrystal-scope .shopcrystal-intake-field-full {
 	grid-column: 1 / -1;
 }
 .shopcrystal-scope .shopcrystal-intake-form label {
-	font-size: 0.95rem;
+	font-size: 1rem;
 	font-weight: 500;
 	color: #5f6368;
 }
 .shopcrystal-scope .shopcrystal-intake-form input,
 .shopcrystal-scope .shopcrystal-intake-form select,
 .shopcrystal-scope .shopcrystal-intake-form textarea {
-	font-size: 1rem;
-	padding: 0.618rem 0.875rem;
+	font-size: 1.05rem;
+	padding: 0.75rem 1rem;
 	border: 1px solid #dadce0;
 	border-radius: 8px;
 	background: #fff;
@@ -620,18 +624,18 @@
 }
 .shopcrystal-scope .shopcrystal-intake-form textarea {
 	resize: vertical;
-	min-height: 100px;
+	min-height: 120px;
 }
 .shopcrystal-scope .shopcrystal-intake-hint {
-	font-size: 0.8rem;
+	font-size: 0.85rem;
 	color: #5f6368;
-	margin-top: 0.2rem;
+	margin-top: 0.25rem;
 }
 .shopcrystal-scope .shopcrystal-intake-submit {
 	grid-column: 1 / -1;
-	margin-top: 0.618rem;
-	padding: 0.875rem 1.618rem;
-	font-size: 1rem;
+	margin-top: 1.25rem;
+	padding: 1rem 1.618rem;
+	font-size: 1.05rem;
 	font-weight: 600;
 	background: #1a73e8;
 	color: #fff;
@@ -649,8 +653,8 @@
 	cursor: not-allowed;
 }
 .shopcrystal-scope .shopcrystal-footer-call {
-	margin: 1.618rem 0 0;
-	font-size: 1rem;
+	margin: 2rem 0 0;
+	font-size: 1.05rem;
 	color: #5f6368;
 	text-align: center;
 }
@@ -690,8 +694,15 @@
 }
 
 @media screen and (max-width: 768px) {
+	.shopcrystal-scope .shopcrystal-footer {
+		padding: calc(var(--header-height) + 2rem) 1.5rem 3rem;
+	}
+	.shopcrystal-scope .shopcrystal-footer-form-wrap {
+		padding: 2.5rem 1.75rem;
+	}
 	.shopcrystal-scope .shopcrystal-intake-form {
 		grid-template-columns: 1fr;
+		gap: 1.75rem;
 	}
 }
 
@@ -925,6 +936,15 @@
 	z-index: 5;
 	pointer-events: none;
 }
+
+/* Stars/sparkles get less prominent as you scroll down each section */
+#shopcrystal-main > section:nth-of-type(2) .shopcrystal-float { opacity: 1; }
+#shopcrystal-main > section:nth-of-type(3) .shopcrystal-float { opacity: 0.88; }
+#shopcrystal-main > section:nth-of-type(4) .shopcrystal-float { opacity: 0.7; }
+#shopcrystal-main > section:nth-of-type(5) .shopcrystal-float { opacity: 0.5; }
+#shopcrystal-main > section:nth-of-type(6) .shopcrystal-float { opacity: 0.32; }
+#shopcrystal-main > section:nth-of-type(7) .shopcrystal-float { opacity: 0.18; }
+#shopcrystal-main > section:nth-of-type(8) .shopcrystal-float { opacity: 0.08; }
 
 @keyframes shopcrystal-float-kf {
 	0%, 100% { transform: translateY(0) rotate(0); }
