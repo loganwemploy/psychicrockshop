@@ -6,10 +6,18 @@
 	font-style: normal;
 }
 @font-face {
-	font-family: "Pulsar";
-	src: url("https://raw.githubusercontent.com/Julibe/Guau/master/public/fonts/pulsar.woff2") format("woff2");
+	font-family: "Syne";
+	src: url("/fonts/syne-400.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+@font-face {
+	font-family: "Syne";
+	src: url("/fonts/syne-700.woff2") format("woff2");
 	font-weight: bold;
 	font-style: normal;
+	font-display: block;
 }
 
 .shopcrystal-scope *,
@@ -25,7 +33,7 @@
 
 .shopcrystal-scope,
 .shopcrystal-scope {
-	--font-title: "Pulsar", sans-serif;
+	--font-title: "Syne", sans-serif;
 	--font-body: "Acumin", sans-serif;
 	--header-height: 100px;
 	--ui-theme: rgb(63, 22, 119);
@@ -1120,14 +1128,29 @@
 	margin-bottom: 1.25rem;
 }
 
+/* Flyer photo: mobile 100%, tablet 80%, desktop 67% of modal width */
 .shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
+	width: 100%;
 	max-width: 100%;
 	max-height: 200px;
-	width: auto;
 	height: auto;
 	object-fit: contain;
 	display: block;
 	border-radius: 12px;
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+	.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
+		width: 80%;
+		max-width: 80%;
+	}
+}
+
+@media screen and (min-width: 1025px) {
+	.shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .grand-reopening-hero-img {
+		width: 67%;
+		max-width: 67%;
+	}
 }
 
 .shopcrystal-scope .shopcrystal-dialog .shopcrystal-dialog-body .shopcrystal-legal,

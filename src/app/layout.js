@@ -37,6 +37,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+      <link rel="preload" href="/fonts/syne-400.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href="/fonts/syne-700.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       <link rel="preconnect" href="https://fonts.googleapis.com"/>

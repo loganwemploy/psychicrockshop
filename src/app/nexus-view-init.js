@@ -17,7 +17,6 @@ export const crystalImages = [
   "/hero-grid/hero-16.jpg",
   "/hero-grid/hero-17.jpg",
   "/hero-grid/hero-18.jpg",
-  "/hero-grid/hero-19.jpg",
   "/hero-grid/hero-20.jpg",
   "/hero-grid/hero-21.jpg",
   "/hero-grid/hero-22.jpg",

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fontsource/syne": "^5.2.7",
     "@splidejs/react-splide": "^0.7.12",
     "clsx": "^2.1.1",
     "gsap": "^3.14.2",
