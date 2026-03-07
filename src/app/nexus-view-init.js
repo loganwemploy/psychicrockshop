@@ -313,7 +313,9 @@ export function initScrollSnap(containerRef) {
       e.preventDefault();
       return;
     }
-    if (isDesktop()) currentSectionIndex = getCurrentIndexFromScroll();
+    if (!isDesktop()) {
+      currentSectionIndex = getCurrentIndexFromScroll();
+    }
     const vh = mainScroll.clientHeight;
     const atBottom = mainScroll.scrollTop >= mainScroll.scrollHeight - vh - 2;
 
@@ -330,9 +332,23 @@ export function initScrollSnap(containerRef) {
     }
   }
 
+  let scrollSyncTimer;
+  function onScrollSync() {
+    if (Date.now() < scrollLockUntil) return;
+    currentSectionIndex = getCurrentIndexFromScroll();
+  }
+  function onScroll() {
+    clearTimeout(scrollSyncTimer);
+    scrollSyncTimer = setTimeout(onScrollSync, 180);
+  }
+
   mainScroll.addEventListener("wheel", onWheel, { passive: false });
+  mainScroll.addEventListener("scroll", onScroll, { passive: true });
+
   return () => {
     mainScroll.removeEventListener("wheel", onWheel);
+    mainScroll.removeEventListener("scroll", onScroll);
+    clearTimeout(scrollSyncTimer);
     if (observer) sections.forEach((s) => observer.unobserve(s));
   };
 }

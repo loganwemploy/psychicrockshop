@@ -452,10 +452,9 @@ export default function NexusView() {
               <>
                 <div className="grand-reopening-hero">
                   <img
-                    src="https://dl4.pushbulletusercontent2.com/HVXsiFhQIgc0L7IAo5D2gcwr9tyxjNx/image.png"
+                    src="/psychicflyerfinL.png"
                     alt="Grand Reopening"
                     className="grand-reopening-hero-img"
-                    referrerPolicy="no-referrer"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src = "https://picsum.photos/seed/grandopening/600/400";
@@ -1338,7 +1337,7 @@ export default function NexusView() {
         <div id="shopcrystal-ct-0">
           <div className="grand-reopening-hero">
             <img
-              src="https://dl4.pushbulletusercontent2.com/HVXsiFhQIgc0L7IAo5D2gcwr9tyxjNx/image.png"
+              src="/psychicflyerfinL.png"
               alt="Grand Reopening"
               className="grand-reopening-hero-img"
             />

@@ -1,6 +1,22 @@
 const SHEET_ID = "13LGBqIWpevC2igU6h92H2RBwyL3THJj9WGJje7ZzsYo";
 const APP_SCRIPT_URL = process.env.APP_SCRIPT_WEB_APP_URL;
 
+function getSubmittedFrom(body, request) {
+  const fromBody = body?.submitted_from && String(body.submitted_from).trim();
+  if (fromBody) return fromBody;
+  const referer = request.headers.get("referer") || request.headers.get("Referer");
+  if (referer) return referer;
+  const origin = request.headers.get("origin") || request.headers.get("Origin");
+  if (origin) return origin;
+  try {
+    const url = request.url;
+    if (url) return new URL(url).origin;
+  } catch {
+    // ignore
+  }
+  return "";
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -15,7 +31,6 @@ export async function POST(request) {
       time_submitted,
       date_submitted,
       device_type,
-      submitted_from,
     } = body;
     if (!name || !email || !service) {
       return Response.json(
@@ -23,6 +38,7 @@ export async function POST(request) {
         { status: 400 }
       );
     }
+    const submitted_from = getSubmittedFrom(body, request);
     const row = [
       String(name).trim(),
       String(email).trim(),
@@ -34,7 +50,7 @@ export async function POST(request) {
       (time_submitted && String(time_submitted)) || "",
       (date_submitted && String(date_submitted)) || "",
       (device_type && String(device_type)) || "unknown",
-      (submitted_from && String(submitted_from)) || "",
+      submitted_from,
     ];
 
     if (APP_SCRIPT_URL) {
