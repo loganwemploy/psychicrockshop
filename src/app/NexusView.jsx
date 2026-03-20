@@ -351,15 +351,6 @@ export default function NexusView() {
             Contact
           </a>
         </nav>
-        <button
-          type="button"
-          className="shopcrystal-cta-prime shopcrystal-hover shopcrystal-pull"
-          onClick={() =>
-            openModal("Grand Reopening ✨", "shopcrystal-ct-0", "✨")
-          }
-        >
-          Grand Reopening
-        </button>
         <div id="shopcrystal-links">
           <nav>
             <ul>
@@ -421,6 +412,9 @@ export default function NexusView() {
               </li>
             </ul>
           </nav>
+          <div className="shopcrystal-socials-mobile-note">
+            readings with celine are by appointment only
+          </div>
         </div>
       </header>
 
@@ -552,7 +546,7 @@ export default function NexusView() {
                 className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
                 onClick={() => {
                   triggerConfetti();
-                  scrollTo("shopcrystal-block-a");
+                  scrollTo("shopcrystal-contact");
                 }}
                 aria-label="Explore more"
               >
@@ -598,7 +592,7 @@ export default function NexusView() {
                   <button
                     type="button"
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-b"); }}
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-contact"); }}
                   >
                     Learn More
                   </button>
@@ -637,7 +631,7 @@ export default function NexusView() {
                   <button
                     type="button"
                     className="shopcrystal-btn shopcrystal-hover shopcrystal-pull"
-                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-block-c"); }}
+                    onClick={() => { triggerConfetti(); scrollTo("shopcrystal-contact"); }}
                   >
                     Learn More
                   </button>
@@ -826,8 +820,8 @@ export default function NexusView() {
           <div className="shopcrystal-wrap shopcrystal-cartogolf-wrap">
             <div className="shopcrystal-txt shopcrystal-cartogolf-txt">
               <span className="shopcrystal-tag">Come see us</span>
-              <h1 className="shopcrystal-cartogolf-head">Welcome IN</h1>
-              <h2 className="shopcrystal-lead">Hours are listed on Google.</h2>
+              <h1 className="shopcrystal-cartogolf-head">Welcome </h1>
+              <h2 className="shopcrystal-lead">readings with celine are by appointment only</h2>
               <div className="shopcrystal-cartogolf-socials" aria-label="Connect with us">
                 <a
                   href="https://www.instagram.com/psychic_crystal_bookshop?igsh=MXBibml0NWhhaHI0cQ%3D%3D&utm_source=qr"
@@ -876,9 +870,12 @@ export default function NexusView() {
                   <span>Call</span>
                 </a>
               </div>
+              <div className="shopcrystal-cartogolf-socials-note">
+                readings with celine are by appointment only
+              </div>
             </div>
             <div className="shopcrystal-img shopcrystal-cartogolf-img">
-              <img src="/CARTOgolf.jpg" alt="Psychic & Crystal Bookshop — come see us" />
+              <img src="/CARTOgolf.jpg" alt="Psychic & Crystal Bookshop — come see us" style={{transform: 'scale(1.25, 1.1)'}} />
             </div>
           </div>
         </section>

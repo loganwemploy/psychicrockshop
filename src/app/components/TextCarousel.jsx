@@ -7,7 +7,7 @@ const TextCarousel = () => {
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
   const scrollToWhatWeProvide = () => {
-    document.getElementById('what-we-provide')?.scrollIntoView({ behavior: getScrollBehavior() });
+    document.getElementById('contact')?.scrollIntoView({ behavior: getScrollBehavior() });
   };
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: getScrollBehavior() });

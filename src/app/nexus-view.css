@@ -389,6 +389,28 @@
 	align-items: flex-start;
 	margin-top: 0.5rem;
 }
+.shopcrystal-scope .shopcrystal-cartogolf-socials-note {
+	display: none; /* mobile-only */
+	margin-top: 0.75rem;
+	color: #000;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.4;
+	text-transform: none;
+}
+
+/* Touch devices (phones/tablets): ensure it appears even if width > 768px. */
+@media (hover: none) and (pointer: coarse) {
+	.shopcrystal-scope .shopcrystal-cartogolf-socials-note {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.shopcrystal-scope .shopcrystal-cartogolf-socials-note {
+		display: block;
+	}
+}
 .shopcrystal-scope .shopcrystal-cartogolf-link {
 	display: inline-flex;
 	align-items: center;
@@ -604,6 +626,7 @@
 	flex: 1;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
+	line-clamp: 3; /* standard property (compat with non-webkit implementations) */
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
@@ -1346,6 +1369,18 @@
 	opacity: 1;
 }
 
+.shopcrystal-scope #shopcrystal-links .shopcrystal-socials-mobile-note {
+	display: none; /* mobile-only */
+	margin-top: 0.35rem;
+	color: var(--ui-text);
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	text-transform: none;
+	opacity: 1;
+	white-space: nowrap;
+}
+
 @media screen and (max-width: 768px) {
 	.shopcrystal-scope * {
 		cursor: auto;
@@ -1359,6 +1394,14 @@
 	}
 	.shopcrystal-scope .shopcrystal-bar {
 		padding: 0 1.5rem;
+	}
+	.shopcrystal-scope #shopcrystal-links {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.shopcrystal-scope #shopcrystal-links .shopcrystal-socials-mobile-note {
+		display: block;
 	}
 	.shopcrystal-scope .shopcrystal-bar .shopcrystal-mark {
 		height: 40px;
@@ -1432,6 +1475,9 @@
 	.shopcrystal-scope .shopcrystal-cartogolf-socials {
 		gap: 0.6rem;
 		margin-top: 1rem;
+	}
+	.shopcrystal-scope .shopcrystal-cartogolf-socials-note {
+		display: block;
 	}
 	.shopcrystal-scope .shopcrystal-cartogolf-img img {
 		max-height: 50vh;
