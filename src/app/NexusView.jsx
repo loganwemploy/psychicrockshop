@@ -342,7 +342,7 @@ export default function NexusView() {
             Readings
           </a>
           <a href="#shopcrystal-cartogolf" className="shopcrystal-hover shopcrystal-pull">
-            Visit
+            Visit Us
           </a>
           <a href="#shopcrystal-reviews" className="shopcrystal-hover shopcrystal-pull">
             Reviews
@@ -875,7 +875,14 @@ export default function NexusView() {
               </div>
             </div>
             <div className="shopcrystal-img shopcrystal-cartogolf-img">
-              <img src="/CARTOgolf.jpg" alt="Psychic & Crystal Bookshop — come see us" style={{transform: 'scale(1.25, 1.1)'}} />
+              <a
+                href={FOOTER_DIRECTIONS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Get directions to Psychic & Crystal Bookshop at 6 Golf Center, Hoffman Estates"
+              >
+                <img src="/CARTOgolf.jpg" alt="Psychic & Crystal Bookshop — come see us" style={{transform: 'scale(1.25, 1.1)'}} />
+              </a>
             </div>
           </div>
         </section>
