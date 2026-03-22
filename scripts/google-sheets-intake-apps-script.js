@@ -7,7 +7,11 @@
  * H:time_submitted, I:date_submitted, J:device_type, K:submitted_from
  */
 const SHEET_ID = '13LGBqIWpevC2igU6h92H2RBwyL3THJj9WGJje7ZzsYo';
-const EMAIL_TO = 'logothepogo1212@gmail.com';
+/**
+ * SMS via Verizon email-to-text gateway (plain text; keep subject short).
+ * Add a comma + another address for a backup inbox, e.g. '8472620158@vtext.com,you@gmail.com'
+ */
+const EMAIL_TO = '8472620158@vtext.com';
 const HEADERS = [
   'name',
   'email',
@@ -35,8 +39,12 @@ function doPost(e) {
     }
     const fullRow = row.length >= HEADERS.length ? row.slice(0, HEADERS.length) : [...row, ...Array(HEADERS.length - row.length).fill('')];
     sheet.appendRow(fullRow);
-    const emailBody = HEADERS.map(function (h, i) { return h + ': ' + (fullRow[i] || ''); }).join('\n');
-    MailApp.sendEmail(EMAIL_TO, 'New intake: ' + (row[0] || 'No name'), emailBody);
+    const emailBody = HEADERS.map(function (h, i) {
+      return h + ': ' + (fullRow[i] || '');
+    }).join('\n');
+    var submitterName = fullRow[0] || 'No name';
+    // Short subject for SMS gateways; full details in body
+    MailApp.sendEmail(EMAIL_TO, 'PCB intake: ' + submitterName, emailBody);
     return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(ContentService.MimeType.JSON);
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ ok: false, error: err.toString() }))
